@@ -80,7 +80,7 @@ img { max-width: 100%; display: block; }
 .hero-platforms { color: var(--ink-soft); font-size: .9rem; }
 .hero-art { position: relative; display: flex; justify-content: center; align-items: center; min-height: 560px; }
 .hero-shot {
-  border-radius: 24px; box-shadow: var(--shadow-lg);
+  border-radius: 24px;
   max-height: 540px;
 }
 .hero-shot-back {
