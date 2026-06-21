@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "eventnote-site",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8123", "--directory", "/Users/vladimirpisarenko/Desktop/My projects/eventnote-website"],
+      "port": 8123
+    }
+  ]
+}
