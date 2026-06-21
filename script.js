@@ -50,11 +50,8 @@ document.getElementById('year').textContent = new Date().getFullYear();
       dotsWrap.appendChild(dot);
     }
 
-    // Hide controls when everything already fits in one view
-    const hide = pages <= 1;
-    carousel.querySelector('.carousel-prev').hidden = hide;
-    carousel.querySelector('.carousel-next').hidden = hide;
-    dotsWrap.hidden = hide;
+    // Hide dots when everything already fits in one view
+    dotsWrap.hidden = pages <= 1;
 
     goTo(index);
   }
@@ -69,8 +66,6 @@ document.getElementById('year').textContent = new Date().getFullYear();
     );
   }
 
-  carousel.querySelector('.carousel-prev').addEventListener('click', () => goTo(index - 1));
-  carousel.querySelector('.carousel-next').addEventListener('click', () => goTo(index + 1));
   window.addEventListener('resize', build);
 
   build();
