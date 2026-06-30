@@ -127,6 +127,26 @@ img { max-width: 100%; display: block; }
 }
 .shot figcaption { text-align: center; color: var(--ink-soft); font-size: .9rem; margin-top: 10px; }
 
+/* ===== macOS version ===== */
+.mac-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items: center; }
+.mac-art img { width: 100%; }
+.mac-eyebrow {
+  display: inline-block; font-size: .8rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em; color: var(--accent-dark);
+  margin-bottom: 12px;
+}
+.mac-title { font-size: clamp(1.8rem, 3.5vw, 2.5rem); text-align: left; }
+.mac-lead { font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 24px; }
+.mac-points { list-style: none; margin: 0 0 28px; padding: 0; }
+.mac-points li {
+  position: relative; padding-left: 30px; margin-bottom: 12px;
+  color: var(--ink); font-size: 1.02rem;
+}
+.mac-points li::before {
+  content: "✓"; position: absolute; left: 0; top: 0;
+  color: var(--accent); font-weight: 700;
+}
+
 /* ===== Why ===== */
 .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
 .why-item {
@@ -206,6 +226,10 @@ img { max-width: 100%; display: block; }
   .hero-shot-back { transform: translateX(14%); }
   .hero-shot-front { transform: translateX(-14%); }
   .shots { grid-template-columns: repeat(3, 1fr); }
+  .mac-grid { grid-template-columns: 1fr; gap: 32px; text-align: center; }
+  .mac-art { order: -1; }
+  .mac-title { text-align: center; }
+  .mac-points { display: inline-block; text-align: left; }
   .why-grid { grid-template-columns: 1fr; }
   .carousel { --per-view: 2; }
 }
