@@ -1,0 +1,165 @@
+/* ===== Tutorials page ===== */
+/* Reuses design tokens from styles.css and adds page-specific + dark-mode styles. */
+
+.tut-body {
+  background: var(--beige);
+  min-height: 100vh;
+}
+
+.tut-container { max-width: 820px; }
+
+/* Simplified nav on the tutorials page */
+.nav-links--simple { gap: 20px; }
+
+/* ===== Hero / intro ===== */
+.tut-main { padding-bottom: 40px; }
+.tut-hero {
+  padding: 48px 0 8px;
+}
+.tut-title { font-size: clamp(1.9rem, 4.5vw, 2.6rem); margin-bottom: .25em; }
+.tut-sub { font-size: 1.12rem; color: var(--ink-soft); max-width: 48ch; }
+
+/* Embed-mode language switch — hidden unless the page is embedded */
+.tut-lang { display: none; margin: 18px 0 4px; }
+
+/* ===== Search ===== */
+.tut-search {
+  position: relative; margin: 24px 0 18px; max-width: 460px;
+}
+.tut-search-icon {
+  position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+  color: var(--ink-soft); pointer-events: none;
+}
+.tut-search-input {
+  width: 100%; font-family: var(--font); font-size: 1rem; color: var(--ink);
+  background: var(--white); border: 1px solid var(--line); border-radius: 999px;
+  padding: 12px 18px 12px 46px; outline: none; transition: border-color .15s, box-shadow .15s;
+}
+.tut-search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(201, 123, 74, .15); }
+
+/* ===== Category chips ===== */
+.tut-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.tut-chip {
+  font-family: var(--font); font-size: .86rem; font-weight: 600;
+  color: var(--ink-soft); background: var(--white);
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 7px 14px; cursor: pointer; transition: .15s; white-space: nowrap;
+}
+.tut-chip:hover { color: var(--ink); border-color: var(--gray); }
+.tut-chip.is-active { background: var(--accent); color: var(--white); border-color: var(--accent); }
+
+/* ===== Guide groups ===== */
+.tut-group { margin-top: 40px; scroll-margin-top: 80px; }
+.tut-group-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.tut-group-icon { font-size: 1.35rem; }
+.tut-group-title { font-size: 1.35rem; margin: 0; }
+.tut-group-sub { color: var(--ink-soft); font-size: .98rem; margin: 0 0 16px; }
+
+/* ===== Guide card (native accordion) ===== */
+.tut-card {
+  background: var(--white); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  margin-bottom: 12px; overflow: hidden; scroll-margin-top: 80px;
+}
+.tut-card[open] { box-shadow: var(--shadow-lg); }
+
+.tut-summary {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 20px; cursor: pointer; list-style: none;
+  user-select: none; -webkit-tap-highlight-color: transparent;
+}
+.tut-summary::-webkit-details-marker { display: none; }
+.tut-summary:hover { background: color-mix(in srgb, var(--accent) 5%, transparent); }
+
+.tut-card-icon {
+  flex-shrink: 0; width: 42px; height: 42px; border-radius: 12px;
+  background: var(--beige-deep); display: flex; align-items: center;
+  justify-content: center; font-size: 1.35rem;
+}
+.tut-card-text { flex: 1; min-width: 0; }
+.tut-card-title { display: block; font-size: 1.06rem; font-weight: 700; margin: 0; letter-spacing: -0.01em; }
+.tut-card-summary { display: block; color: var(--ink-soft); font-size: .92rem; margin: 3px 0 0; }
+
+.tut-chevron {
+  flex-shrink: 0; color: var(--ink-soft); transition: transform .2s;
+}
+.tut-card[open] .tut-chevron { transform: rotate(180deg); }
+
+.tut-badge {
+  flex-shrink: 0; font-size: .64rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .04em; background: var(--accent); color: var(--white);
+  padding: 3px 8px; border-radius: 999px;
+}
+
+/* Expanded body */
+.tut-detail { padding: 0 20px 20px 20px; }
+.tut-detail-inner { border-top: 1px solid var(--line); padding-top: 16px; }
+.tut-steps { margin: 0; padding: 0; list-style: none; counter-reset: step; }
+.tut-steps li {
+  position: relative; padding-left: 38px; margin-bottom: 14px;
+  color: var(--ink); font-size: .98rem; line-height: 1.5;
+}
+.tut-steps li::before {
+  counter-increment: step; content: counter(step);
+  position: absolute; left: 0; top: -1px;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--accent); color: var(--white);
+  font-size: .82rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.tut-tip {
+  display: flex; gap: 10px; margin: 16px 0 0;
+  background: var(--beige-deep); border-radius: var(--radius-sm);
+  padding: 12px 14px; font-size: .92rem; color: var(--ink-soft);
+}
+.tut-tip-icon { flex-shrink: 0; }
+
+.tut-empty { text-align: center; color: var(--ink-soft); padding: 40px 0; font-size: 1.05rem; }
+
+/* ===== Embed mode (in-app webview) ===== */
+body.embed .tut-chrome { display: none; }
+body.embed .tut-hero { padding-top: 24px; }
+body.embed .tut-main { padding-bottom: 24px; }
+body.embed .tut-lang { display: inline-flex; }
+/* Respect the device safe areas when shown full-bleed in a webview */
+body.embed { padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+
+/* ===== Responsive ===== */
+@media (max-width: 680px) {
+  .nav-links--simple { gap: 12px; }
+  .tut-hero { padding-top: 32px; }
+  .tut-card-summary { display: none; }
+  .tut-summary { padding: 16px; gap: 12px; }
+  .tut-detail { padding: 0 16px 18px 16px; }
+}
+
+/* ===== Dark mode ===== */
+/* Auto by system preference, or forced via <html data-theme="dark"> from the app. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --beige: #1A1917;
+    --beige-deep: #232120;
+    --ink: #F2EFE8;
+    --ink-soft: #ABA69B;
+    --gray: #6A655C;
+    --line: #35322D;
+    --white: #262320;
+    --accent: #D98A58;
+    --accent-dark: #E0996B;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.5);
+  }
+}
+:root[data-theme="dark"] {
+  --beige: #1A1917;
+  --beige-deep: #232120;
+  --ink: #F2EFE8;
+  --ink-soft: #ABA69B;
+  --gray: #6A655C;
+  --line: #35322D;
+  --white: #262320;
+  --accent: #D98A58;
+  --accent-dark: #E0996B;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
