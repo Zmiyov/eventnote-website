@@ -668,6 +668,32 @@ const GROUPS = [
   },
 ];
 
+/* ---- Step screenshots ----
+   Captured on the iOS simulator with the App Store demo data. One entry per guide,
+   aligned to its steps (null = no screenshot for that step). Shared across languages. */
+const SHOT_BASE = 'assets/tutorials/';
+const SHOTS = {
+  role:      ['settings', 'role', null],
+  create:    ['schedule', 'newevent-type', 'newevent-main', 'details-main'],
+  payments:  ['details-main', 'newevent-payment', null, 'stats'],
+  calendar:  ['schedule', null, null, null],
+  deadlines: ['deadlines', null, 'newevent-main', null],
+  timeline:  ['timeline-editor', null, 'tasks', null],
+  gallery:   ['gallery', null, null],
+  contacts:  [null, 'newevent-main', 'details-main', null],
+  reminders: ['newevent-payment', null, null, null],
+  suntrack:  ['sun', null, null, null],
+  routes:    ['newevent-payment', 'details-main', 'route'],
+  analytics: ['stats', null, null],
+  icloud:    [null, 'settings', null],
+  applecal:  ['import-apple', null, null],
+  gcal:      ['import-google', null, null],
+  backup:    ['backup', null, null],
+  widget:    [null, 'widget', null],
+  team:      ['role', 'team', null],
+  premium:   [null, 'premium', null],
+};
+
 /* ===== State & helpers ===== */
 const params = new URLSearchParams(location.search);
 let lang = 'en';
@@ -763,9 +789,30 @@ function buildCard(item, groupId) {
 
   const ol = document.createElement('ol');
   ol.className = 'tut-steps';
-  steps.forEach((s) => {
+  const shots = SHOTS[item.id];
+  steps.forEach((s, i) => {
     const li = document.createElement('li');
-    li.textContent = s;
+    const text = document.createElement('p');
+    text.className = 'tut-step-text';
+    text.textContent = s;
+    li.appendChild(text);
+
+    const shot = shots && shots[i];
+    if (shot) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'tut-shot';
+      btn.setAttribute('aria-label', s);
+      const img = document.createElement('img');
+      img.src = SHOT_BASE + shot + '.webp';
+      img.alt = s;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      btn.appendChild(img);
+      btn.addEventListener('click', () => openLightbox(img.src, s));
+      li.appendChild(btn);
+      li.classList.add('has-shot');
+    }
     ol.appendChild(li);
   });
   inner.appendChild(ol);
@@ -879,6 +926,42 @@ function openTopicFromURL() {
     el.open = true;
     requestAnimationFrame(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }));
   }
+}
+
+/* ===== Lightbox (tap a screenshot to enlarge) ===== */
+let lightboxEl = null;
+
+function buildLightbox() {
+  const box = document.createElement('div');
+  box.className = 'tut-lightbox';
+  box.hidden = true;
+  box.innerHTML =
+    '<button type="button" class="tut-lightbox-close" aria-label="Close">' +
+      '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>' +
+    '</button>' +
+    '<figure class="tut-lightbox-figure"><img alt="" /><figcaption></figcaption></figure>';
+  box.addEventListener('click', (e) => {
+    if (e.target === box || e.target.closest('.tut-lightbox-close')) closeLightbox();
+  });
+  document.body.appendChild(box);
+  lightboxEl = box;
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !box.hidden) closeLightbox();
+  });
+}
+
+function openLightbox(src, caption) {
+  if (!lightboxEl) buildLightbox();
+  lightboxEl.querySelector('img').src = src;
+  lightboxEl.querySelector('img').alt = caption || '';
+  lightboxEl.querySelector('figcaption').textContent = caption || '';
+  lightboxEl.hidden = false;
+  document.body.classList.add('tut-no-scroll');
+}
+
+function closeLightbox() {
+  if (lightboxEl) lightboxEl.hidden = true;
+  document.body.classList.remove('tut-no-scroll');
 }
 
 /* ===== Init ===== */
