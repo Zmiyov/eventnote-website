@@ -21,7 +21,6 @@ const UI = {
   'search.empty': { en: 'No guides match your search.', uk: 'Немає гайдів за вашим запитом.', ru: 'Нет гайдов по вашему запросу.' },
   'chip.all':     { en: 'All', uk: 'Усі', ru: 'Все' },
   'tip':          { en: 'Tip', uk: 'Порада', ru: 'Совет' },
-  'badge.pro':    { en: 'Premium', uk: 'Premium', ru: 'Premium' },
   'doc.title':    { en: 'Events Notes — Tutorials', uk: 'Events Notes — Гайди', ru: 'Events Notes — Гайды' },
 };
 
@@ -588,28 +587,28 @@ const GROUPS = [
         },
       },
       {
-        id: 'team', icon: '👥', badge: 'pro',
-        title: { en: 'Team', uk: 'Команда', ru: 'Команда' },
+        id: 'team', icon: '👥',
+        title: { en: 'Team members', uk: 'Учасники команди', ru: 'Участники команды' },
         summary: {
-          en: 'Work together with your teammates.',
-          uk: 'Працюйте разом зі своєю командою.',
-          ru: 'Работайте вместе со своей командой.',
+          en: 'Add your team to an event — for the Agency role.',
+          uk: 'Додавайте команду до події — для ролі «Агенція».',
+          ru: 'Добавляйте команду к событию — для роли «Агентство».',
         },
         steps: {
           en: [
-            'Open the Team / Profile section.',
-            'Add team members to collaborate on events.',
-            'Requires a Team Premium subscription.',
+            'Switch to the Agency role to use team features.',
+            'In an event, open the Team section and tap “Add team member”.',
+            'Assign a contact and add info for each member on that shoot.',
           ],
           uk: [
-            'Відкрийте розділ «Команда / Профіль».',
-            'Додайте учасників команди для спільної роботи над подіями.',
-            'Потрібна підписка Team Premium.',
+            'Перейдіть на роль «Агенція», щоб користуватися командними функціями.',
+            'У події відкрийте розділ «Team» і торкніться «Add team member».',
+            'Призначте контакт і додайте інформацію для кожного учасника на цій зйомці.',
           ],
           ru: [
-            'Откройте раздел «Команда / Профиль».',
-            'Добавьте участников команды для совместной работы над событиями.',
-            'Требуется подписка Team Premium.',
+            'Переключитесь на роль «Агентство», чтобы использовать командные функции.',
+            'В событии откройте раздел «Team» и нажмите «Add team member».',
+            'Назначьте контакт и добавьте информацию для каждого участника на этой съёмке.',
           ],
         },
       },
@@ -651,19 +650,16 @@ const GROUPS = [
           en: [
             'Free accounts can keep up to 3 upcoming events (5 in Ukraine).',
             'Premium removes the limit and unlocks all features.',
-            'Team Premium adds team collaboration.',
             'Choose monthly or yearly billing.',
           ],
           uk: [
             'Безкоштовний акаунт дозволяє до 3 майбутніх подій (5 в Україні).',
             'Premium знімає обмеження й відкриває всі можливості.',
-            'Team Premium додає спільну роботу в команді.',
             'Оберіть щомісячну або річну оплату.',
           ],
           ru: [
             'Бесплатный аккаунт допускает до 3 будущих событий (5 в Украине).',
             'Premium снимает ограничение и открывает все возможности.',
-            'Team Premium добавляет совместную работу в команде.',
             'Выберите ежемесячную или годовую оплату.',
           ],
         },
