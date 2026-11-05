@@ -481,7 +481,10 @@ applyLang(detectLang());
   // ----- Per-step behaviour -----
   // PRE: taps that lead into a step (only when scrolling forward one step)
   const PRE = {
-    1: () => tap($('.js-plus')),
+    1: async (my) => {
+      await sleep(2000); // let the schedule be seen before the form opens
+      if (my === token) await tap($('.js-plus'));
+    },
     3: () => tap($('.js-tab[data-t="gallery"]')),
     4: () => tap($('.js-tab[data-t="main"]')),
     5: () => tap($('.js-tab[data-t="team"]')),
