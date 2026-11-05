@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/favicon.png" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="flow.css" />
+  <link rel="stylesheet" href="flow.css?v=4" />
 </head>
 <body class="flow-page">
 
@@ -29,10 +29,15 @@
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links">
-        <li><a href="#tour">How it works</a></li>
+        <li><a href="#tour" data-i18n="nav.tour">How it works</a></li>
         <li><a href="#mac">Mac</a></li>
-        <li><a href="tutorials.html">Tutorials</a></li>
-        <li><a class="nav-cta" href="#download">Download</a></li>
+        <li><a href="tutorials.html" data-i18n="nav.tutorials">Tutorials</a></li>
+        <li><a class="nav-cta" href="#download" data-i18n="nav.download">Download</a></li>
+        <li class="lang-switch" role="group" aria-label="Language">
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="uk">UK</button>
+          <button type="button" class="lang-btn" data-lang="ru">RU</button>
+        </li>
       </ul>
     </nav>
   </header>
@@ -42,21 +47,21 @@
     <!-- ===== Hero ===== -->
     <section class="fhero">
       <div class="container fhero-inner">
-        <span class="eyebrow">For iPhone, iPad &amp; Mac</span>
-        <h1>From the first booking<br />to your year in numbers</h1>
-        <p class="fhero-lead">Follow one real shoot through Events Notes — create it, plan the day, deliver on time, and watch your business grow.</p>
+        <span class="eyebrow" data-i18n="hero.eyebrow">For iPhone, iPad &amp; Mac</span>
+        <h1 data-i18n-html="hero.title">From the first booking<br />to your year in numbers</h1>
+        <p class="fhero-lead" data-i18n="hero.lead">Follow one real shoot through Events Notes — create it, plan the day, deliver on time, and watch your business grow.</p>
         <div class="fhero-actions">
           <a href="https://apps.apple.com/ua/app/events-notes/id1666326813" class="badge-link" aria-label="Download on the App Store">
             <img src="assets/app-store-badge.svg" alt="Download on the App Store" class="store-badge" />
           </a>
-          <a href="#tour" class="text-link">Start the tour ↓</a>
+          <a href="#tour" class="text-link" data-i18n="hero.start">Start the tour ↓</a>
         </div>
         <ol class="fhero-path" aria-label="The flow">
-          <li style="--i:0"><span>1</span>Create</li>
-          <li style="--i:1"><span>2</span>Details</li>
-          <li style="--i:2"><span>3</span>Deadlines</li>
-          <li style="--i:3"><span>4</span>Statistics</li>
-          <li style="--i:4"><span>5</span>Contacts</li>
+          <li style="--i:0"><span class="num">1</span><span data-i18n="ch.create">Create</span></li>
+          <li style="--i:1"><span class="num">2</span><span data-i18n="ch.details">Details</span></li>
+          <li style="--i:2"><span class="num">3</span><span data-i18n="ch.deadlines">Deadlines</span></li>
+          <li style="--i:3"><span class="num">4</span><span data-i18n="ch.stats">Statistics</span></li>
+          <li style="--i:4"><span class="num">5</span><span data-i18n="ch.contacts">Contacts</span></li>
         </ol>
       </div>
     </section>
@@ -65,11 +70,11 @@
     <section id="tour" class="tour">
       <nav class="chapters" aria-label="Tour chapters">
         <div class="container chapters-inner">
-          <button type="button" class="chapter" data-chapter="0"><span>1</span>Create</button>
-          <button type="button" class="chapter" data-chapter="1"><span>2</span>Details</button>
-          <button type="button" class="chapter" data-chapter="2"><span>3</span>Deadlines</button>
-          <button type="button" class="chapter" data-chapter="3"><span>4</span>Statistics</button>
-          <button type="button" class="chapter" data-chapter="4"><span>5</span>Contacts</button>
+          <button type="button" class="chapter" data-chapter="0"><span class="num">1</span><span data-i18n="ch.create">Create</span></button>
+          <button type="button" class="chapter" data-chapter="1"><span class="num">2</span><span data-i18n="ch.details">Details</span></button>
+          <button type="button" class="chapter" data-chapter="2"><span class="num">3</span><span data-i18n="ch.deadlines">Deadlines</span></button>
+          <button type="button" class="chapter" data-chapter="3"><span class="num">4</span><span data-i18n="ch.stats">Statistics</span></button>
+          <button type="button" class="chapter" data-chapter="4"><span class="num">5</span><span data-i18n="ch.contacts">Contacts</span></button>
         </div>
         <div class="chapters-progress"><i></i></div>
       </nav>
@@ -340,6 +345,7 @@
                   <div class="frames" data-f="a" style="left:88px;top:326px;width:264px;height:142px"></div>
                   <div class="frames" data-f="b" style="left:0;top:542px;width:440px;height:90px"></div>
                   <div class="frames" data-f="c" style="left:225px;top:766px;width:183px;height:49px"></div>
+                  <div class="frames" data-f="d" style="left:20px;top:646px;width:400px;height:42px"></div>
                   <i class="hit js-sunclose" style="left:20px;top:29px;width:44px;height:44px"></i>
                 </section>
 
@@ -364,111 +370,111 @@
         <div class="steps">
           <article class="step" data-step="1">
             <div class="step-card">
-              <span class="step-kicker">Create event · 1/6</span>
-              <h2>Start a new booking</h2>
-              <p>One tap on <em>+</em> from your schedule opens a new event.</p>
+              <span class="step-kicker"><span data-i18n="k.create">Create event</span> · 1/6</span>
+              <h2 data-i18n="s1.t">Start a new booking</h2>
+              <p data-i18n-html="s1.d">One tap on <em>+</em> from your schedule opens a new event.</p>
             </div>
           </article>
           <article class="step" data-step="2">
             <div class="step-card">
-              <span class="step-kicker">Create event · 2/6</span>
-              <h2>Fill in the essentials</h2>
-              <p>Event type, date, hours, deadline and your client's contacts — typed once, never searched for again.</p>
+              <span class="step-kicker"><span data-i18n="k.create">Create event</span> · 2/6</span>
+              <h2 data-i18n="s2.t">Fill in the essentials</h2>
+              <p data-i18n="s2.d">Event type, date, hours, deadline and your client's contacts — typed once, never searched for again.</p>
             </div>
           </article>
           <article class="step" data-step="3">
             <div class="step-card">
-              <span class="step-kicker">Create event · 3/6</span>
-              <h2>Add references</h2>
-              <p>Drop in moodboards, details and client inspiration, so the whole vision lives right next to the booking.</p>
+              <span class="step-kicker"><span data-i18n="k.create">Create event</span> · 3/6</span>
+              <h2 data-i18n="s3.t">Add references</h2>
+              <p data-i18n="s3.d">Drop in moodboards, details and client inspiration, so the whole vision lives right next to the booking.</p>
             </div>
           </article>
           <article class="step" data-step="4">
             <div class="step-card">
-              <span class="step-kicker">Create event · 4/6</span>
-              <h2>Location and price</h2>
-              <p>Save where the shoot happens, plus the full price and deposit — they feed your statistics later.</p>
+              <span class="step-kicker"><span data-i18n="k.create">Create event</span> · 4/6</span>
+              <h2 data-i18n="s4.t">Location and price</h2>
+              <p data-i18n="s4.d">Save where the shoot happens, plus the full price and deposit — they feed your statistics later.</p>
             </div>
           </article>
           <article class="step" data-step="5">
             <div class="step-card">
-              <span class="step-kicker">Create event · 5/6</span>
-              <h2>Bring your team</h2>
-              <p>Add a second shooter, videographer or makeup artist from your colleagues — everyone knows who's on the job.</p>
+              <span class="step-kicker"><span data-i18n="k.create">Create event</span> · 5/6</span>
+              <h2 data-i18n="s5.t">Bring your team</h2>
+              <p data-i18n="s5.d">Add a second shooter, videographer or makeup artist from your colleagues — everyone knows who's on the job.</p>
             </div>
           </article>
           <article class="step" data-step="6">
             <div class="step-card">
-              <span class="step-kicker">Create event · 6/6</span>
-              <h2>Plan the tasks</h2>
-              <p>A to-do list for every event: scouting, confirmations, batteries.</p>
+              <span class="step-kicker"><span data-i18n="k.create">Create event</span> · 6/6</span>
+              <h2 data-i18n="s6.t">Plan the tasks</h2>
+              <p data-i18n="s6.d">A to-do list for every event: scouting, confirmations, batteries.</p>
             </div>
           </article>
 
           <article class="step" data-step="7">
             <div class="step-card">
-              <span class="step-kicker">Event details · 1/3</span>
-              <h2>Everything on one screen</h2>
-              <p>Time, place, price, deposit, notes and tasks. Call or message the client with a single tap.</p>
+              <span class="step-kicker"><span data-i18n="k.details">Event details</span> · 1/3</span>
+              <h2 data-i18n="s7.t">Everything on one screen</h2>
+              <p data-i18n="s7.d">Time, place, price, deposit, notes and tasks. Call or message the client with a single tap.</p>
             </div>
           </article>
           <article class="step" data-step="8">
             <div class="step-card">
-              <span class="step-kicker">Event details · 2/3</span>
-              <h2>Check the sun</h2>
-              <p>See the sun's path over your location on the event date — and know exactly when golden hour starts.</p>
+              <span class="step-kicker"><span data-i18n="k.details">Event details</span> · 2/3</span>
+              <h2 data-i18n="s8.t">Check the sun</h2>
+              <p data-i18n="s8.d">See the sun's path over your location on the event date — and know exactly when golden hour starts.</p>
             </div>
           </article>
           <article class="step" data-step="9">
             <div class="step-card">
-              <span class="step-kicker">Event details · 3/3</span>
-              <h2>Build the route</h2>
-              <p>Tap the address, choose <em>Create route</em>, and Apple Maps takes you there.</p>
+              <span class="step-kicker"><span data-i18n="k.details">Event details</span> · 3/3</span>
+              <h2 data-i18n="s9.t">Build the route</h2>
+              <p data-i18n-html="s9.d">Tap the address, choose <em>Create route</em>, and Apple Maps takes you there.</p>
             </div>
           </article>
 
           <article class="step" data-step="10">
             <div class="step-card">
-              <span class="step-kicker">Deadlines · 1/2</span>
-              <h2>Every delivery, counted down</h2>
-              <p>Days-left counters for each gallery and edit. The urgent ones turn red, so nothing slips.</p>
+              <span class="step-kicker"><span data-i18n="k.deadlines">Deadlines</span> · 1/2</span>
+              <h2 data-i18n="s10.t">Every delivery, counted down</h2>
+              <p data-i18n="s10.d">Days-left counters for each gallery and edit. The urgent ones turn red, so nothing slips.</p>
             </div>
           </article>
           <article class="step" data-step="11">
             <div class="step-card">
-              <span class="step-kicker">Deadlines · 2/2</span>
-              <h2>Mark it as done</h2>
-              <p>Delivered the gallery? Press and hold, tap <em>Done</em>, and it's off your list.</p>
+              <span class="step-kicker"><span data-i18n="k.deadlines">Deadlines</span> · 2/2</span>
+              <h2 data-i18n="s11.t">Mark it as done</h2>
+              <p data-i18n-html="s11.d">Delivered the gallery? Press and hold, tap <em>Done</em>, and it's off your list.</p>
             </div>
           </article>
 
           <article class="step" data-step="12">
             <div class="step-card">
-              <span class="step-kicker">Statistics · 1/2</span>
-              <h2>Your year at a glance</h2>
-              <p>Earnings, sessions and hours add up automatically from the events you create.</p>
+              <span class="step-kicker"><span data-i18n="k.stats">Statistics</span> · 1/2</span>
+              <h2 data-i18n="s12.t">Your year at a glance</h2>
+              <p data-i18n="s12.d">Earnings, sessions and hours add up automatically from the events you create.</p>
             </div>
           </article>
           <article class="step" data-step="13">
             <div class="step-card">
-              <span class="step-kicker">Statistics · 2/2</span>
-              <h2>Build your own charts</h2>
-              <p>Custom charts show what matters to your business — like which shoots fill your quarter.</p>
+              <span class="step-kicker"><span data-i18n="k.stats">Statistics</span> · 2/2</span>
+              <h2 data-i18n="s13.t">Build your own charts</h2>
+              <p data-i18n="s13.d">Custom charts show what matters to your business — like which shoots fill your quarter.</p>
             </div>
           </article>
 
           <article class="step" data-step="14">
             <div class="step-card">
-              <span class="step-kicker">Contacts · 1/2</span>
-              <h2>Every client in one list</h2>
-              <p>Clients from your events are saved automatically — colleagues get their own tab.</p>
+              <span class="step-kicker"><span data-i18n="k.contacts">Contacts</span> · 1/2</span>
+              <h2 data-i18n="s14.t">Every client in one list</h2>
+              <p data-i18n="s14.d">Clients from your events are saved automatically — colleagues get their own tab.</p>
             </div>
           </article>
           <article class="step" data-step="15">
             <div class="step-card">
-              <span class="step-kicker">Contacts · 2/2</span>
-              <h2>Reach them in a tap</h2>
-              <p>Find a client and call, message or open their Instagram straight from their card.</p>
+              <span class="step-kicker"><span data-i18n="k.contacts">Contacts</span> · 2/2</span>
+              <h2 data-i18n="s15.t">Reach them in a tap</h2>
+              <p data-i18n="s15.d">Find a client and call, message or open their Instagram straight from their card.</p>
             </div>
           </article>
         </div>
@@ -478,16 +484,16 @@
     <!-- ===== Also inside ===== -->
     <section class="section also">
       <div class="container">
-        <h2 class="section-title">And there's more inside</h2>
-        <p class="section-sub">Everything else a busy season needs.</p>
+        <h2 class="section-title" data-i18n="also.title">And there's more inside</h2>
+        <p class="section-sub" data-i18n="also.sub">Everything else a busy season needs.</p>
         <ul class="also-list">
-          <li><span>🔄</span>Apple &amp; Google Calendar import</li>
-          <li><span>🧩</span>Home Screen widget</li>
-          <li><span>🔔</span>Event &amp; deadline reminders</li>
-          <li><span>☁️</span>iCloud sync</li>
-          <li><span>🛟</span>Backups &amp; restore</li>
-          <li><span>🗂️</span>Shoot timelines</li>
-          <li><span>💰</span>Prices &amp; deposits</li>
+          <li><span>🔄</span><span data-i18n="a1">Apple &amp; Google Calendar import</span></li>
+          <li><span>🧩</span><span data-i18n="a2">Home Screen widget</span></li>
+          <li><span>🔔</span><span data-i18n="a3">Event &amp; deadline reminders</span></li>
+          <li><span>☁️</span><span data-i18n="a4">iCloud sync</span></li>
+          <li><span>🛟</span><span data-i18n="a5">Backups &amp; restore</span></li>
+          <li><span>🗂️</span><span data-i18n="a6">Shoot timelines</span></li>
+          <li><span>💰</span><span data-i18n="a7">Prices &amp; deposits</span></li>
         </ul>
       </div>
     </section>
@@ -499,13 +505,13 @@
           <img src="assets/screenshots/macbook16.png" alt="Events Notes on Mac" />
         </div>
         <div class="mac-copy">
-          <span class="mac-eyebrow">Also on macOS</span>
-          <h2 class="mac-title">Work with bookings on your Mac</h2>
-          <p class="mac-lead">Create, edit, track events in a native Mac app — with everything kept in sync across iPhone, iPad, and Mac.</p>
+          <span class="mac-eyebrow" data-i18n="mac.eyebrow">Also on macOS</span>
+          <h2 class="mac-title" data-i18n="mac.title">Work with bookings on your Mac</h2>
+          <p class="mac-lead" data-i18n="mac.lead">Create, edit, track events in a native Mac app — with everything kept in sync across iPhone, iPad, and Mac.</p>
           <ul class="mac-points">
-            <li>Full-window calendar and event details</li>
-            <li>Handle all features on the big screen</li>
-            <li>Always in sync through iCloud</li>
+            <li data-i18n="mac.p1">Full-window calendar and event details</li>
+            <li data-i18n="mac.p2">Handle all features on the big screen</li>
+            <li data-i18n="mac.p3">Always in sync through iCloud</li>
           </ul>
         </div>
       </div>
@@ -514,8 +520,8 @@
     <!-- ===== Download CTA ===== -->
     <section id="download" class="cta">
       <div class="container cta-inner">
-        <h2>Ready to organize your next shoot?</h2>
-        <p>Download Events Notes and bring your bookings, schedule, and clients together.</p>
+        <h2 data-i18n="cta.title">Ready to organize your next shoot?</h2>
+        <p data-i18n="cta.text">Download Events Notes and bring your bookings, schedule, and clients together.</p>
         <a href="https://apps.apple.com/ua/app/events-notes/id1666326813" class="badge-link" aria-label="Download on the App Store">
           <img src="assets/app-store-badge.svg" alt="Download on the App Store" class="store-badge store-badge--lg" />
         </a>
@@ -531,15 +537,15 @@
         <span>Events Notes</span>
       </div>
       <nav class="footer-links">
-        <a href="tutorials.html">Tutorials</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms of Service</a>
-        <a href="mailto:eventnoteapp@gmail.com">Support</a>
+        <a href="tutorials.html" data-i18n="nav.tutorials">Tutorials</a>
+        <a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="terms.html" data-i18n="footer.terms">Terms of Service</a>
+        <a href="mailto:eventnoteapp@gmail.com" data-i18n="footer.support">Support</a>
       </nav>
-      <p class="footer-copy">© <span id="year"></span> Volodymyr Pysarenko. All rights reserved.</p>
+      <p class="footer-copy">© <span id="year"></span> Volodymyr Pysarenko. <span data-i18n="footer.rights">All rights reserved.</span></p>
     </div>
   </footer>
 
-  <script src="flow.js"></script>
+  <script src="flow.js?v=4"></script>
 </body>
 </html>

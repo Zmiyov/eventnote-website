@@ -16,6 +16,281 @@ links.querySelectorAll('a').forEach((a) =>
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
+// ===== Localization (EN / UK / RU) =====
+// mac.*, cta.*, footer.* and nav.tutorials/download match the classic page (script.js).
+const translations = {
+  en: {
+    'doc.title': 'Events Notes — From first booking to your year in numbers',
+    'doc.desc': 'Follow one shoot through Events Notes: create the event, plan the day, hit every deadline, and watch your statistics grow. For iPhone, iPad, and Mac.',
+    'nav.tour': 'How it works',
+    'nav.tutorials': 'Tutorials',
+    'nav.download': 'Download',
+    'hero.eyebrow': 'For iPhone, iPad & Mac',
+    'hero.title': 'From the first booking<br />to your year in numbers',
+    'hero.lead': 'Follow one real shoot through Events Notes — create it, plan the day, deliver on time, and watch your business grow.',
+    'hero.start': 'Start the tour ↓',
+    'ch.create': 'Create',
+    'ch.details': 'Details',
+    'ch.deadlines': 'Deadlines',
+    'ch.stats': 'Statistics',
+    'ch.contacts': 'Contacts',
+    'k.create': 'Create event',
+    'k.details': 'Event details',
+    'k.deadlines': 'Deadlines',
+    'k.stats': 'Statistics',
+    'k.contacts': 'Contacts',
+    's1.t': 'Start a new booking',
+    's1.d': 'One tap on <em>+</em> from your schedule opens a new event.',
+    's2.t': 'Fill in the essentials',
+    's2.d': "Event type, date, hours, deadline and your client's contacts — typed once, never searched for again.",
+    's3.t': 'Add references',
+    's3.d': 'Drop in moodboards, details and client inspiration, so the whole vision lives right next to the booking.',
+    's4.t': 'Location and price',
+    's4.d': 'Save where the shoot happens, plus the full price and deposit — they feed your statistics later.',
+    's5.t': 'Bring your team',
+    's5.d': "Add a second shooter, videographer or makeup artist from your colleagues — everyone knows who's on the job.",
+    's6.t': 'Plan the tasks',
+    's6.d': 'A to-do list for every event: scouting, confirmations, batteries.',
+    's7.t': 'Everything on one screen',
+    's7.d': 'Time, place, price, deposit, notes and tasks. Call or message the client with a single tap.',
+    's8.t': 'Check the sun',
+    's8.d': "See the sun's path over your location on the event date — and know exactly when golden hour starts.",
+    's9.t': 'Build the route',
+    's9.d': 'Tap the address, choose <em>Create route</em>, and Apple Maps takes you there.',
+    's10.t': 'Every delivery, counted down',
+    's10.d': 'Days-left counters for each gallery and edit. The urgent ones turn red, so nothing slips.',
+    's11.t': 'Mark it as done',
+    's11.d': "Delivered the gallery? Press and hold, tap <em>Done</em>, and it's off your list.",
+    's12.t': 'Your year at a glance',
+    's12.d': 'Earnings, sessions and hours add up automatically from the events you create.',
+    's13.t': 'Build your own charts',
+    's13.d': 'Custom charts show what matters to your business — like which shoots fill your quarter.',
+    's14.t': 'Every client in one list',
+    's14.d': 'Clients from your events are saved automatically — colleagues get their own tab.',
+    's15.t': 'Reach them in a tap',
+    's15.d': 'Find a client and call, message or open their Instagram straight from their card.',
+    'also.title': "And there's more inside",
+    'also.sub': 'Everything else a busy season needs.',
+    'a1': 'Apple & Google Calendar import',
+    'a2': 'Home Screen widget',
+    'a3': 'Event & deadline reminders',
+    'a4': 'iCloud sync',
+    'a5': 'Backups & restore',
+    'a6': 'Shoot timelines',
+    'a7': 'Prices & deposits',
+    'mac.eyebrow': 'Also on macOS',
+    'mac.title': 'Work with bookings on your Mac',
+    'mac.lead': 'Create, edit, track events in a native Mac app — with everything kept in sync across iPhone, iPad, and Mac.',
+    'mac.p1': 'Full-window calendar and event details',
+    'mac.p2': 'Handle all features on the big screen',
+    'mac.p3': 'Always in sync through iCloud',
+    'cta.title': 'Ready to organize your next shoot?',
+    'cta.text': 'Download Events Notes and bring your bookings, schedule, and clients together.',
+    'footer.privacy': 'Privacy Policy',
+    'footer.terms': 'Terms of Service',
+    'footer.support': 'Support',
+    'footer.rights': 'All rights reserved.',
+  },
+  uk: {
+    'doc.title': 'Events Notes — від першого бронювання до підсумків року',
+    'doc.desc': 'Пройдіть одну зйомку в Events Notes: створіть подію, сплануйте день, встигніть до кожного дедлайну й дивіться, як росте статистика. Для iPhone, iPad і Mac.',
+    'nav.tour': 'Як це працює',
+    'nav.tutorials': 'Гайди',
+    'nav.download': 'Завантажити',
+    'hero.eyebrow': 'Для iPhone, iPad і Mac',
+    'hero.title': 'Від першого бронювання<br />до підсумків року',
+    'hero.lead': 'Пройдіть одну справжню зйомку в Events Notes — створіть її, сплануйте день, здайте вчасно й подивіться, як росте ваш бізнес.',
+    'hero.start': 'Почати тур ↓',
+    'ch.create': 'Створення',
+    'ch.details': 'Деталі',
+    'ch.deadlines': 'Дедлайни',
+    'ch.stats': 'Статистика',
+    'ch.contacts': 'Контакти',
+    'k.create': 'Створення події',
+    'k.details': 'Деталі події',
+    'k.deadlines': 'Дедлайни',
+    'k.stats': 'Статистика',
+    'k.contacts': 'Контакти',
+    's1.t': 'Нове бронювання',
+    's1.d': 'Один дотик до <em>+</em> у розкладі — і нова подія відкрита.',
+    's2.t': 'Заповніть головне',
+    's2.d': 'Тип події, дата, години, дедлайн і контакти клієнта — вводите один раз і більше ніколи не шукаєте.',
+    's3.t': 'Додайте референси',
+    's3.d': 'Додайте мудборди, деталі та натхнення від клієнта — уся задумка зберігається поруч із бронюванням.',
+    's4.t': 'Локація і ціна',
+    's4.d': 'Збережіть місце зйомки, повну ціну й передоплату — згодом вони потраплять у статистику.',
+    's5.t': 'Зберіть команду',
+    's5.d': 'Додайте другого фотографа, відеографа чи візажиста з колег — усі знають, хто працює на події.',
+    's6.t': 'Сплануйте завдання',
+    's6.d': 'Список справ для кожної події: розвідка локації, підтвердження, акумулятори.',
+    's7.t': 'Усе на одному екрані',
+    's7.d': 'Час, місце, ціна, передоплата, нотатки й завдання. Дзвінок чи повідомлення клієнту — одним дотиком.',
+    's8.t': 'Перевірте сонце',
+    's8.d': 'Подивіться, як рухається сонце над локацією в день події, — і точно знайте, коли починається золота година.',
+    's9.t': 'Прокладіть маршрут',
+    's9.d': 'Торкніться адреси, оберіть <em>Create route</em> — і Apple Maps доведе вас на місце.',
+    's10.t': 'Відлік до кожної здачі',
+    's10.d': 'Лічильник днів до здачі кожної галереї та обробки. Термінові стають червоними — нічого не загубиться.',
+    's11.t': 'Позначте як виконане',
+    's11.d': 'Здали галерею? Затисніть картку, торкніться <em>Done</em> — і її більше немає у списку.',
+    's12.t': 'Ваш рік з першого погляду',
+    's12.d': 'Заробіток, зйомки й години підраховуються автоматично з ваших подій.',
+    's13.t': 'Створюйте власні графіки',
+    's13.d': 'Власні графіки показують те, що важливо для бізнесу, — наприклад, які зйомки заповнюють квартал.',
+    's14.t': 'Усі клієнти в одному списку',
+    's14.d': 'Клієнти з ваших подій зберігаються автоматично, а для колег є окрема вкладка.',
+    's15.t': "Зв'язок одним дотиком",
+    's15.d': 'Знайдіть клієнта й зателефонуйте, напишіть або відкрийте його Instagram просто з картки.',
+    'also.title': 'І це ще не все',
+    'also.sub': 'Усе інше, що потрібно в насичений сезон.',
+    'a1': 'Імпорт з Apple і Google Календаря',
+    'a2': 'Віджет на екрані «Додому»',
+    'a3': 'Нагадування про події та дедлайни',
+    'a4': 'Синхронізація iCloud',
+    'a5': 'Резервні копії та відновлення',
+    'a6': 'Таймлайни зйомок',
+    'a7': 'Ціни та передоплати',
+    'mac.eyebrow': 'Також на macOS',
+    'mac.title': 'Повна картина — на вашому Mac',
+    'mac.lead': 'Нативний застосунок для Mac дає вашим зйомкам, клієнтам і таймлайнам більше простору — і все синхронізується між iPhone, iPad і Mac.',
+    'mac.p1': 'Календар і деталі події на весь екран',
+    'mac.p2': 'Плануйте таймлайни зйомок на великому екрані',
+    'mac.p3': 'Завжди синхронізовано через iCloud',
+    'cta.title': 'Готові організувати наступну зйомку?',
+    'cta.text': 'Завантажте Events Notes та зберіть бронювання, розклад і клієнтів разом.',
+    'footer.privacy': 'Політика конфіденційності',
+    'footer.terms': 'Умови використання',
+    'footer.support': 'Підтримка',
+    'footer.rights': 'Усі права захищено.',
+  },
+  ru: {
+    'doc.title': 'Events Notes — от первого бронирования до итогов года',
+    'doc.desc': 'Пройдите одну съёмку в Events Notes: создайте событие, спланируйте день, успейте к каждому дедлайну и смотрите, как растёт статистика. Для iPhone, iPad и Mac.',
+    'nav.tour': 'Как это работает',
+    'nav.tutorials': 'Гайды',
+    'nav.download': 'Скачать',
+    'hero.eyebrow': 'Для iPhone, iPad и Mac',
+    'hero.title': 'От первого бронирования<br />до итогов года',
+    'hero.lead': 'Пройдите одну настоящую съёмку в Events Notes — создайте её, спланируйте день, сдайте вовремя и посмотрите, как растёт ваш бизнес.',
+    'hero.start': 'Начать тур ↓',
+    'ch.create': 'Создание',
+    'ch.details': 'Детали',
+    'ch.deadlines': 'Дедлайны',
+    'ch.stats': 'Статистика',
+    'ch.contacts': 'Контакты',
+    'k.create': 'Создание события',
+    'k.details': 'Детали события',
+    'k.deadlines': 'Дедлайны',
+    'k.stats': 'Статистика',
+    'k.contacts': 'Контакты',
+    's1.t': 'Новое бронирование',
+    's1.d': 'Одно касание <em>+</em> в расписании — и новое событие открыто.',
+    's2.t': 'Заполните главное',
+    's2.d': 'Тип события, дата, часы, дедлайн и контакты клиента — вводите один раз и больше никогда не ищете.',
+    's3.t': 'Добавьте референсы',
+    's3.d': 'Добавьте мудборды, детали и вдохновение от клиента — весь замысел хранится рядом с бронированием.',
+    's4.t': 'Локация и цена',
+    's4.d': 'Сохраните место съёмки, полную цену и предоплату — позже они попадут в статистику.',
+    's5.t': 'Соберите команду',
+    's5.d': 'Добавьте второго фотографа, видеографа или визажиста из коллег — все знают, кто работает на событии.',
+    's6.t': 'Спланируйте задачи',
+    's6.d': 'Список дел для каждого события: разведка локации, подтверждения, аккумуляторы.',
+    's7.t': 'Всё на одном экране',
+    's7.d': 'Время, место, цена, предоплата, заметки и задачи. Звонок или сообщение клиенту — одним касанием.',
+    's8.t': 'Проверьте солнце',
+    's8.d': 'Посмотрите, как движется солнце над локацией в день события, — и точно знайте, когда начинается золотой час.',
+    's9.t': 'Постройте маршрут',
+    's9.d': 'Коснитесь адреса, выберите <em>Create route</em> — и Apple Maps доведёт вас до места.',
+    's10.t': 'Отсчёт до каждой сдачи',
+    's10.d': 'Счётчик дней до сдачи каждой галереи и обработки. Срочные становятся красными — ничего не упустите.',
+    's11.t': 'Отметьте как выполненное',
+    's11.d': 'Сдали галерею? Зажмите карточку, коснитесь <em>Done</em> — и её больше нет в списке.',
+    's12.t': 'Ваш год с первого взгляда',
+    's12.d': 'Заработок, съёмки и часы подсчитываются автоматически из ваших событий.',
+    's13.t': 'Создавайте свои графики',
+    's13.d': 'Собственные графики показывают то, что важно для бизнеса, — например, какие съёмки заполняют квартал.',
+    's14.t': 'Все клиенты в одном списке',
+    's14.d': 'Клиенты из ваших событий сохраняются автоматически, а для коллег есть отдельная вкладка.',
+    's15.t': 'Связь одним касанием',
+    's15.d': 'Найдите клиента и позвоните, напишите или откройте его Instagram прямо из карточки.',
+    'also.title': 'И это ещё не всё',
+    'also.sub': 'Всё остальное, что нужно в насыщенный сезон.',
+    'a1': 'Импорт из Apple и Google Календаря',
+    'a2': 'Виджет на домашнем экране',
+    'a3': 'Напоминания о событиях и дедлайнах',
+    'a4': 'Синхронизация iCloud',
+    'a5': 'Резервные копии и восстановление',
+    'a6': 'Таймлайны съёмок',
+    'a7': 'Цены и предоплаты',
+    'mac.eyebrow': 'Также на macOS',
+    'mac.title': 'Полная картина — на вашем Mac',
+    'mac.lead': 'Нативное приложение для Mac даёт вашим съёмкам, клиентам и таймлайнам больше пространства — и всё синхронизируется между iPhone, iPad и Mac.',
+    'mac.p1': 'Календарь и детали события на весь экран',
+    'mac.p2': 'Планируйте таймлайны съёмок на большом экране',
+    'mac.p3': 'Всегда синхронизировано через iCloud',
+    'cta.title': 'Готовы организовать следующую съёмку?',
+    'cta.text': 'Скачайте Events Notes и соберите бронирования, расписание и клиентов вместе.',
+    'footer.privacy': 'Политика конфиденциальности',
+    'footer.terms': 'Условия использования',
+    'footer.support': 'Поддержка',
+    'footer.rights': 'Все права защищены.',
+  },
+};
+
+const SUPPORTED_LANGS = ['en', 'uk', 'ru'];
+
+function applyLang(lang) {
+  const dict = translations[lang] || translations.en;
+
+  document.querySelectorAll('[data-i18n]').forEach((el) => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] != null) el.textContent = dict[key];
+  });
+  // strings with inline markup (<em>, <br>) come only from the dictionary above
+  document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+    const key = el.getAttribute('data-i18n-html');
+    if (dict[key] != null) el.innerHTML = dict[key];
+  });
+
+  if (dict['doc.title']) document.title = dict['doc.title'];
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc && dict['doc.desc']) metaDesc.setAttribute('content', dict['doc.desc']);
+
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll('.lang-btn').forEach((btn) => {
+    const active = btn.dataset.lang === lang;
+    btn.classList.toggle('is-active', active);
+    btn.setAttribute('aria-pressed', String(active));
+  });
+
+  try {
+    localStorage.setItem('lang', lang);
+  } catch (e) {
+    /* storage unavailable — ignore */
+  }
+  document.dispatchEvent(new Event('langchange'));
+}
+
+function detectLang() {
+  let saved;
+  try {
+    saved = localStorage.getItem('lang');
+  } catch (e) {
+    /* ignore */
+  }
+  if (saved && SUPPORTED_LANGS.includes(saved)) return saved;
+
+  const browser = (navigator.language || 'en').slice(0, 2).toLowerCase();
+  return SUPPORTED_LANGS.includes(browser) ? browser : 'en';
+}
+
+document.querySelectorAll('.lang-btn').forEach((btn) =>
+  btn.addEventListener('click', () => applyLang(btn.dataset.lang))
+);
+
+applyLang(detectLang());
+
 (function initTour() {
   const wrap = document.querySelector('.screen-wrap');
   const tapDot = wrap.querySelector('.tap');
@@ -409,4 +684,6 @@ document.getElementById('year').textContent = new Date().getFullYear();
   update();
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', () => { fit(); update(); });
+  // the mobile caption is a copy of the active step, so refresh it after a language switch
+  document.addEventListener('langchange', () => { caption.dataset.step = ''; update(); });
 })();

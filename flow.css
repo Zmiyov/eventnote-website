@@ -48,7 +48,7 @@ html {
   font-weight: 600; font-size: .95rem; color: var(--ink-soft);
   animation: rise .6s calc(.35s + var(--i) * .3s) var(--ease) both;
 }
-.fhero-path span {
+.fhero-path .num {
   width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center;
   background: var(--white); border: 2px solid var(--accent); color: var(--accent-dark); font-weight: 700;
   box-shadow: var(--shadow);
@@ -69,14 +69,14 @@ html {
   background: none; border: 0; cursor: pointer; font: inherit; font-size: .92rem; font-weight: 600;
   color: var(--ink-soft); transition: background .25s, color .25s;
 }
-.chapter span {
+.chapter .num {
   width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: .75rem;
   border: 1.5px solid currentColor; transition: .25s;
 }
 .chapter:hover { color: var(--ink); }
 .chapter.is-active { background: var(--white); color: var(--ink); box-shadow: 0 2px 10px rgba(43, 42, 39, .08); }
-.chapter.is-active span { background: var(--accent); border-color: var(--accent); color: var(--white); }
-.chapter.is-done span { background: var(--ink); border-color: var(--ink); color: var(--white); }
+.chapter.is-active .num { background: var(--accent); border-color: var(--accent); color: var(--white); }
+.chapter.is-done .num { background: var(--ink); border-color: var(--ink); color: var(--white); }
 .chapters-progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; }
 .chapters-progress i {
   display: block; height: 100%; width: 100%; background: var(--accent);
@@ -379,8 +379,10 @@ html {
   .chapter { padding: 6px 8px; font-size: .82rem; gap: 6px; }
 }
 
-@media (max-width: 420px) {
-  .chapter span { display: none; }
+@media (max-width: 600px) {
+  /* not enough room for five names: inactive chapters show just their number */
+  .chapters-inner { justify-content: center; gap: 4px; }
+  .chapter:not(.is-active) [data-i18n] { display: none; }
 }
 
 /* ===== Reduced motion ===== */
