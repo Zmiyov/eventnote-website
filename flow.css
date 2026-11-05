@@ -359,14 +359,6 @@ html {
 .phone-caption { display: none; }
 @keyframes caption-in { from { opacity: 0; transform: translateY(8px); } }
 
-/* Compare pill */
-.compare-pill {
-  position: fixed; right: 20px; bottom: 20px; z-index: 60; padding: 10px 16px; border-radius: 999px;
-  background: var(--ink); color: var(--beige); font-size: .85rem; box-shadow: var(--shadow-lg);
-}
-.compare-pill b { color: var(--white); }
-.compare-pill:hover { background: #000; }
-
 /* ===== Responsive ===== */
 @media (max-width: 860px) {
   .flow-grid { display: block; }
@@ -385,7 +377,6 @@ html {
   .step-card, .step.is-active .step-card { opacity: 0; }
   .chapters-inner { gap: 2px; justify-content: space-between; }
   .chapter { padding: 6px 8px; font-size: .82rem; gap: 6px; }
-  .compare-pill { display: none; }
 }
 
 @media (max-width: 420px) {
