@@ -128,11 +128,11 @@ const translations = {
     's8.t': 'Перевірте сонце',
     's8.d': 'Подивіться, як рухається сонце над локацією в день події, — і точно знайте, коли починається золота година.',
     's9.t': 'Прокладіть маршрут',
-    's9.d': 'Торкніться адреси, оберіть <em>Create route</em> — і Apple Maps доведе вас на місце.',
+    's9.d': 'Торкніться адреси, оберіть <em>Створити маршрут</em> — і Apple Maps доведе вас на місце.',
     's10.t': 'Відлік до кожної здачі',
     's10.d': 'Лічильник днів до здачі кожної галереї та обробки. Термінові стають червоними — нічого не загубиться.',
     's11.t': 'Позначте як виконане',
-    's11.d': 'Здали галерею? Затисніть картку, торкніться <em>Done</em> — і її більше немає у списку.',
+    's11.d': 'Здали галерею? Затисніть картку, торкніться <em>Готово</em> — і її більше немає у списку.',
     's12.t': 'Ваш рік з першого погляду',
     's12.d': 'Заробіток, зйомки й години підраховуються автоматично з ваших подій.',
     's13.t': 'Створюйте власні графіки',
@@ -199,12 +199,12 @@ const translations = {
     's7.d': 'Время, место, цена, предоплата, заметки и задачи. Звонок или сообщение клиенту — одним касанием.',
     's8.t': 'Проверьте солнце',
     's8.d': 'Посмотрите, как движется солнце над локацией в день события, — и точно знайте, когда начинается золотой час.',
-    's9.t': 'Постройте маршрут',
-    's9.d': 'Коснитесь адреса, выберите <em>Create route</em> — и Apple Maps доведёт вас до места.',
+    's9.t': 'Место на карте',
+    's9.d': 'Коснитесь адреса, выберите <em>Открыть карту</em> — и место съёмки сразу на карте.',
     's10.t': 'Отсчёт до каждой сдачи',
     's10.d': 'Счётчик дней до сдачи каждой галереи и обработки. Срочные становятся красными — ничего не упустите.',
     's11.t': 'Отметьте как выполненное',
-    's11.d': 'Сдали галерею? Зажмите карточку, коснитесь <em>Done</em> — и её больше нет в списке.',
+    's11.d': 'Сдали галерею? Зажмите карточку, коснитесь <em>Готово</em> — и её больше нет в списке.',
     's12.t': 'Ваш год с первого взгляда',
     's12.d': 'Заработок, съёмки и часы подсчитываются автоматически из ваших событий.',
     's13.t': 'Создавайте свои графики',
@@ -291,6 +291,108 @@ document.querySelectorAll('.lang-btn').forEach((btn) =>
 
 applyLang(detectLang());
 
+// ===== Device content per language =====
+// Text, numbers and positions inside the phone, read off the app's own screens in each language
+// (Ukrainian and Russian demo data use Kyiv and Almaty). Images for uk/ru live in assets/flow/<lang>/.
+const device = {
+  en: {
+    locale: 'en-US', route: 'maps', earnSize: 36, unused: ['openmap.webp'],
+    pos: { menuTop: 290, routeTop: 370, openmapTop: 290, chooserTop: 200, mapsTop: 222, sunB: [0, 542, 440, 90], sunC: [225, 766, 183, 49], sunD: [20, 646, 400, 42] },
+    axis: [['20,000', 0], ['15,000', 34], ['10,000', 68], ['5,000', 102], ['0', 136]],
+    segs: [[0, 8], [8, 2], [10, 4], [14, 1], [15, 6], [21, 1]],
+    borders: ['#A7DAAE', '#D3FABC'],
+    'ne.type': 'Event type', 'ne.typeV': 'Wedding', 'ne.date': 'Date',
+    'ne.dateV': 'Nov 7, 2026', 'ne.dateV.from': 'Nov 6, 2026', 'ne.timeV': '1:00 PM', 'ne.timeV.from': '12:00 AM',
+    'ne.tz': 'Timezone: New_York, United States (Eastern)', 'ne.deadline': 'Deadline', 'ne.deadlineV': 'In a month',
+    'ne.hours': 'Number of Hours', 'ne.hoursV': '9', 'ne.contacts': 'Contacts', 'ne.addFrom': 'Add from Contacts',
+    'ne.name': 'Name (required)', 'ne.nameV': 'Emma & James', 'ne.phone': 'Phone number', 'ne.phoneV': '+1 212 555 0148',
+    'ne.tgV': '', 'ne.igV': 'emma.and.james', 'ne.hint': 'Format: @username or link',
+    'ne.loc': 'Location', 'ne.openMap': 'Open Map', 'ne.locPh': 'Input location name', 'ne.locV': 'Central Park, New York',
+    'ne.pay': 'Payment', 'ne.full': 'Full Price', 'ne.fullV': '4 800', 'ne.pre': 'Prepayment', 'ne.preV': '1 200',
+    'ne.gift': 'Gift certificate', 'ne.rem': 'Reminder', 'ne.ea': 'Event Alert', 'ne.da': 'Deadline Alert',
+    'ne.notes': 'Notes', 'ne.notesPh': 'Add Notes', 'ne.gal': 'Gallery', 'ne.todo': 'To Do', 'ne.team': 'Team',
+    task0: 'Scout the venue', task1: 'Confirm timeline with planner', task2: 'Charge batteries, format cards',
+    mate0: 'Anna Kim', mate1: 'Max Rivera', mate2: 'Lena Stone',
+    'dl.sub': 'Submit by: ', 'dl.left': 'Days left',
+    'dl0.n': 'Lauren & Chris', 'dl0.t': 'Wedding', 'dl0.d': '2026, November 9', 'dl0.v': 3,
+    'dl1.n': 'Claire Donovan', 'dl1.t': 'Portrait', 'dl1.d': '2026, November 14', 'dl1.v': 8,
+    'dl2.n': 'The Hughes Family', 'dl2.t': 'Family', 'dl2.d': '2026, November 16', 'dl2.v': 10,
+    'dl3.n': 'Megan & Josh', 'dl3.t': 'Wedding', 'dl3.d': '2026, November 23', 'dl3.v': 17,
+    'dl4.n': 'Rachel & Tom', 'dl4.t': 'Wedding', 'dl4.d': '2026, November 30', 'dl4.v': 24,
+    'st.over': 'YEAR OVERVIEW', 'st.earn': 'EARNINGS · 2026', 'st.earnV': 112650, 'st.cap': 'Gross across 55 shoots,<br />before expenses.',
+    'st.m1': 'EVENT<span>sessions</span>', 'st.m1V': 55, 'st.m2': 'EVENT<span>hours</span>', 'st.m2V': 268,
+    'st.t1': 'Earnings by month', 'st.t2': 'Shoots by type for quarter', 'st.q': '4-th quarter', 'st.total': 'Total',
+    m0: 'Feb', m1: 'Mar', m2: 'Apr', m3: 'May', m4: 'Jun', m5: 'Jul', m6: 'Aug', m7: 'Sep', m8: 'Oct', m9: 'Nov', m10: 'Dec',
+    lg0: 'Wedding', lg1: 'Love Story', lg2: 'Family', lg3: 'Birthday', lg4: 'Portrait', lg5: 'Event',
+    ct0: 'Emma & James', ct1: 'Lauren & Chris', ct2: 'Claire Donovan', ct3: 'The Hughes Family', ct4: 'Megan & Josh', ct5: 'Rachel & Tom',
+    'ct.q': 'Emma', 'cd.name': 'Emma & James', 'cd.phone': '+1 212 555 0148', 'cd.tg': '-', 'cd.ig': '@emma.and.james',
+  },
+  uk: {
+    locale: 'uk-UA', route: 'maps', earnSize: 36, unused: ['openmap.webp'],
+    pos: { menuTop: 290, routeTop: 370, openmapTop: 290, chooserTop: 200, mapsTop: 222, sunB: [0, 530, 440, 90], sunC: [225, 750, 183, 67], sunD: [20, 632, 400, 42] },
+    axis: [['750 000', 8], ['500 000', 52], ['250 000', 94], ['0', 136]],
+    segs: [[0, 2], [2, 8], [10, 1], [11, 1], [12, 6], [18, 4]],
+    borders: ['#D69CEE', '#BCD2BB'],
+    'ne.type': 'Тип події', 'ne.typeV': 'Весілля', 'ne.date': 'Дата',
+    'ne.dateV': '7 лист. 2026 р.', 'ne.dateV.from': '6 лист. 2026 р.', 'ne.timeV': '16:00', 'ne.timeV.from': '00:00',
+    'ne.tz': 'Часовий пояс: Kyiv, Ukraine', 'ne.deadline': 'Дедлайн', 'ne.deadlineV': 'Через місяць',
+    'ne.hours': 'Кількість годин', 'ne.hoursV': '6', 'ne.contacts': 'Контакти', 'ne.addFrom': 'Додати з контактів',
+    'ne.name': "Ім'я (обов'язково)", 'ne.nameV': 'Соломія & Назар', 'ne.phone': 'Номер телефону', 'ne.phoneV': '+380 44 555 01 47',
+    'ne.tgV': 'solomiia_i_nazar', 'ne.igV': 'solomiia.i.nazar', 'ne.hint': "Формат: @ім'я_користувача або посилання",
+    'ne.loc': 'Локація', 'ne.openMap': 'Відкрити карту', 'ne.locPh': 'Введіть назву локації', 'ne.locV': 'Маріїнський парк, Київ',
+    'ne.pay': 'Оплата', 'ne.full': 'Повна ціна', 'ne.fullV': '192 000', 'ne.pre': 'Передоплата', 'ne.preV': '48 000',
+    'ne.gift': 'Подарунковий сертифікат', 'ne.rem': 'Нагадування', 'ne.ea': 'Попередження про подію', 'ne.da': 'Попередження про дедлайн',
+    'ne.notes': 'Примітки', 'ne.notesPh': 'Додати нотатки', 'ne.gal': 'Галерея', 'ne.todo': 'Завдання', 'ne.team': 'Команда',
+    task0: 'Оглянути локацію', task1: 'Узгодити таймінг з організаторкою', task2: 'Зарядити батареї, відформатувати картки',
+    mate0: 'Анна Кім', mate1: 'Максим Рибак', mate2: 'Олена Коваль',
+    'dl.sub': 'Здати до: ', 'dl.left': 'Залишилось днів',
+    'dl0.n': 'Дарина & Артем', 'dl0.t': 'Весілля', 'dl0.d': '2026, листопада 9', 'dl0.v': 3,
+    'dl1.n': 'Яна Мельник', 'dl1.t': 'Портрет', 'dl1.d': '2026, листопада 14', 'dl1.v': 8,
+    'dl2.n': 'Родина Бойків', 'dl2.t': "Сім'я", 'dl2.d': '2026, листопада 16', 'dl2.v': 10,
+    'dl3.n': 'Марія & Іван', 'dl3.t': 'Весілля', 'dl3.d': '2026, листопада 23', 'dl3.v': 17,
+    'dl4.n': 'Софія & Олександр', 'dl4.t': 'Весілля', 'dl4.d': '2026, листопада 30', 'dl4.v': 24,
+    'st.over': 'ОГЛЯД РОКУ', 'st.earn': 'ДОХІД · 2026', 'st.earnV': 4506000, 'st.cap': 'Валовий дохід за 55 зйомок, до<br />вирахування витрат.',
+    'st.m1': 'СЕСІЇ<span class="caps">ПОДІЙ</span>', 'st.m1V': 55, 'st.m2': 'ГОДИНИ<span class="caps">ПОДІЙ</span>', 'st.m2V': 265,
+    'st.t1': 'Доходи за місяць', 'st.t2': 'Тип зйомок за квартал', 'st.q': '4-й квартал', 'st.total': 'Всього',
+    m0: 'лют.', m1: 'бер.', m2: 'квіт.', m3: 'трав.', m4: 'черв.', m5: 'лип.', m6: 'серп.', m7: 'вер.', m8: 'жовт.', m9: 'лист.', m10: 'гр..',
+    lg0: 'Love Story', lg1: 'Весілля', lg2: 'Подія', lg3: 'День народження', lg4: 'Портрет', lg5: "Сім'я",
+    ct0: 'Соломія & Назар', ct1: 'Дарина & Артем', ct2: 'Яна Мельник', ct3: 'Родина Бойків', ct4: 'Марія & Іван', ct5: 'Софія & Олександр',
+    'ct.q': 'Соломія', 'cd.name': 'Соломія & Назар', 'cd.phone': '+380 44 555 01 47', 'cd.tg': 'solomiia_i_nazar', 'cd.ig': '@solomiia.i.nazar',
+  },
+  ru: {
+    locale: 'ru-RU', route: 'openmap', earnSize: 33, unused: ['maps-route.webp', 'ui/chooser.webp'],
+    pos: { menuTop: 278, routeTop: 352, openmapTop: 290, chooserTop: 200, mapsTop: 222, sunB: [0, 542, 440, 90], sunC: [225, 766, 183, 49], sunD: [20, 646, 400, 42] },
+    axis: [['1,0E7', 0], ['7,5E6', 34], ['5,0E6', 68], ['2,5E6', 102], ['0', 136]],
+    segs: [[0, 4], [4, 2], [6, 6], [12, 1], [13, 8], [21, 1]],
+    borders: ['#BCF2DD', '#A9E6A2'],
+    'ne.type': 'Тип события', 'ne.typeV': 'Свадьба', 'ne.date': 'Дата',
+    'ne.dateV': '8 нояб. 2026 г.', 'ne.dateV.from': '7 нояб. 2026 г.', 'ne.timeV': '16:00', 'ne.timeV.from': '00:00',
+    'ne.tz': 'Часовой пояс: Almaty, Kazakhstan', 'ne.deadline': 'Крайний срок', 'ne.deadlineV': 'Через месяц',
+    'ne.hours': 'Количество часов', 'ne.hoursV': '6', 'ne.contacts': 'Контакты', 'ne.addFrom': 'Добавить из контактов',
+    'ne.name': 'Имя (обязательно)', 'ne.nameV': 'Алина & Тимур', 'ne.phone': 'Номер телефона', 'ne.phoneV': '+7 727 555 01 47',
+    'ne.tgV': 'alina_i_timur', 'ne.igV': 'alina.i.timur', 'ne.hint': 'Формат: @имя_пользователя или ссылка',
+    'ne.loc': 'Локация', 'ne.openMap': 'Открыть карту', 'ne.locPh': 'Введите название локации', 'ne.locV': 'Парк Первого Президента, Алматы',
+    'ne.pay': 'Оплата', 'ne.full': 'Полная цена', 'ne.fullV': '2 400 000', 'ne.pre': 'Предоплата', 'ne.preV': '600 000',
+    'ne.gift': 'Подарочный сертификат', 'ne.rem': 'Напоминание', 'ne.ea': 'Оповещение о событии', 'ne.da': 'Предупреждение о крайнем сроке',
+    'ne.notes': 'Заметки', 'ne.notesPh': 'Добавить заметки', 'ne.gal': 'Галерея', 'ne.todo': 'Запланировано', 'ne.team': 'Команда',
+    task0: 'Осмотреть локацию', task1: 'Согласовать тайминг с организатором', task2: 'Зарядить аккумуляторы, отформатировать карты',
+    mate0: 'Анна Ким', mate1: 'Максим Рыбаков', mate2: 'Елена Коваль',
+    'dl.sub': 'Срок сдачи: ', 'dl.left': 'Осталось дней',
+    'dl0.n': 'Дарья & Артём', 'dl0.t': 'Свадьба', 'dl0.d': '2026, ноября 10', 'dl0.v': 4,
+    'dl1.n': 'Милана Ким', 'dl1.t': 'Портрет', 'dl1.d': '2026, ноября 15', 'dl1.v': 9,
+    'dl2.n': 'Семья Ивановых', 'dl2.t': 'Семья', 'dl2.d': '2026, ноября 17', 'dl2.v': 11,
+    'dl3.n': 'Мария & Иван', 'dl3.t': 'Свадьба', 'dl3.d': '2026, ноября 24', 'dl3.v': 18,
+    'dl4.n': 'Полина & Михаил', 'dl4.t': 'Свадьба', 'dl4.d': '2026, ноября 30', 'dl4.v': 24,
+    'st.over': 'ОБЗОР ГОДА', 'st.earn': 'ДОХОД · 2026', 'st.earnV': 56325000, 'st.cap': 'Валовой доход за 55 съёмок, до<br />вычета расходов.',
+    'st.m1': 'СЕССИИ<span class="caps">СОБЫТИЙ</span>', 'st.m1V': 55, 'st.m2': 'ЧАСЫ<span class="caps">СОБЫТИЙ</span>', 'st.m2V': 265,
+    'st.t1': 'Доходы за месяц', 'st.t2': 'Тип съёмок за квартал', 'st.q': '4-й квартал', 'st.total': 'Итог',
+    m0: 'фе..', m1: 'март', m2: 'апр.', m3: 'май', m4: 'июнь', m5: 'июль', m6: 'авг.', m7: 'сент.', m8: 'окт.', m9: 'нояб.', m10: 'дек.',
+    lg0: 'Семья', lg1: 'Love Story', lg2: 'Портрет', lg3: 'День рождения', lg4: 'Свадьба', lg5: 'Событие',
+    ct0: 'Алина & Тимур', ct1: 'Дарья & Артём', ct2: 'Милана Ким', ct3: 'Семья Ивановых', ct4: 'Мария & Иван', ct5: 'Полина & Михаил',
+    'ct.q': 'Алина', 'cd.name': 'Алина & Тимур', 'cd.phone': '+7 727 555 01 47', 'cd.tg': 'alina_i_timur', 'cd.ig': '@alina.i.timur',
+  },
+};
+
 (function initTour() {
   const wrap = document.querySelector('.screen-wrap');
   const tapDot = wrap.querySelector('.tap');
@@ -309,6 +411,9 @@ applyLang(detectLang());
   // Which full screen is underneath, and which sheets are up, for every step
   const BASE = ['schedule', 'schedule', 'schedule', 'schedule', 'schedule', 'schedule', 'schedule', 'schedule', 'schedule', 'maps', 'deadlines', 'deadlines', 'stats', 'stats', 'contacts', 'contacts'];
   const SHEETS = [[], ['new'], ['new'], ['new'], ['new'], ['new'], ['new'], ['details'], ['details', 'sun'], [], [], [], [], [], [], []];
+  // Step 9 ends in Apple Maps, except in Russian where it opens the in-app map (no routes in Kazakhstan)
+  const baseOf = (step) => (step === 9 && dev().route === 'openmap' ? 'schedule' : BASE[step]);
+  const sheetsOf = (step) => (step === 9 && dev().route === 'openmap' ? ['details', 'openmap'] : SHEETS[step]);
   const TAB = { 1: 'main', 2: 'main', 3: 'gallery', 4: 'main', 5: 'team', 6: 'todo' };
   const SUN_FRAMES = 14;
 
@@ -316,6 +421,9 @@ applyLang(detectLang());
   let current = 0;
   let token = 0;
   const applied = new Set();
+  let lang = 'en';
+  const dev = () => device[lang];
+  const assetBase = () => (lang === 'en' ? 'assets/flow/' : `assets/flow/${lang}/`);
 
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const $ = (sel) => wrap.querySelector(sel);
@@ -394,7 +502,7 @@ applyLang(detectLang());
     el.classList.remove('typing', 'flash');
   });
 
-  const fmt = (v) => Math.round(v).toLocaleString('en-US');
+  const fmt = (v) => Math.round(v).toLocaleString(dev().locale);
   function countStep(n, animate, delay = 0) {
     $$(`[data-cs="${n}"]`).forEach((el) => {
       const to = Number(el.dataset.to);
@@ -420,7 +528,7 @@ applyLang(detectLang());
     for (let i = 0; i < SUN_FRAMES; i++) {
       const img = document.createElement('img');
       img.alt = '';
-      img.dataset.src = `assets/flow/sun/${set.dataset.f}${String(i).padStart(2, '0')}.webp`;
+      img.dataset.frame = `sun/${set.dataset.f}${String(i).padStart(2, '0')}.webp`;
       set.appendChild(img);
     }
   });
@@ -428,7 +536,7 @@ applyLang(detectLang());
   function loadFrames() {
     if (framesLoaded) return;
     framesLoaded = true;
-    frameSets.forEach((set) => set.querySelectorAll('img').forEach((img) => { img.src = img.dataset.src; }));
+    frameSets.forEach((set) => set.querySelectorAll('img').forEach((img) => { img.src = assetBase() + img.dataset.frame; }));
   }
   function setFrame(k) {
     frameSets.forEach((set) => set.querySelectorAll('img').forEach((img, i) => img.classList.toggle('on', i === k)));
@@ -447,16 +555,15 @@ applyLang(detectLang());
 
   // ----- Statistics donut (Shoots by type for quarter) -----
   const TOTAL = 22, R_OUT = 147.5, R_IN = 90.5, GAP = 2.4;
-  const donutSegs = $$('.donut path').map((p) => {
-    const [from, count] = p.dataset.seg.split(' ').map(Number);
-    return { p, a0: (from / TOTAL) * 360, a1: ((from + count) / TOTAL) * 360 };
-  });
+  const donutPaths = $$('.donut path');
   const pt = (r, a) => {
     const rad = ((a - 90) * Math.PI) / 180;
     return `${(r * Math.cos(rad)).toFixed(2)} ${(r * Math.sin(rad)).toFixed(2)}`;
   };
   function drawDonut(sweep) {
-    donutSegs.forEach(({ p, a0, a1 }) => {
+    donutPaths.forEach((p, i) => {
+      const [from, count] = dev().segs[i];
+      const a0 = (from / TOTAL) * 360, a1 = ((from + count) / TOTAL) * 360;
       const s = a0 + GAP / 2, e = Math.min(a1 - GAP / 2, sweep);
       if (e <= s) { p.setAttribute('d', ''); return; }
       const large = e - s > 180 ? 1 : 0;
@@ -501,6 +608,7 @@ applyLang(detectLang());
       wrap.classList.add('menu');
       await sleep(700);
       if (my !== token) return;
+      if (dev().route === 'openmap') { await tap($('.js-openmap')); return; }
       await tap($('.js-route'));
       wrap.classList.remove('menu');
       await sleep(250);
@@ -618,7 +726,7 @@ applyLang(detectLang());
     }
 
     wrap.classList.remove('menu', 'chooser-open');
-    show(BASE[step], SHEETS[step]);
+    show(baseOf(step), sheetsOf(step));
     if (TAB[step]) newSheet.dataset.tab = TAB[step];
 
     for (let n = 1; n <= LAST; n++) {
@@ -631,6 +739,46 @@ applyLang(detectLang());
         wrap.classList.remove('r-' + n);
         if (RESET[n]) RESET[n]();
       }
+    }
+  }
+
+
+  // ----- Language: swap the device's images, text, numbers and positions -----
+  const place = (el, [x, y, w, h]) => Object.assign(el.style, { left: x + 'px', top: y + 'px', width: w + 'px', height: h + 'px' });
+  function relocalize(next) {
+    lang = device[next] ? next : 'en';
+    const D = dev();
+    const base = assetBase();
+    // screens a language never shows (its route step works differently) are not requested
+    const used = (rel) => !D.unused.includes(rel);
+    $$('img[data-l10n]').forEach((img) => { if (used(img.dataset.l10n)) img.src = base + img.dataset.l10n; });
+    $$('.shot[data-l10n]').forEach((el) => { el.style.backgroundImage = used(el.dataset.l10n) ? `url(${base}${el.dataset.l10n})` : 'none'; });
+    $$('[data-d]').forEach((el) => { if (D[el.dataset.d] != null) el.textContent = D[el.dataset.d]; });
+    $$('[data-d-html]').forEach((el) => { if (D[el.dataset.dHtml] != null) el.innerHTML = D[el.dataset.dHtml]; });
+    $$('[data-dk]').forEach((el) => {
+      const key = el.dataset.dk;
+      if (el.hasAttribute('data-cs')) el.dataset.to = D[key];
+      else el.dataset.text = D[key];
+      if (D[key + '.from'] != null) el.dataset.from = D[key + '.from'];
+    });
+    $('.st-earn b').style.fontSize = D.earnSize + 'px';
+    $('.axis').innerHTML = '<i class="grid" style="top:-31px"></i>' + D.axis.map(([label, y]) =>
+      `<i class="grid${label === '0' ? ' base' : ''}" style="top:${y}px"></i><span class="yl" style="top:${y}px">${label}</span>`).join('');
+    $$('.st-chart').forEach((el, i) => el.style.setProperty('--b', D.borders[i]));
+    $('.loc-menu').style.top = D.pos.menuTop + 'px';
+    $('.js-route').style.top = D.pos.routeTop + 'px';
+    $('.js-openmap').style.top = D.pos.openmapTop + 'px';
+    $('.chooser').style.top = D.pos.chooserTop + 'px';
+    $('.js-maps').style.top = D.pos.mapsTop + 'px';
+    place($('.frames[data-f="b"]'), D.pos.sunB);
+    place($('.frames[data-f="c"]'), D.pos.sunC);
+    place($('.frames[data-f="d"]'), D.pos.sunD);
+    if (framesLoaded) { framesLoaded = false; loadFrames(); }
+
+    // put every step back in the state it should have in the new language
+    show(baseOf(current), sheetsOf(current));
+    for (let n = 1; n <= LAST; n++) {
+      if (applied.has(n)) { if (APPLY[n]) APPLY[n](false, token); } else if (RESET[n]) RESET[n]();
     }
   }
 
@@ -681,6 +829,7 @@ applyLang(detectLang());
   );
 
   newSheet.dataset.tab = 'main';
+  relocalize(document.documentElement.lang);
   show('schedule', []);
   drawDonut(0);
   fit();
@@ -688,5 +837,9 @@ applyLang(detectLang());
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', () => { fit(); update(); });
   // the mobile caption is a copy of the active step, so refresh it after a language switch
-  document.addEventListener('langchange', () => { caption.dataset.step = ''; update(); });
+  document.addEventListener('langchange', () => {
+    relocalize(document.documentElement.lang);
+    caption.dataset.step = '';
+    update();
+  });
 })();
