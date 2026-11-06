@@ -1,0 +1,37 @@
+# Events Notes
+
+> Events Notes is a booking and business app for photographers, videographers and other event professionals on iPhone, iPad and Mac. It keeps every shoot, client, payment and delivery deadline in one place, shows the sun's path and golden hour for a location, and adds up yearly earnings, sessions and hours automatically.
+
+- Platforms: iPhone, iPad and Mac (native apps, synced through iCloud)
+- Download: [App Store](https://apps.apple.com/ua/app/events-notes/id1666326813)
+- Roles: Photographer, Videographer, Agency, DJ, Decorator, Event Host, Makeup Artist, Hairdresser, Catering. The chosen role adjusts event types and tools.
+- Pricing: free for up to 3 upcoming events (5 in Ukraine). Premium removes the limit and unlocks all features, billed monthly or yearly.
+- Website languages: English, Ukrainian, Russian
+- Developer: Volodymyr Pysarenko
+- Support: eventnoteapp@gmail.com
+
+## Features
+
+- Bookings: event type, date, hours, location, client contacts, notes, references and moodboards
+- Payments: full price, prepayment (deposit) and gift certificates
+- Deadlines: days-left countdown for every delivery; urgent ones turn red
+- Timeline and to-do tasks for each event
+- Photo gallery of references per event
+- Client and colleague contacts with one-tap call, message or Instagram
+- Team members: assign colleagues such as a second shooter or makeup artist to an event
+- Sun Track: the sun's path over the shoot location on the event date, including golden hour
+- Locations and routes: open directions to the shoot in Apple Maps
+- Analytics: earnings, sessions and hours, plus custom charts
+- Event and deadline reminders
+- Import from Apple Calendar and Google Calendar
+- iCloud sync, backups and restore
+- Home Screen widget
+
+## Pages
+
+- [Home](https://www.eventsnotes.top/): a guided tour of one shoot, from booking to statistics
+- [Tutorials](https://www.eventsnotes.top/tutorials.html): step-by-step guides to every feature
+- [Головна (українською)](https://www.eventsnotes.top/uk/) · [Гайди](https://www.eventsnotes.top/uk/tutorials.html)
+- [Главная (на русском)](https://www.eventsnotes.top/ru/) · [Гайды](https://www.eventsnotes.top/ru/tutorials.html)
+- [Privacy Policy](https://www.eventsnotes.top/privacy.html)
+- [Terms of Service](https://www.eventsnotes.top/terms.html)

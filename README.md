@@ -7,7 +7,13 @@ videographers, and production professionals (iPhone, iPad & Mac).
 
 ## Stack
 
-Plain static HTML/CSS/JS — no build step.
+Plain static HTML/CSS/JS. The Ukrainian and Russian pages (`uk/`, `ru/`) and the guides inside
+`tutorials.html` are generated so crawlers can read them without JavaScript. After changing
+`index.html`, `tutorials.html`, the translations in `flow.js` or the guides in `tutorials.js`, run:
+
+```bash
+node tools/build-pages.mjs
+```
 
 ```
 index.html      # page markup

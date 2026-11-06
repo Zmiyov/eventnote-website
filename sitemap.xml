@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://www.eventsnotes.top/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.eventsnotes.top/" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.eventsnotes.top/uk/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.eventsnotes.top/ru/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.eventsnotes.top/" />
+  </url>
+  <url>
+    <loc>https://www.eventsnotes.top/uk/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.eventsnotes.top/" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.eventsnotes.top/uk/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.eventsnotes.top/ru/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.eventsnotes.top/" />
+  </url>
+  <url>
+    <loc>https://www.eventsnotes.top/ru/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.eventsnotes.top/" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.eventsnotes.top/uk/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.eventsnotes.top/ru/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.eventsnotes.top/" />
+  </url>
+  <url>
+    <loc>https://www.eventsnotes.top/tutorials.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.eventsnotes.top/tutorials.html" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.eventsnotes.top/uk/tutorials.html" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.eventsnotes.top/ru/tutorials.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.eventsnotes.top/tutorials.html" />
+  </url>
+  <url>
+    <loc>https://www.eventsnotes.top/uk/tutorials.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.eventsnotes.top/tutorials.html" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.eventsnotes.top/uk/tutorials.html" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.eventsnotes.top/ru/tutorials.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.eventsnotes.top/tutorials.html" />
+  </url>
+  <url>
+    <loc>https://www.eventsnotes.top/ru/tutorials.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.eventsnotes.top/tutorials.html" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.eventsnotes.top/uk/tutorials.html" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.eventsnotes.top/ru/tutorials.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.eventsnotes.top/tutorials.html" />
+  </url>
+  <url>
+    <loc>https://www.eventsnotes.top/privacy.html</loc>
+  </url>
+  <url>
+    <loc>https://www.eventsnotes.top/terms.html</loc>
+  </url>
+</urlset>

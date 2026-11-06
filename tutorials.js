@@ -22,6 +22,11 @@ const UI = {
   'chip.all':     { en: 'All', uk: 'Усі', ru: 'Все' },
   'tip':          { en: 'Tip', uk: 'Порада', ru: 'Совет' },
   'doc.title':    { en: 'Events Notes — Tutorials', uk: 'Events Notes — Гайди', ru: 'Events Notes — Гайды' },
+  'doc.desc':     {
+    en: 'Learn how to use Events Notes — bookings, timelines, Sun Track, payments, backups, team and more. Step-by-step guides for iPhone, iPad and Mac.',
+    uk: 'Як користуватися Events Notes — бронювання, таймлайни, Sun Track, оплати, резервні копії, команда та інше. Покрокові гайди для iPhone, iPad і Mac.',
+    ru: 'Как пользоваться Events Notes — бронирования, таймлайны, Sun Track, оплаты, резервные копии, команда и другое. Пошаговые гайды для iPhone, iPad и Mac.',
+  },
 };
 
 /* ---- Guide groups and content ---- */
@@ -671,7 +676,8 @@ const GROUPS = [
 /* ---- Step screenshots ----
    Captured on the iOS simulator with the App Store demo data. One entry per guide,
    aligned to its steps (null = no screenshot for that step). Shared across languages. */
-const SHOT_BASE = 'assets/tutorials/';
+// From the site root, so screenshots load the same from / and from /uk/ or /ru/
+const SHOT_BASE = new URL('assets/tutorials/', document.currentScript.src).href;
 const SHOTS = {
   role:      ['settings', 'role', null],
   create:    ['schedule', 'newevent-type', 'newevent-main', 'details-main'],
@@ -706,6 +712,8 @@ function t(key) {
 function detectLang() {
   const forced = (params.get('lang') || '').toLowerCase();
   if (SUPPORTED_LANGS.includes(forced)) return forced;
+  // The site has a page per language; only the in-app webview picks one itself
+  if (params.get('embed') !== '1') return document.documentElement.lang;
   let saved;
   try { saved = localStorage.getItem('lang'); } catch (e) { /* ignore */ }
   if (saved && SUPPORTED_LANGS.includes(saved)) return saved;
@@ -904,6 +912,7 @@ function setLang(next) {
     if (UI[key]) el.textContent = t(key);
   });
   document.title = t('doc.title');
+  document.querySelector('meta[name="description"]').setAttribute('content', t('doc.desc'));
   document.getElementById('tutSearch').placeholder = t('search.ph');
 
   // Active state on both language switchers
@@ -972,8 +981,16 @@ function closeLightbox() {
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  // Language links open that language's page; the webview switches in place to keep its params
   document.querySelectorAll('.lang-btn').forEach((btn) =>
-    btn.addEventListener('click', () => setLang(btn.dataset.lang))
+    btn.addEventListener('click', (e) => {
+      if (params.get('embed') === '1') {
+        e.preventDefault();
+        setLang(btn.dataset.lang);
+      } else {
+        try { localStorage.setItem('lang', btn.dataset.lang); } catch (err) { /* ignore */ }
+      }
+    })
   );
 
   initSearch();

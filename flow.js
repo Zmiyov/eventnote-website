@@ -16,6 +16,9 @@ links.querySelectorAll('a').forEach((a) =>
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
+// Site root, so assets load the same from / and from /uk/ or /ru/
+const ROOT = new URL('.', document.currentScript.src).href;
+
 // ===== Localization (EN / UK / RU) =====
 // mac.*, cta.*, footer.* and nav.tutorials/download match the classic page (script.js).
 const translations = {
@@ -234,8 +237,6 @@ const translations = {
   },
 };
 
-const SUPPORTED_LANGS = ['en', 'uk', 'ru'];
-
 function applyLang(lang) {
   const dict = translations[lang] || translations.en;
 
@@ -269,24 +270,19 @@ function applyLang(lang) {
   document.dispatchEvent(new Event('langchange'));
 }
 
-function detectLang() {
-  let saved;
-  try {
-    saved = localStorage.getItem('lang');
-  } catch (e) {
-    /* ignore */
-  }
-  if (saved && SUPPORTED_LANGS.includes(saved)) return saved;
-
-  const browser = (navigator.language || 'en').slice(0, 2).toLowerCase();
-  return SUPPORTED_LANGS.includes(browser) ? browser : 'en';
-}
-
+// Each language has its own page (/, /uk/, /ru/), so the page says which one it is.
+// Language links remember the choice so the English page stops sending this visitor away.
 document.querySelectorAll('.lang-btn').forEach((btn) =>
-  btn.addEventListener('click', () => applyLang(btn.dataset.lang))
+  btn.addEventListener('click', () => {
+    try {
+      localStorage.setItem('lang', btn.dataset.lang);
+    } catch (e) {
+      /* ignore */
+    }
+  })
 );
 
-applyLang(detectLang());
+applyLang(document.documentElement.lang);
 
 // ===== Device content per language =====
 // Text, numbers and positions inside the phone, read off the app's own screens in each language
@@ -420,7 +416,7 @@ const device = {
   const applied = new Set();
   let lang = 'en';
   const dev = () => device[lang];
-  const assetBase = () => (lang === 'en' ? 'assets/flow/' : `assets/flow/${lang}/`);
+  const assetBase = () => (lang === 'en' ? `${ROOT}assets/flow/` : `${ROOT}assets/flow/${lang}/`);
 
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const $ = (sel) => wrap.querySelector(sel);

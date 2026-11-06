@@ -11,6 +11,23 @@
   <meta property="og:type" content="website" />
   <meta property="og:image" content="assets/app-icon.png" />
 
+  <link rel="canonical" href="https://www.eventsnotes.top/" />
+  <link rel="alternate" hreflang="en" href="https://www.eventsnotes.top/" />
+  <link rel="alternate" hreflang="uk" href="https://www.eventsnotes.top/uk/" />
+  <link rel="alternate" hreflang="ru" href="https://www.eventsnotes.top/ru/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.eventsnotes.top/" />
+  <script>
+    // Send visitors who chose Ukrainian or Russian, or whose browser uses it, to that page
+    (function () {
+      var q = new URLSearchParams(location.search);
+      if (document.documentElement.lang !== 'en' || q.has('embed') || q.has('lang')) return;
+      var lang;
+      try { lang = localStorage.getItem('lang'); } catch (e) { /* ignore */ }
+      if (!lang) lang = (navigator.language || 'en').slice(0, 2).toLowerCase();
+      if (lang === 'uk' || lang === 'ru') location.replace(lang + '/' + location.pathname.split('/').pop() + location.hash);
+    })();
+  </script>
+
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/favicon.png" />
   <link rel="stylesheet" href="styles.css" />
@@ -32,9 +49,9 @@
         <li><a href="tutorials.html" data-i18n="nav.tutorials">Tutorials</a></li>
         <li><a class="nav-cta" href="#download" data-i18n="nav.download">Download</a></li>
         <li class="lang-switch" role="group" aria-label="Language">
-          <button type="button" class="lang-btn" data-lang="en">EN</button>
-          <button type="button" class="lang-btn" data-lang="uk">UK</button>
-          <button type="button" class="lang-btn" data-lang="ru">RU</button>
+          <a class="lang-btn" data-lang="en" hreflang="en" href="./">EN</a>
+          <a class="lang-btn" data-lang="uk" hreflang="uk" href="uk/">UK</a>
+          <a class="lang-btn" data-lang="ru" hreflang="ru" href="ru/">RU</a>
         </li>
       </ul>
     </nav>

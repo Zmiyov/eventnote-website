@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Events Notes — от первого бронирования до итогов года</title>
+  <meta name="description" content="Пройдите одну съёмку в Events Notes: создайте событие, спланируйте день, успейте к каждому дедлайну и смотрите, как растёт статистика. Для iPhone, iPad и Mac." />
+
+  <meta property="og:title" content="Events Notes — от первого бронирования до итогов года" />
+  <meta property="og:description" content="Пройдите одну съёмку в Events Notes: создайте событие, спланируйте день, успейте к каждому дедлайну и смотрите, как растёт статистика. Для iPhone, iPad и Mac." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/app-icon.png" />
+
+  <link rel="canonical" href="https://www.eventsnotes.top/ru/" />
+  <link rel="alternate" hreflang="en" href="https://www.eventsnotes.top/" />
+  <link rel="alternate" hreflang="uk" href="https://www.eventsnotes.top/uk/" />
+  <link rel="alternate" hreflang="ru" href="https://www.eventsnotes.top/ru/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.eventsnotes.top/" />
+  <script>
+    // Send visitors who chose Ukrainian or Russian, or whose browser uses it, to that page
+    (function () {
+      var q = new URLSearchParams(location.search);
+      if (document.documentElement.lang !== 'en' || q.has('embed') || q.has('lang')) return;
+      var lang;
+      try { lang = localStorage.getItem('lang'); } catch (e) { /* ignore */ }
+      if (!lang) lang = (navigator.language || 'en').slice(0, 2).toLowerCase();
+      if (lang === 'uk' || lang === 'ru') location.replace(lang + '/' + location.pathname.split('/').pop() + location.hash);
+    })();
+  </script>
+
+  <link rel="icon" type="image/png" href="../assets/favicon.png" />
+  <link rel="apple-touch-icon" href="../assets/favicon.png" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../flow.css?v=6" />
+</head>
+<body class="flow-page">
+
+  <!-- ===== Header / Nav ===== -->
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="brand" href="#top">
+        <img src="../assets/logo.png" alt="Events Notes logo" class="brand-logo" />
+        <span class="brand-name">Events Notes</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="tutorials.html" data-i18n="nav.tutorials">Гайды</a></li>
+        <li><a class="nav-cta" href="#download" data-i18n="nav.download">Скачать</a></li>
+        <li class="lang-switch" role="group" aria-label="Language">
+          <a class="lang-btn" data-lang="en" hreflang="en" href="../">EN</a>
+          <a class="lang-btn" data-lang="uk" hreflang="uk" href="../uk/">UK</a>
+          <a class="lang-btn is-active" aria-current="page" data-lang="ru" hreflang="ru" href="../ru/">RU</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- ===== Hero ===== -->
+    <section class="fhero">
+      <div class="container fhero-inner">
+        <span class="eyebrow" data-i18n="hero.eyebrow">Для iPhone, iPad и Mac</span>
+        <h1 data-i18n-html="hero.title">От первого бронирования<br />до итогов года</h1>
+        <p class="fhero-lead" data-i18n="hero.lead">Пройдите одну настоящую съёмку в Events Notes — создайте её, спланируйте день, сдайте вовремя и посмотрите, как растёт ваш бизнес.</p>
+        <div class="fhero-actions">
+          <a href="https://apps.apple.com/ua/app/events-notes/id1666326813" class="badge-link" aria-label="Download on the App Store">
+            <img src="../assets/app-store-badge.svg" alt="Download on the App Store" class="store-badge" />
+          </a>
+          <a href="#tour" class="text-link" data-i18n="hero.start">Начать тур ↓</a>
+        </div>
+        <ol class="fhero-path" aria-label="The flow">
+          <li style="--i:0"><span class="num">1</span><span data-i18n="ch.create">Создание</span></li>
+          <li style="--i:1"><span class="num">2</span><span data-i18n="ch.details">Детали</span></li>
+          <li style="--i:2"><span class="num">3</span><span data-i18n="ch.deadlines">Дедлайны</span></li>
+          <li style="--i:3"><span class="num">4</span><span data-i18n="ch.stats">Статистика</span></li>
+          <li style="--i:4"><span class="num">5</span><span data-i18n="ch.contacts">Контакты</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== Scroll tour ===== -->
+    <section id="tour" class="tour">
+      <nav class="chapters" aria-label="Tour chapters">
+        <div class="container chapters-inner">
+          <button type="button" class="chapter" data-chapter="0"><span class="num">1</span><span data-i18n="ch.create">Создание</span></button>
+          <button type="button" class="chapter" data-chapter="1"><span class="num">2</span><span data-i18n="ch.details">Детали</span></button>
+          <button type="button" class="chapter" data-chapter="2"><span class="num">3</span><span data-i18n="ch.deadlines">Дедлайны</span></button>
+          <button type="button" class="chapter" data-chapter="3"><span class="num">4</span><span data-i18n="ch.stats">Статистика</span></button>
+          <button type="button" class="chapter" data-chapter="4"><span class="num">5</span><span data-i18n="ch.contacts">Контакты</span></button>
+        </div>
+        <div class="chapters-progress"><i></i></div>
+      </nav>
+
+      <div class="container flow-grid">
+
+        <!-- Sticky phone: real app UI (screenshots + crops) with HTML only where it animates.
+             All coordinates are iPhone points on a 440 × 956 screen. -->
+        <div class="phone-col" aria-hidden="true">
+          <div class="phone-holder">
+            <div class="phone">
+              <div class="screen-wrap">
+
+                <!-- ===== Base: Schedule (real screenshot) ===== -->
+                <section class="layer" data-l="schedule">
+                  <img class="full" src="../assets/flow/schedule.webp" data-l10n="schedule.webp" alt="" />
+                  <i class="hit js-plus" style="left:376px;top:810px;width:44px;height:44px"></i>
+                </section>
+
+                <!-- ===== Base: Deadlines ===== -->
+                <section class="layer layer-gray" data-l="deadlines">
+                  <img class="ui" src="../assets/flow/ui/dl-status.webp" data-l10n="ui/dl-status.webp" style="top:0;width:440px" alt="" />
+                  <img class="ui" src="../assets/flow/ui/dl-top.webp" data-l10n="ui/dl-top.webp" style="top:56px;width:440px" alt="" />
+                  <div class="dl-list">
+                    <div class="dl-card first" style="--i:0">
+                      <b class="dl-name" data-d="dl0.n">Lauren &amp; Chris</b><span class="dl-type" data-d="dl0.t">Wedding</span>
+                      <p class="dl-sub"><span data-d="dl.sub">Submit by: </span><em data-d="dl0.d">2026, November 9</em></p>
+                      <b class="dl-num red" data-cs="10" data-to="3" data-dk="dl0.v">0</b><span class="dl-left red" data-d="dl.left">Days left</span>
+                    </div>
+                    <div class="dl-card" style="--i:1">
+                      <b class="dl-name" data-d="dl1.n">Claire Donovan</b><span class="dl-type" data-d="dl1.t">Portrait</span>
+                      <p class="dl-sub"><span data-d="dl.sub">Submit by: </span><em data-d="dl1.d">2026, November 14</em></p>
+                      <b class="dl-num" data-cs="10" data-to="8" data-dk="dl1.v">0</b><span class="dl-left" data-d="dl.left">Days left</span>
+                    </div>
+                    <div class="dl-card" style="--i:2">
+                      <b class="dl-name" data-d="dl2.n">The Hughes Family</b><span class="dl-type" data-d="dl2.t">Family</span>
+                      <p class="dl-sub"><span data-d="dl.sub">Submit by: </span><em data-d="dl2.d">2026, November 16</em></p>
+                      <b class="dl-num" data-cs="10" data-to="10" data-dk="dl2.v">0</b><span class="dl-left" data-d="dl.left">Days left</span>
+                    </div>
+                    <div class="dl-card" style="--i:3">
+                      <b class="dl-name" data-d="dl3.n">Megan &amp; Josh</b><span class="dl-type" data-d="dl3.t">Wedding</span>
+                      <p class="dl-sub"><span data-d="dl.sub">Submit by: </span><em data-d="dl3.d">2026, November 23</em></p>
+                      <b class="dl-num" data-cs="10" data-to="17" data-dk="dl3.v">0</b><span class="dl-left" data-d="dl.left">Days left</span>
+                    </div>
+                    <div class="dl-card" style="--i:4">
+                      <b class="dl-name" data-d="dl4.n">Rachel &amp; Tom</b><span class="dl-type" data-d="dl4.t">Wedding</span>
+                      <p class="dl-sub"><span data-d="dl.sub">Submit by: </span><em data-d="dl4.d">2026, November 30</em></p>
+                      <b class="dl-num" data-cs="10" data-to="24" data-dk="dl4.v">0</b><span class="dl-left" data-d="dl.left">Days left</span>
+                    </div>
+                  </div>
+                  <img class="ui" src="../assets/flow/ui/tab-dl.webp" data-l10n="ui/tab-dl.webp" style="top:866px;width:440px" alt="" />
+                  <div class="dl-dim"></div>
+                  <div class="dl-lift">
+                    <b class="dl-name" data-d="dl0.n">Lauren &amp; Chris</b><span class="dl-type" data-d="dl0.t">Wedding</span>
+                    <p class="dl-sub"><span data-d="dl.sub">Submit by: </span><em data-d="dl0.d">2026, November 9</em></p>
+                    <b class="dl-num red" data-d="dl0.v">3</b><span class="dl-left red" data-d="dl.left">Days left</span>
+                  </div>
+                  <img class="ui dl-menu" src="../assets/flow/ui/done-menu.webp" data-l10n="ui/done-menu.webp" style="left:92px;top:266px;width:258px" alt="" />
+                  <i class="hit js-done" style="left:100px;top:274px;width:240px;height:56px"></i>
+                </section>
+
+                <!-- ===== Base: Statistics ===== -->
+                <section class="layer layer-white" data-l="stats">
+                  <div class="st-scroll">
+                    <span class="st-over" data-d="st.over">YEAR OVERVIEW</span><b class="st-year">2026</b>
+                    <div class="st-card st-earn">
+                      <small data-d="st.earn">EARNINGS · 2026</small>
+                      <b data-cs="12" data-to="112650" data-dk="st.earnV">0</b>
+                      <span data-d-html="st.cap">Gross across 55 shoots,<br />before expenses.</span>
+                    </div>
+                    <div class="st-card st-mini" style="top:206px"><small data-d-html="st.m1">EVENT<span>sessions</span></small><b data-cs="12" data-to="55" data-dk="st.m1V">0</b></div>
+                    <div class="st-card st-mini" style="top:280px"><small data-d-html="st.m2">EVENT<span>hours</span></small><b data-cs="12" data-to="268" data-dk="st.m2V">0</b></div>
+
+                    <div class="st-chart" style="top:366px;height:275px">
+                      <b class="st-title" data-d="st.t1">Earnings by month</b>
+                      <div class="st-plot">
+                        <div class="axis"></div>
+                        <div class="bars">
+                          <i style="--x:66;--h:31;--c:#0088FF;--i:0"><em data-d="m0">Feb</em></i>
+                          <i style="--x:92;--h:30;--c:#34C759;--i:1"><em data-d="m1">Mar</em></i>
+                          <i style="--x:119;--h:37;--c:#FF8D28;--i:2"><em data-d="m2">Apr</em></i>
+                          <i style="--x:146;--h:74;--c:#CB30E0;--i:3"><em data-d="m3">May</em></i>
+                          <i style="--x:173;--h:91;--c:#FF2D55;--i:4"><em data-d="m4">Jun</em></i>
+                          <i style="--x:199;--h:101;--c:#00C3D0;--i:5"><em data-d="m5">Jul</em></i>
+                          <i style="--x:226;--h:64;--c:#FFCC00;--i:6"><em data-d="m6">Aug</em></i>
+                          <i style="--x:252;--h:43;--c:#6155F5;--i:7"><em data-d="m7">Sep</em></i>
+                          <i style="--x:279;--h:132;--c:#FF383C;--i:8"><em data-d="m8">Oct</em></i>
+                          <i style="--x:305;--h:123;--c:#00C8B3;--i:9"><em data-d="m9">Nov</em></i>
+                          <i style="--x:331;--h:34;--c:#00C0E8;--i:10"><em data-d="m10">Dec</em></i>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="st-chart st-chart-2" style="top:660px;height:466px">
+                      <span class="st-q"><span data-d="st.q">4-th quarter</span> <svg viewBox="0 0 12 16"><path d="M2.5 6L6 2.5 9.5 6M2.5 10L6 13.5 9.5 10"/></svg></span>
+                      <b class="st-title" style="top:73px" data-d="st.t2">Shoots by type for quarter</b>
+                      <svg class="donut" viewBox="-160 -160 320 320">
+                        <!-- segments per language come from flow.js (device.*.segs) -->
+                        <path style="--c:#7FC3FF;--i:0" data-seg="0 8" />
+                        <path style="--c:#99E2AC;--i:1" data-seg="8 2" />
+                        <path style="--c:#FFC593;--i:2" data-seg="10 4" />
+                        <path style="--c:#E497EF;--i:3" data-seg="14 1" />
+                        <path style="--c:#FF96A9;--i:4" data-seg="15 6" />
+                        <path style="--c:#7FE0E7;--i:5" data-seg="21 1" />
+                      </svg>
+                      <span class="donut-total"><b data-cs="13" data-to="22">0</b><span data-d="st.total">Total</span></span>
+                      <ul class="legend">
+                        <li style="--c:#0088FF" data-d="lg0">Wedding</li><li style="--c:#34C759" data-d="lg1">Love Story</li><li style="--c:#FF8D28" data-d="lg2">Family</li>
+                        <li style="--c:#CB30E0" data-d="lg3">Birthday</li><li style="--c:#FF2D55" data-d="lg4">Portrait</li><li style="--c:#00C3D0" data-d="lg5">Event</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <img class="ui st-head" src="../assets/flow/ui/st-head.webp" data-l10n="ui/st-head.webp" style="top:60px;width:440px" alt="" />
+                  <img class="ui" src="../assets/flow/ui/st-status.webp" data-l10n="ui/st-status.webp" style="top:0;width:440px" alt="" />
+                  <img class="ui" src="../assets/flow/ui/tab-stats.webp" data-l10n="ui/tab-stats.webp" style="top:866px;width:440px" alt="" />
+                </section>
+
+                <!-- ===== Base: Contacts ===== -->
+                <section class="layer layer-gray" data-l="contacts">
+                  <img class="ui" src="../assets/flow/ui/ct-status.webp" data-l10n="ui/ct-status.webp" style="top:0;width:440px" alt="" />
+                  <img class="ui" src="../assets/flow/ui/ct-top.webp" data-l10n="ui/ct-top.webp" style="top:56px;width:440px" alt="" />
+                  <span class="ct-search"><span class="typed" data-ts="15" data-text="Emma" data-dk="ct.q"></span></span>
+                  <div class="ct-list">
+                    <div class="ct-card" style="--i:0"><b data-d="ct0">Emma &amp; James</b></div>
+                    <div class="ct-card" style="--i:1"><b data-d="ct1">Lauren &amp; Chris</b></div>
+                    <div class="ct-card" style="--i:2"><b data-d="ct2">Claire Donovan</b></div>
+                    <div class="ct-card" style="--i:3"><b data-d="ct3">The Hughes Family</b></div>
+                    <div class="ct-card" style="--i:4"><b data-d="ct4">Megan &amp; Josh</b></div>
+                    <div class="ct-card" style="--i:5"><b data-d="ct5">Rachel &amp; Tom</b></div>
+                  </div>
+                  <img class="ui" src="../assets/flow/ui/tab-contacts.webp" data-l10n="ui/tab-contacts.webp" style="top:866px;width:440px" alt="" />
+                </section>
+
+                <div class="dim"></div>
+
+                <!-- ===== Sheet: New Event ===== -->
+                <section class="sheet" data-l="new">
+                  <div class="panel" data-p="main">
+                    <div class="ne-scroll">
+                      <div class="icard" style="top:187px;height:258px">
+                        <div class="irow" style="top:-1px"><span class="lab" data-d="ne.type">Event type</span><span class="typed" data-ts="2" data-text="Wedding" data-dk="ne.typeV"></span><img class="chev" src="../assets/flow/ui/chev.webp" alt="" /></div>
+                        <div class="irow on" style="top:51px"><span class="lab" data-d="ne.date">Date</span>
+                          <span class="pills">
+                            <span class="pill"><span class="swap" data-ts="2" data-from="Nov 6, 2026" data-text="Nov 7, 2026" data-dk="ne.dateV">Nov 6, 2026</span></span>
+                            <span class="pill"><span class="swap" data-ts="2" data-from="12:00 AM" data-text="1:00 PM" data-dk="ne.timeV">12:00 AM</span></span>
+                          </span>
+                        </div>
+                        <div class="irow on" style="top:103px"><span class="lab" data-d="ne.tz">Timezone: New_York, United States (Eastern)</span><img class="chev" src="../assets/flow/ui/chev-dark.webp" alt="" /></div>
+                        <div class="irow" style="top:155px"><span class="lab" data-d="ne.deadline">Deadline</span><span class="typed" data-ts="2" data-text="In a month" data-dk="ne.deadlineV"></span><img class="chev" src="../assets/flow/ui/chev.webp" alt="" /></div>
+                        <div class="irow" style="top:207px"><span class="lab" data-d="ne.hours">Number of Hours</span><span class="typed" data-ts="2" data-text="9" data-dk="ne.hoursV"></span><img class="chev" src="../assets/flow/ui/chev.webp" alt="" /></div>
+                        <i class="sep" style="top:51px"></i><i class="sep" style="top:103px"></i><i class="sep" style="top:155px"></i><i class="sep" style="top:207px"></i>
+                      </div>
+
+                      <div class="ihead" style="top:487px"><span data-d="ne.contacts">Contacts</span><a data-d="ne.addFrom">Add from Contacts</a></div>
+                      <div class="icard" style="top:510px;height:308px">
+                        <div class="field" style="top:15px"><span class="ph" data-d="ne.name">Name (required)</span><span class="typed" data-ts="2" data-text="Emma &amp; James" data-dk="ne.nameV"></span></div>
+                        <div class="field" style="top:79px"><span class="ph" data-d="ne.phone">Phone number</span><span class="typed" data-ts="2" data-text="+1 212 555 0148" data-dk="ne.phoneV"></span></div>
+                        <div class="field" style="top:143px"><span class="ph">Telegram</span><span class="typed" data-ts="2" data-text="" data-dk="ne.tgV"></span></div>
+                        <span class="hint" style="top:195px" data-d="ne.hint">Format: @username or link</span>
+                        <div class="field" style="top:226px"><span class="ph">Instagram</span><span class="typed" data-ts="2" data-text="emma.and.james" data-dk="ne.igV"></span></div>
+                        <span class="hint" style="top:278px" data-d="ne.hint">Format: @username or link</span>
+                      </div>
+
+                      <div class="ihead" style="top:858px"><span data-d="ne.loc">Location</span><a data-d="ne.openMap">Open Map</a></div>
+                      <div class="icard" style="top:881px;height:77px">
+                        <div class="field" style="top:15px"><span class="ph" data-d="ne.locPh">Input location name</span><span class="typed" data-ts="4" data-text="Central Park, New York" data-dk="ne.locV"></span></div>
+                      </div>
+
+                      <div class="ihead" style="top:1000px"><span data-d="ne.pay">Payment</span></div>
+                      <div class="icard" style="top:1023px;height:205px">
+                        <div class="field" style="top:15px"><span class="ph" data-d="ne.full">Full Price</span><span class="typed" data-ts="4" data-text="4 800" data-dk="ne.fullV"></span></div>
+                        <div class="field" style="top:79px"><span class="ph" data-d="ne.pre">Prepayment</span><span class="typed" data-ts="4" data-text="1 200" data-dk="ne.preV"></span></div>
+                        <div class="field gift" style="top:142px"><span data-d="ne.gift">Gift certificate</span><i class="toggle"></i></div>
+                      </div>
+
+                      <div class="ihead" style="top:1269px"><span data-d="ne.rem">Reminder</span></div>
+                      <div class="icard" style="top:1293px;height:102px">
+                        <div class="irow" style="top:-1px"><span class="lab" data-d="ne.ea">Event Alert</span><img class="chev" src="../assets/flow/ui/chev.webp" alt="" /></div>
+                        <div class="irow" style="top:51px"><span class="lab" data-d="ne.da">Deadline Alert</span><img class="chev" src="../assets/flow/ui/chev.webp" alt="" /></div>
+                        <i class="sep" style="top:51px"></i>
+                      </div>
+
+                      <div class="icard" style="top:1432px;height:150px">
+                        <span class="ihead ihead-in" data-d="ne.notes">Notes</span>
+                        <div class="field field-notes"><span class="ph" data-d="ne.notesPh">Add Notes</span></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel" data-p="gallery">
+                    <div class="ihead" style="top:209px"><span data-d="ne.gal">Gallery</span></div>
+                    <div class="icard grow" style="top:233px">
+                      <img class="ui js-addimg" src="../assets/flow/ui/row-addimg.webp" data-l10n="ui/row-addimg.webp" style="left:9px;top:5px;width:270px" alt="" />
+                      <i class="sep" style="top:51px"></i>
+                      <div class="photos">
+                        <i style="--i:0"><img src="../assets/flow/photo1.webp" alt="" /></i>
+                        <i style="--i:1"><img src="../assets/flow/photo2.webp" alt="" /></i>
+                        <i style="--i:2"><img src="../assets/flow/photo3.webp" alt="" /></i>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel" data-p="todo">
+                    <div class="ihead" style="top:209px"><span data-d="ne.todo">To Do</span></div>
+                    <div class="icard grow" style="top:233px">
+                      <img class="ui" src="../assets/flow/ui/row-addtask.webp" data-l10n="ui/row-addtask.webp" style="left:9px;top:5px;width:380px" alt="" />
+                      <i class="sep" style="top:52px"></i>
+                      <div class="lrow" style="top:56px;--i:0"><span class="typed" data-ts="6" data-text="Scout the venue" data-dk="task0"></span><img class="x" src="../assets/flow/ui/xmark.webp" alt="" /></div>
+                      <i class="sep" style="top:104px"></i>
+                      <div class="lrow" style="top:104px;--i:1"><span class="typed" data-ts="6" data-text="Confirm timeline with planner" data-dk="task1"></span><img class="x" src="../assets/flow/ui/xmark.webp" alt="" /></div>
+                      <i class="sep" style="top:152px"></i>
+                      <div class="lrow" style="top:152px;--i:2"><span class="typed" data-ts="6" data-text="Charge batteries, format cards" data-dk="task2"></span><img class="x" src="../assets/flow/ui/xmark.webp" alt="" /></div>
+                    </div>
+                  </div>
+
+                  <div class="panel" data-p="team">
+                    <div class="ihead" style="top:209px"><span data-d="ne.team">Team</span></div>
+                    <div class="icard grow" style="top:233px">
+                      <img class="ui" src="../assets/flow/ui/row-addcol.webp" data-l10n="ui/row-addcol.webp" style="left:9px;top:5px;width:380px" alt="" />
+                      <i class="sep" style="top:52px"></i>
+                      <div class="lrow mate" style="top:56px;--i:0">
+                        <svg class="person" viewBox="0 0 24 24"><circle cx="12" cy="7.5" r="4.2"/><path d="M3.5 21c.4-4.6 3.9-7.4 8.5-7.4s8.1 2.8 8.5 7.4"/></svg>
+                        <svg class="role" viewBox="0 0 24 24"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h3l1.6-2.2h5.8L16.5 7h3A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5Z"/><circle cx="12" cy="12.8" r="3.6"/></svg>
+                        <span data-d="mate0">Anna Kim</span><img class="x" src="../assets/flow/ui/xmark.webp" alt="" />
+                      </div>
+                      <i class="sep" style="top:104px"></i>
+                      <div class="lrow mate" style="top:104px;--i:1">
+                        <svg class="person" viewBox="0 0 24 24"><circle cx="12" cy="7.5" r="4.2"/><path d="M3.5 21c.4-4.6 3.9-7.4 8.5-7.4s8.1 2.8 8.5 7.4"/></svg>
+                        <svg class="role" viewBox="0 0 24 24"><rect x="2.5" y="6.5" width="13" height="11" rx="2.5"/><path d="M15.5 10.5l6-3.5v10l-6-3.5"/></svg>
+                        <span data-d="mate1">Max Rivera</span><img class="x" src="../assets/flow/ui/xmark.webp" alt="" />
+                      </div>
+                      <i class="sep" style="top:152px"></i>
+                      <div class="lrow mate" style="top:152px;--i:2">
+                        <svg class="person" viewBox="0 0 24 24"><circle cx="12" cy="7.5" r="4.2"/><path d="M3.5 21c.4-4.6 3.9-7.4 8.5-7.4s8.1 2.8 8.5 7.4"/></svg>
+                        <svg class="role" viewBox="0 0 24 24"><path d="M14.5 3.5l6 6-9.8 9.8a3 3 0 0 1-2.1.9H5.5a2 2 0 0 1-2-2v-3.1a3 3 0 0 1 .9-2.1Z"/><path d="M11.5 6.5l6 6"/></svg>
+                        <span data-d="mate2">Lena Stone</span><img class="x" src="../assets/flow/ui/xmark.webp" alt="" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="ne-head">
+                    <img class="ui" src="../assets/flow/ui/nav-new.webp" data-l10n="ui/nav-new.webp" style="top:8px;width:440px" alt="" />
+                    <img class="ui tabs" data-t="main" src="../assets/flow/ui/tabs-main.webp" data-l10n="ui/tabs-main.webp" style="top:71px;width:440px" alt="" />
+                    <img class="ui tabs" data-t="gallery" src="../assets/flow/ui/tabs-gallery.webp" data-l10n="ui/tabs-gallery.webp" style="top:71px;width:440px" alt="" />
+                    <img class="ui tabs" data-t="todo" src="../assets/flow/ui/tabs-todo.webp" data-l10n="ui/tabs-todo.webp" style="top:71px;width:440px" alt="" />
+                    <img class="ui tabs" data-t="team" src="../assets/flow/ui/tabs-team.webp" data-l10n="ui/tabs-team.webp" style="top:71px;width:440px" alt="" />
+                    <i class="hit js-save" style="left:376px;top:20px;width:44px;height:44px"></i>
+                    <i class="hit js-tab" data-t="main" style="left:17px;top:75px;width:201px;height:39px"></i>
+                    <i class="hit js-tab" data-t="gallery" style="left:222px;top:75px;width:201px;height:39px"></i>
+                    <i class="hit js-tab" data-t="todo" style="left:17px;top:117px;width:133px;height:38px"></i>
+                    <i class="hit js-tab" data-t="team" style="left:290px;top:117px;width:133px;height:38px"></i>
+                  </div>
+                </section>
+
+                <!-- ===== Sheet: Event details (real screenshot) ===== -->
+                <section class="sheet" data-l="details">
+                  <div class="shot" data-l10n="details.webp" style="background-image:url(../assets/flow/details.webp)"></div>
+                  <i class="hit js-sun" style="left:293px;top:189px;width:50px;height:50px"></i>
+                  <i class="hit js-loc" style="left:150px;top:290px;width:226px;height:40px"></i>
+                  <img class="ui pop loc-menu" src="../assets/flow/ui/loc-menu.webp" data-l10n="ui/loc-menu.webp" style="left:138px;top:290px;width:258px" alt="" />
+                  <i class="hit js-route" style="left:150px;top:370px;width:230px;height:50px"></i>
+                  <i class="hit js-openmap" style="left:150px;top:290px;width:230px;height:50px"></i>
+                  <img class="ui pop chooser" src="../assets/flow/ui/chooser.webp" data-l10n="ui/chooser.webp" style="left:148px;top:200px;width:246px" alt="" />
+                  <i class="hit js-maps" style="left:167px;top:222px;width:208px;height:44px"></i>
+                </section>
+
+                <!-- ===== Sheet: Sun Track (real frames) ===== -->
+                <section class="sheet" data-l="sun">
+                  <div class="shot" data-l10n="sun/base.webp" style="background-image:url(../assets/flow/sun/base.webp)"></div>
+                  <div class="frames" data-f="a" style="left:88px;top:326px;width:264px;height:142px"></div>
+                  <div class="frames" data-f="b" style="left:0;top:542px;width:440px;height:90px"></div>
+                  <div class="frames" data-f="c" style="left:225px;top:766px;width:183px;height:49px"></div>
+                  <div class="frames" data-f="d" style="left:20px;top:646px;width:400px;height:42px"></div>
+                  <i class="hit js-sunclose" style="left:20px;top:29px;width:44px;height:44px"></i>
+                </section>
+
+                <!-- ===== Sheet: in-app map (Russian route step: Apple Maps has no routes in Kazakhstan) ===== -->
+                <section class="sheet" data-l="openmap">
+                  <div class="shot" data-l10n="openmap.webp"></div>
+                </section>
+
+                <!-- ===== Sheet: Contact (real screenshot) ===== -->
+                <section class="sheet" data-l="contact">
+                  <div class="shot" style="background-image:url(../assets/flow/contact-detail.webp)"></div>
+                  <b class="cd-name" data-d="cd.name">Emma &amp; James</b>
+                  <span class="cd-row" style="top:264px" data-d="cd.phone">+1 212 555 0148</span>
+                  <span class="cd-row" style="top:328px" data-d="cd.tg">-</span>
+                  <span class="cd-row" style="top:392px" data-d="cd.ig">@emma.and.james</span>
+                  <span class="cd-row" style="top:456px">-</span>
+                </section>
+
+                <!-- ===== Apple Maps (real screenshot, opened by Create route) ===== -->
+                <section class="layer layer-top" data-l="maps">
+                  <img class="full" src="../assets/flow/maps-route.webp" data-l10n="maps-route.webp" alt="" />
+                </section>
+
+                <span class="tap"></span>
+              </div>
+            </div>
+          </div>
+          <div class="phone-caption"></div>
+        </div>
+
+        <!-- Narrative steps -->
+        <div class="steps">
+          <article class="step" data-step="1">
+            <div class="step-card">
+              <span class="step-kicker"><span data-i18n="k.create">Создание события</span> · 1/6</span>
+              <h2 data-i18n="s1.t">Новое бронирование</h2>
+              <p data-i18n-html="s1.d">Одно касание <em>+</em> в расписании — и новое событие открыто.</p>
+            </div>
+          </article>
+          <article class="step" data-step="2">
+            <div class="step-card">
+              <span class="step-kicker"><span data-i18n="k.create">Создание события</span> · 2/6</span>
+              <h2 data-i18n="s2.t">Заполните главное</h2>
+              <p data-i18n="s2.d">Тип события, дата, часы, дедлайн и контакты клиента — вводите один раз и больше никогда не ищете.</p>
+            </div>
+          </article>
+          <article class="step" data-step="3">
+            <div class="step-card">
+              <span class="step-kicker"><span data-i18n="k.create">Создание события</span> · 3/6</span>
+              <h2 data-i18n="s3.t">Добавьте референсы</h2>
+              <p data-i18n="s3.d">Добавьте мудборды, детали и вдохновение от клиента — весь замысел хранится рядом с бронированием.</p>
+            </div>
+          </article>
+          <article class="step" data-step="4">
+            <div class="step-card">
+              <span class="step-kicker"><span data-i18n="k.create">Создание события</span> · 4/6</span>
+              <h2 data-i18n="s4.t">Локация и цена</h2>
+              <p data-i18n="s4.d">Сохраните место съёмки, полную цену и предоплату — позже они попадут в статистику.</p>
+            </div>
+          </article>
+          <article class="step" data-step="5">
+            <div class="step-card">
+              <span class="step-kicker"><span data-i18n="k.create">Создание события</span> · 5/6</span>
+              <h2 data-i18n="s5.t">Соберите команду</h2>
+              <p data-i18n="s5.d">Добавьте второго фотографа, видеографа или визажиста из коллег — все знают, кто работает на событии.</p>
+            </div>
+          </article>
+          <article class="step" data-step="6">
+            <div class="step-card">
+              <span class="step-kicker"><span data-i18n="k.create">Создание события</span> · 6/6</span>
+              <h2 data-i18n="s6.t">Спланируйте задачи</h2>
+              <p data-i18n="s6.d">Список дел для каждого события: разведка локации, подтверждения, аккумуляторы.</p>
+            </div>
+          </article>
+
+          <article class="step" data-step="7">
+            <div class="step-card">
+              <span class="step-kicker"><span data-i18n="k.details">Детали события</span> · 1/3</span>
+              <h2 data-i18n="s7.t">Всё на одном экране</h2>
+              <p data-i18n="s7.d">Время, место, цена, предоплата, заметки и задачи. Звонок или сообщение клиенту — одним касанием.</p>
+            </div>
+          </article>
+          <article class="step" data-step="8">
+            <div class="step-card">
+              <span class="step-kicker"><span data-i18n="k.details">Детали события</span> · 2/3</span>
+              <h2 data-i18n="s8.t">Проверьте солнце</h2>
+              <p data-i18n="s8.d">Посмотрите, как движется солнце над локацией в день события, — и точно знайте, когда начинается золотой час.</p>
+            </div>
+          </article>
+          <article class="step" data-step="9">
+            <div class="step-card">
+              <span class="step-kicker"><span data-i18n="k.details">Детали события</span> · 3/3</span>
+              <h2 data-i18n="s9.t">Место на карте</h2>
+              <p data-i18n-html="s9.d">Коснитесь адреса, выберите <em>Открыть карту</em> — и место съёмки сразу на карте.</p>
+            </div>
+          </article>
+
+          <article class="step" data-step="10">
+            <div class="step-card">
+              <span class="step-kicker"><span data-i18n="k.deadlines">Дедлайны</span> · 1/2</span>
+              <h2 data-i18n="s10.t">Отсчёт до каждой сдачи</h2>
+              <p data-i18n="s10.d">Счётчик дней до сдачи каждой галереи и обработки. Срочные становятся красными — ничего не упустите.</p>
+            </div>
+          </article>
+          <article class="step" data-step="11">
+            <div class="step-card">
+              <span class="step-kicker"><span data-i18n="k.deadlines">Дедлайны</span> · 2/2</span>
+              <h2 data-i18n="s11.t">Отметьте как выполненное</h2>
+              <p data-i18n-html="s11.d">Сдали галерею? Зажмите карточку, коснитесь <em>Готово</em> — и её больше нет в списке.</p>
+            </div>
+          </article>
+
+          <article class="step" data-step="12">
+            <div class="step-card">
+              <span class="step-kicker"><span data-i18n="k.stats">Статистика</span> · 1/2</span>
+              <h2 data-i18n="s12.t">Ваш год с первого взгляда</h2>
+              <p data-i18n="s12.d">Заработок, съёмки и часы подсчитываются автоматически из ваших событий.</p>
+            </div>
+          </article>
+          <article class="step" data-step="13">
+            <div class="step-card">
+              <span class="step-kicker"><span data-i18n="k.stats">Статистика</span> · 2/2</span>
+              <h2 data-i18n="s13.t">Создавайте свои графики</h2>
+              <p data-i18n="s13.d">Собственные графики показывают то, что важно для бизнеса, — например, какие съёмки заполняют квартал.</p>
+            </div>
+          </article>
+
+          <article class="step" data-step="14">
+            <div class="step-card">
+              <span class="step-kicker"><span data-i18n="k.contacts">Контакты</span> · 1/2</span>
+              <h2 data-i18n="s14.t">Все клиенты в одном списке</h2>
+              <p data-i18n="s14.d">Клиенты из ваших событий сохраняются автоматически, а для коллег есть отдельная вкладка.</p>
+            </div>
+          </article>
+          <article class="step" data-step="15">
+            <div class="step-card">
+              <span class="step-kicker"><span data-i18n="k.contacts">Контакты</span> · 2/2</span>
+              <h2 data-i18n="s15.t">Связь одним касанием</h2>
+              <p data-i18n="s15.d">Найдите клиента и позвоните, напишите или откройте его Instagram прямо из карточки.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Also inside ===== -->
+    <section class="section also">
+      <div class="container">
+        <h2 class="section-title" data-i18n="also.title">И это ещё не всё</h2>
+        <p class="section-sub" data-i18n="also.sub">Всё остальное, что нужно в насыщенный сезон.</p>
+        <ul class="also-list">
+          <li><span>🔄</span><span data-i18n="a1">Импорт из Apple и Google Календаря</span></li>
+          <li><span>🧩</span><span data-i18n="a2">Виджет на домашнем экране</span></li>
+          <li><span>🔔</span><span data-i18n="a3">Напоминания о событиях и дедлайнах</span></li>
+          <li><span>☁️</span><span data-i18n="a4">Синхронизация iCloud</span></li>
+          <li><span>🛟</span><span data-i18n="a5">Резервные копии и восстановление</span></li>
+          <li><span>🗂️</span><span data-i18n="a6">Таймлайны съёмок</span></li>
+          <li><span>💰</span><span data-i18n="a7">Цены и предоплаты</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== macOS version ===== -->
+    <section id="mac" class="section mac section-alt">
+      <div class="container mac-grid">
+        <div class="mac-art">
+          <img src="../assets/screenshots/macbook16.png" alt="Events Notes on Mac" />
+        </div>
+        <div class="mac-copy">
+          <span class="mac-eyebrow" data-i18n="mac.eyebrow">Также на macOS</span>
+          <h2 class="mac-title" data-i18n="mac.title">Работайте с бронированиями на Mac</h2>
+          <p class="mac-lead" data-i18n="mac.lead">Создавайте, редактируйте и отслеживайте события в приложении для Mac — всё синхронизируется между iPhone, iPad и Mac.</p>
+          <ul class="mac-points">
+            <li data-i18n="mac.p1">Календарь и детали события на весь экран</li>
+            <li data-i18n="mac.p2">Используй все возможности на большом экране</li>
+            <li data-i18n="mac.p3">Данные всегда актуальны благодаря синхронизации iCloud</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Download CTA ===== -->
+    <section id="download" class="cta">
+      <div class="container cta-inner">
+        <h2 data-i18n="cta.title">Готовы организовать следующую съёмку?</h2>
+        <p data-i18n="cta.text">Скачайте Events Notes и соберите бронирования, расписание и клиентов вместе.</p>
+        <a href="https://apps.apple.com/ua/app/events-notes/id1666326813" class="badge-link" aria-label="Download on the App Store">
+          <img src="../assets/app-store-badge.svg" alt="Download on the App Store" class="store-badge store-badge--lg" />
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="../assets/logo.png" alt="Events Notes logo" class="brand-logo" />
+        <span>Events Notes</span>
+      </div>
+      <nav class="footer-links">
+        <a href="tutorials.html" data-i18n="nav.tutorials">Гайды</a>
+        <a href="../privacy.html" data-i18n="footer.privacy">Политика конфиденциальности</a>
+        <a href="../terms.html" data-i18n="footer.terms">Условия использования</a>
+        <a href="mailto:eventnoteapp@gmail.com" data-i18n="footer.support">Поддержка</a>
+      </nav>
+      <p class="footer-copy">© <span id="year"></span> Volodymyr Pysarenko. <span data-i18n="footer.rights">Все права защищены.</span></p>
+    </div>
+  </footer>
+
+  <script src="../flow.js?v=8"></script>
+</body>
+</html>
