@@ -30,7 +30,7 @@ html {
   font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
   color: var(--accent-dark); margin-bottom: 18px;
 }
-.fhero h1 { font-size: clamp(2.3rem, 5.4vw, 4rem); max-width: 16ch; }
+.fhero h1 { font-size: clamp(2.3rem, 5.4vw, 4rem); max-width: 20ch; }
 .fhero-lead { font-size: 1.2rem; color: var(--ink-soft); max-width: 46ch; }
 .fhero-actions { display: flex; align-items: center; gap: 22px; margin: 18px 0 56px; flex-wrap: wrap; justify-content: center; }
 
