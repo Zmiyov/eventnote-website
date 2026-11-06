@@ -1,7 +1,9 @@
 // Writes the static pages search engines and AI crawlers read without running JavaScript:
+//   index.html                   — schema.org data (app, organization, FAQ) between the <!-- schema --> markers
 //   tutorials.html               — English guides filled in between the <!-- guides --> markers
 //   uk/index.html, ru/index.html — the home page with flow.js's translations applied
 //   uk/tutorials.html, ru/tutorials.html — the tutorials with tutorials.js's guides
+// uk/about.html and ru/about.html are written by hand.
 // Run after changing index.html, tutorials.html, the translations in flow.js or the guides in tutorials.js:
 //   node tools/build-pages.mjs
 
@@ -17,6 +19,9 @@ const write = (f, s) => {
 };
 
 const SITE = 'https://www.eventsnotes.top/';
+const APP_STORE = 'https://apps.apple.com/ua/app/events-notes/id1666326813';
+// From the App Store listing
+const APP_LANGS = ['en', 'uk', 'ru', 'ar', 'de', 'es', 'fr', 'id', 'it', 'ja', 'ko', 'nl', 'pl', 'pt', 'th', 'tr', 'vi', 'zh'];
 const LANGS = ['uk', 'ru'];
 
 // ----- Data, read straight from the scripts the pages run -----
@@ -48,7 +53,7 @@ function setLangAndCanonical(html, lang, page) {
 }
 
 // Pages that exist in every language folder keep their relative links; everything else is one level up.
-const LOCALIZED = /^(index|tutorials)\.html(#.*)?$/;
+const LOCALIZED = /^(index|tutorials|about)\.html(#.*)?$/;
 const EXTERNAL = /^(#|[a-z]+:|\/)/i;
 
 function upOneLevel(html) {
@@ -83,6 +88,56 @@ function translateHome(html, lang) {
     }
   );
   return setMeta(html, dict['doc.title'], dict['doc.desc']);
+}
+
+// schema.org data for the home page, in the page's language; the FAQ comes from the faq.* strings
+function fillSchema(html, lang) {
+  const dict = translations[lang];
+  const pageUrl = lang === 'en' ? SITE : `${SITE}${lang}/`;
+  const faq = Object.keys(dict)
+    .filter((k) => /^faq\.q\d+$/.test(k))
+    .map((k) => ({
+      '@type': 'Question',
+      name: dict[k],
+      acceptedAnswer: { '@type': 'Answer', text: dict[k.replace('.q', '.a')] },
+    }));
+  const data = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': `${SITE}#org`,
+        name: 'Events Notes',
+        url: SITE,
+        logo: `${SITE}assets/app-icon.png`,
+        email: 'eventnoteapp@gmail.com',
+        founder: { '@type': 'Person', name: 'Volodymyr Pysarenko' },
+      },
+      {
+        '@type': 'MobileApplication',
+        '@id': `${SITE}#app`,
+        name: 'Events Notes',
+        alternateName: ['Event Notes: Shoot Planner CRM', 'EventNote'],
+        description: dict['faq.a1'],
+        url: pageUrl,
+        installUrl: APP_STORE,
+        image: `${SITE}assets/app-icon.png`,
+        operatingSystem: 'iOS 18.0 or later, iPadOS, macOS',
+        applicationCategory: 'BusinessApplication',
+        datePublished: '2023-01-19',
+        inLanguage: APP_LANGS,
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+        author: { '@type': 'Person', name: 'Volodymyr Pysarenko' },
+        publisher: { '@id': `${SITE}#org` },
+      },
+      { '@type': 'FAQPage', '@id': `${pageUrl}#faq`, url: pageUrl, inLanguage: lang, mainEntity: faq },
+    ],
+  };
+  const json = JSON.stringify(data, null, 2).replace(/</g, '\\u003c').replace(/^/gm, '  ');
+  return html.replace(
+    /(<!-- schema:[^>]*-->)[\s\S]*?(<!-- \/schema -->)/,
+    (_, open, close) => `${open}\n  <script type="application/ld+json">\n${json}\n  </script>\n  ${close}`
+  );
 }
 
 // ----- Tutorials -----
@@ -139,14 +194,15 @@ function translateTutorials(html, lang) {
 }
 
 // ----- Write -----
-const home = read('index.html');
+const home = fillSchema(read('index.html'), 'en');
+write('index.html', home);
 const tutorials = fillGuides(read('tutorials.html'), 'en');
 write('tutorials.html', tutorials);
 
 for (const lang of LANGS) {
   const page = (html) => markActiveLang(upOneLevel(html), lang);
-  write(`${lang}/index.html`, page(setLangAndCanonical(translateHome(home, lang), lang, '')));
+  write(`${lang}/index.html`, page(setLangAndCanonical(fillSchema(translateHome(home, lang), lang), lang, '')));
   write(`${lang}/tutorials.html`, page(setLangAndCanonical(translateTutorials(fillGuides(tutorials, lang), lang), lang, 'tutorials.html')));
 }
 
-console.log('Wrote tutorials.html and', LANGS.map((l) => `${l}/index.html, ${l}/tutorials.html`).join(', '));
+console.log('Wrote index.html, tutorials.html and', LANGS.map((l) => `${l}/index.html, ${l}/tutorials.html`).join(', '));

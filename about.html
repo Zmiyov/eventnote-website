@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Events Notes</title>
+  <meta name="description" content="Events Notes is an iPhone, iPad and Mac app for photographers, videographers and other event professionals, made by independent developer Volodymyr Pysarenko since 2023." />
+
+  <meta property="og:title" content="About Events Notes" />
+  <meta property="og:description" content="Events Notes is an iPhone, iPad and Mac app for photographers, videographers and other event professionals, made by independent developer Volodymyr Pysarenko since 2023." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.eventsnotes.top/assets/app-icon.png" />
+  <meta name="twitter:card" content="summary" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "url": "https://www.eventsnotes.top/about.html",
+    "name": "About Events Notes",
+    "inLanguage": "en",
+    "about": {
+      "@id": "https://www.eventsnotes.top/#org"
+    },
+    "mainEntity": {
+      "@type": "Organization",
+      "@id": "https://www.eventsnotes.top/#org",
+      "name": "Events Notes",
+      "url": "https://www.eventsnotes.top/",
+      "logo": "https://www.eventsnotes.top/assets/app-icon.png",
+      "email": "eventnoteapp@gmail.com",
+      "founder": {
+        "@type": "Person",
+        "name": "Volodymyr Pysarenko"
+      }
+    }
+  }
+  </script>
+  <link rel="canonical" href="https://www.eventsnotes.top/about.html" />
+  <link rel="alternate" hreflang="en" href="https://www.eventsnotes.top/about.html" />
+  <link rel="alternate" hreflang="uk" href="https://www.eventsnotes.top/uk/about.html" />
+  <link rel="alternate" hreflang="ru" href="https://www.eventsnotes.top/ru/about.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.eventsnotes.top/about.html" />
+  <script>
+    // Send visitors who chose Ukrainian or Russian, or whose browser uses it, to that page
+    (function () {
+      var q = new URLSearchParams(location.search);
+      if (document.documentElement.lang !== 'en' || q.has('embed') || q.has('lang')) return;
+      var lang;
+      try { lang = localStorage.getItem('lang'); } catch (e) { /* ignore */ }
+      if (!lang) lang = (navigator.language || 'en').slice(0, 2).toLowerCase();
+      if (lang === 'uk' || lang === 'ru') location.replace(lang + '/' + location.pathname.split('/').pop() + location.hash);
+    })();
+  </script>
+
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===== Header / Nav ===== -->
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="brand" href="index.html">
+        <img src="assets/logo.png" alt="Events Notes logo" class="brand-logo" />
+        <span class="brand-name">Events Notes</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="tutorials.html">Tutorials</a></li>
+        <li><a class="nav-cta" href="index.html#download">Download</a></li>
+        <li class="lang-switch" role="group" aria-label="Language">
+          <a class="lang-btn is-active" aria-current="page" data-lang="en" hreflang="en" href="about.html">EN</a>
+          <a class="lang-btn" data-lang="uk" hreflang="uk" href="uk/about.html">UK</a>
+          <a class="lang-btn" data-lang="ru" hreflang="ru" href="ru/about.html">RU</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="legal about">
+    <div class="container legal-inner">
+      <h1>About Events Notes</h1>
+      <p class="about-lead">Events Notes is an app for people who earn their living at events — photographers, videographers, makeup artists, DJs, decorators, hosts and agencies. It keeps every booking, client, payment and deadline in one place on iPhone, iPad and Mac.</p>
+
+      <h2>Who makes it</h2>
+      <p>Events Notes is designed and built by Volodymyr Pysarenko, an independent iOS developer.</p>
+
+      <h2>Since 2023</h2>
+      <p>The first version came out on the App Store in January 2023, and the app is still updated regularly. Today it covers both planning a shoot and the business side of the work: prices and deposits, delivery deadlines, team members, statistics with custom charts, Sun Track for golden hour, and a native Mac app.</p>
+
+      <h2>At a glance</h2>
+      <ul>
+        <li><strong>First released:</strong> January 2023</li>
+        <li><strong>Platforms:</strong> iPhone and iPad (iOS 18 or later), Mac</li>
+        <li><strong>App languages:</strong> 18, including English, Ukrainian and Russian</li>
+        <li><strong>Price:</strong> free for up to 3 upcoming events (5 in Ukraine); Premium removes the limit, billed monthly or yearly</li>
+        <li><strong>Roles:</strong> Photographer, Videographer, Agency, DJ, Decorator, Event Host, Makeup Artist, Hairdresser, Catering</li>
+        <li><strong>Developer:</strong> Volodymyr Pysarenko</li>
+      </ul>
+
+      <h2>Your data</h2>
+      <p>Your events are stored on your device. If you turn on iCloud sync, they sync through your own iCloud account. Events Notes doesn’t use your data for advertising and never sells it. The details are in the <a href="privacy.html">Privacy Policy</a>.</p>
+
+      <h2>Contact</h2>
+      <p>Questions, ideas or found a bug? Write to <a href="mailto:eventnoteapp@gmail.com">eventnoteapp@gmail.com</a>.</p>
+
+      <p class="about-cta">
+        <a href="https://apps.apple.com/ua/app/events-notes/id1666326813" class="badge-link" aria-label="Download on the App Store">
+          <img src="assets/app-store-badge.svg" alt="Download on the App Store" class="store-badge" />
+        </a>
+      </p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="Events Notes logo" class="brand-logo" />
+        <span>Events Notes</span>
+      </div>
+      <nav class="footer-links">
+        <a href="tutorials.html">Tutorials</a>
+        <a href="about.html">About</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="mailto:eventnoteapp@gmail.com">Support</a>
+      </nav>
+      <p class="footer-copy">© <span id="year"></span> Volodymyr Pysarenko. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="page.js"></script>
+</body>
+</html>
