@@ -1,4 +1,4 @@
-// ===== Simple pages (About): mobile nav, footer year, language choice =====
+// ===== Simple pages (FAQ, About): mobile nav, footer year, language choice =====
 
 const toggle = document.querySelector('.nav-toggle');
 const links = document.querySelector('.nav-links');
@@ -9,13 +9,14 @@ toggle.addEventListener('click', () => {
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Language links remember the choice so the English page stops sending this visitor away
-document.querySelectorAll('.lang-btn').forEach((btn) =>
+// Highlight this page's language; the links remember the choice so the English page stops sending this visitor away
+document.querySelectorAll('.lang-btn').forEach((btn) => {
+  btn.classList.toggle('is-active', btn.dataset.lang === document.documentElement.lang);
   btn.addEventListener('click', () => {
     try {
       localStorage.setItem('lang', btn.dataset.lang);
     } catch (e) {
       /* ignore */
     }
-  })
-);
+  });
+});

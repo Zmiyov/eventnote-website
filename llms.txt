@@ -34,8 +34,8 @@
 
 - [Home](https://www.eventsnotes.top/): a guided tour of one shoot, from booking to statistics
 - [Tutorials](https://www.eventsnotes.top/tutorials.html): step-by-step guides to every feature
-- [FAQ](https://www.eventsnotes.top/#faq): pricing, devices, calendar import, payments, Sun Track, data storage, languages
-- [Головна (українською)](https://www.eventsnotes.top/uk/) · [Гайди](https://www.eventsnotes.top/uk/tutorials.html)
-- [Главная (на русском)](https://www.eventsnotes.top/ru/) · [Гайды](https://www.eventsnotes.top/ru/tutorials.html)
+- [FAQ](https://www.eventsnotes.top/faq.html): pricing, devices, calendar import, payments, Sun Track, data storage, languages
+- [Головна (українською)](https://www.eventsnotes.top/uk/) · [Гайди](https://www.eventsnotes.top/uk/tutorials.html) · [Питання та відповіді](https://www.eventsnotes.top/uk/faq.html)
+- [Главная (на русском)](https://www.eventsnotes.top/ru/) · [Гайды](https://www.eventsnotes.top/ru/tutorials.html) · [Вопросы и ответы](https://www.eventsnotes.top/ru/faq.html)
 - [Privacy Policy](https://www.eventsnotes.top/privacy.html)
 - [Terms of Service](https://www.eventsnotes.top/terms.html)

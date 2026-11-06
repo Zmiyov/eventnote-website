@@ -44,6 +44,27 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.eventsnotes.top/tutorials.html" />
   </url>
   <url>
+    <loc>https://www.eventsnotes.top/faq.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.eventsnotes.top/faq.html" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.eventsnotes.top/uk/faq.html" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.eventsnotes.top/ru/faq.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.eventsnotes.top/faq.html" />
+  </url>
+  <url>
+    <loc>https://www.eventsnotes.top/uk/faq.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.eventsnotes.top/faq.html" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.eventsnotes.top/uk/faq.html" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.eventsnotes.top/ru/faq.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.eventsnotes.top/faq.html" />
+  </url>
+  <url>
+    <loc>https://www.eventsnotes.top/ru/faq.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.eventsnotes.top/faq.html" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.eventsnotes.top/uk/faq.html" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.eventsnotes.top/ru/faq.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.eventsnotes.top/faq.html" />
+  </url>
+  <url>
     <loc>https://www.eventsnotes.top/privacy.html</loc>
   </url>
   <url>
