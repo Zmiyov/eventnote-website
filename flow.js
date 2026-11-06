@@ -22,7 +22,6 @@ const translations = {
   en: {
     'doc.title': 'Events Notes — From first booking to your year in numbers',
     'doc.desc': 'Follow one shoot through Events Notes: create the event, plan the day, hit every deadline, and watch your statistics grow. For iPhone, iPad, and Mac.',
-    'nav.tour': 'How it works',
     'nav.tutorials': 'Tutorials',
     'nav.download': 'Download',
     'hero.eyebrow': 'For iPhone, iPad & Mac',
@@ -94,7 +93,6 @@ const translations = {
   uk: {
     'doc.title': 'Events Notes — від першого бронювання до підсумків року',
     'doc.desc': 'Пройдіть одну зйомку в Events Notes: створіть подію, сплануйте день, встигніть до кожного дедлайну й дивіться, як росте статистика. Для iPhone, iPad і Mac.',
-    'nav.tour': 'Як це працює',
     'nav.tutorials': 'Гайди',
     'nav.download': 'Завантажити',
     'hero.eyebrow': 'Для iPhone, iPad і Mac',
@@ -166,7 +164,6 @@ const translations = {
   ru: {
     'doc.title': 'Events Notes — от первого бронирования до итогов года',
     'doc.desc': 'Пройдите одну съёмку в Events Notes: создайте событие, спланируйте день, успейте к каждому дедлайну и смотрите, как растёт статистика. Для iPhone, iPad и Mac.',
-    'nav.tour': 'Как это работает',
     'nav.tutorials': 'Гайды',
     'nav.download': 'Скачать',
     'hero.eyebrow': 'Для iPhone, iPad и Mac',
