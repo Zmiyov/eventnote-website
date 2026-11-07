@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Events Notes — від першого бронювання до підсумків року</title>
+  <title>Events Notes — Забронюйте зйомку. Зловіть світло. Здайте вчасно.</title>
   <meta name="description" content="Пройдіть одну зйомку в Events Notes: створіть подію, сплануйте день, встигніть до кожного дедлайну й дивіться, як росте статистика. Для iPhone, iPad і Mac." />
 
-  <meta property="og:title" content="Events Notes — від першого бронювання до підсумків року" />
+  <meta property="og:title" content="Events Notes — Забронюйте зйомку. Зловіть світло. Здайте вчасно." />
   <meta property="og:description" content="Пройдіть одну зйомку в Events Notes: створіть подію, сплануйте день, встигніть до кожного дедлайну й дивіться, як росте статистика. Для iPhone, iPad і Mac." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://www.eventsnotes.top/assets/app-icon.png" />
@@ -39,7 +39,7 @@
         ],
         "description": "Events Notes — це застосунок для iPhone, iPad і Mac, щоб планувати й проводити зйомки та події. У кожному бронюванні разом зберігаються клієнт, локація, ціна й передоплата, завдання, референси та дедлайн здачі, а застосунок сам підраховує ваш дохід, сесії та години.",
         "url": "https://www.eventsnotes.top/uk/",
-        "installUrl": "https://apps.apple.com/ua/app/events-notes/id1666326813",
+        "installUrl": "https://apps.apple.com/app/events-notes/id1666326813",
         "image": "https://www.eventsnotes.top/assets/app-icon.png",
         "operatingSystem": "iOS 18.0 or later, iPadOS, macOS",
         "applicationCategory": "BusinessApplication",
@@ -101,7 +101,7 @@
   <link rel="icon" type="image/png" href="../assets/favicon.png" />
   <link rel="apple-touch-icon" href="../assets/favicon.png" />
   <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="../flow.css?v=6" />
+  <link rel="stylesheet" href="../flow.css?v=10" />
 </head>
 <body class="flow-page">
 
@@ -117,7 +117,7 @@
       </button>
       <ul class="nav-links">
         <li><a href="tutorials.html" data-i18n="nav.tutorials">Гайди</a></li>
-        <li><a class="nav-cta" href="#download" data-i18n="nav.download">Завантажити</a></li>
+        <li><a class="nav-cta" href="https://apps.apple.com/app/events-notes/id1666326813" data-i18n="nav.download">Завантажити</a></li>
         <li class="lang-switch" role="group" aria-label="Language">
           <a class="lang-btn" data-lang="en" hreflang="en" href="../">EN</a>
           <a class="lang-btn is-active" aria-current="page" data-lang="uk" hreflang="uk" href="../uk/">UK</a>
@@ -129,30 +129,8 @@
 
   <main id="top">
 
-    <!-- ===== Hero ===== -->
-    <section class="fhero">
-      <div class="container fhero-inner">
-        <span class="eyebrow" data-i18n="hero.eyebrow">Для iPhone, iPad і Mac</span>
-        <h1 data-i18n-html="hero.title">Від першого бронювання<br />до підсумків року</h1>
-        <p class="fhero-lead" data-i18n="hero.lead">Пройдіть одну справжню зйомку в Events Notes — створіть її, сплануйте день, здайте вчасно й подивіться, як росте ваш бізнес.</p>
-        <div class="fhero-actions">
-          <a href="https://apps.apple.com/ua/app/events-notes/id1666326813" class="badge-link" aria-label="Download on the App Store">
-            <img src="../assets/app-store-badge.svg" alt="Download on the App Store" class="store-badge" />
-          </a>
-          <a href="#tour" class="text-link" data-i18n="hero.start">Почати тур ↓</a>
-        </div>
-        <ol class="fhero-path" aria-label="The flow">
-          <li style="--i:0"><span class="num">1</span><span data-i18n="ch.create">Створення</span></li>
-          <li style="--i:1"><span class="num">2</span><span data-i18n="ch.details">Деталі</span></li>
-          <li style="--i:2"><span class="num">3</span><span data-i18n="ch.deadlines">Дедлайни</span></li>
-          <li style="--i:3"><span class="num">4</span><span data-i18n="ch.stats">Статистика</span></li>
-          <li style="--i:4"><span class="num">5</span><span data-i18n="ch.contacts">Контакти</span></li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- ===== Scroll tour ===== -->
-    <section id="tour" class="tour">
+    <!-- ===== Hero + scroll tour ===== -->
+    <section class="tour at-hero">
       <nav class="chapters" aria-label="Tour chapters">
         <div class="container chapters-inner">
           <button type="button" class="chapter" data-chapter="0"><span class="num">1</span><span data-i18n="ch.create">Створення</span></button>
@@ -165,6 +143,20 @@
       </nav>
 
       <div class="container flow-grid">
+
+        <!-- ===== Hero: beside the tour's phone on desktop, above the tour on phones ===== -->
+        <div class="fhero">
+          <div class="fhero-inner">
+            <h1 data-i18n-html="hero.title">Забронюйте зйомку. Зловіть світло. Здайте вчасно.</h1>
+            <p class="fhero-lead" data-i18n="hero.lead">Бронювання, клієнти, передоплати й дедлайни здачі в одному застосунку для фотографів. Пройдіть приклад зйомки від першого дзвінка до підсумків року.</p>
+            <div class="fhero-actions">
+              <a href="https://apps.apple.com/app/events-notes/id1666326813" class="badge-link" aria-label="Завантажити в App Store">
+                <img src="../assets/app-store-badge-uk.svg" alt="Завантажити в App Store" class="store-badge" />
+              </a>
+              <a href="#tour" class="text-link" data-i18n="hero.start">Почати тур ↓</a>
+            </div>
+          </div>
+        </div>
 
         <!-- Sticky phone: real app UI (screenshots + crops) with HTML only where it animates.
              All coordinates are iPhone points on a 440 × 956 screen. -->
@@ -466,7 +458,7 @@
         <!-- Narrative steps -->
         <div class="steps">
           <article class="step" data-step="1">
-            <div class="step-card">
+            <div class="step-card" id="tour">
               <span class="step-kicker"><span data-i18n="k.create">Створення події</span> · 1/6</span>
               <h2 data-i18n="s1.t">Нове бронювання</h2>
               <p data-i18n-html="s1.d">Один дотик до <em>+</em> у розкладі — і нова подія відкрита.</p>
@@ -619,8 +611,8 @@
       <div class="container cta-inner">
         <h2 data-i18n="cta.title">Готові організувати наступну зйомку?</h2>
         <p data-i18n="cta.text">Завантажте Events Notes та зберіть бронювання, розклад і клієнтів разом.</p>
-        <a href="https://apps.apple.com/ua/app/events-notes/id1666326813" class="badge-link" aria-label="Download on the App Store">
-          <img src="../assets/app-store-badge.svg" alt="Download on the App Store" class="store-badge store-badge--lg" />
+        <a href="https://apps.apple.com/app/events-notes/id1666326813" class="badge-link" aria-label="Завантажити в App Store">
+          <img src="../assets/app-store-badge-uk.svg" alt="Завантажити в App Store" class="store-badge store-badge--lg" />
         </a>
       </div>
     </section>
@@ -644,6 +636,6 @@
     </div>
   </footer>
 
-  <script src="../flow.js?v=8"></script>
+  <script src="../flow.js?v=13"></script>
 </body>
 </html>

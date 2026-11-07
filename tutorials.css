@@ -198,3 +198,8 @@ body.embed { padding: env(safe-area-inset-top) env(safe-area-inset-right) env(sa
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
   --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.5);
 }
+/* The header's translucent background is a fixed light color in styles.css */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .site-header { background: rgba(26, 25, 23, 0.85); }
+}
+:root[data-theme="dark"] .site-header { background: rgba(26, 25, 23, 0.85); }

@@ -4,8 +4,26 @@
     {
       "name": "eventnote-site",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8123", "--directory", "/Users/vladimirpisarenko/Desktop/My projects/eventnote-website"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8123",
+        "--directory",
+        "/Users/vladimirpisarenko/Desktop/My projects/eventnote-website"
+      ],
       "port": 8123
+    },
+    {
+      "name": "eventnote-site-flow",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8124",
+        "--directory",
+        "/Users/vladimirpisarenko/Desktop/My projects/eventnote-website"
+      ],
+      "port": 8124
     }
   ]
 }

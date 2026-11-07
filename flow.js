@@ -23,13 +23,12 @@ const ROOT = new URL('.', document.currentScript.src).href;
 // mac.*, cta.*, footer.* and nav.tutorials/download match the classic page (script.js).
 const translations = {
   en: {
-    'doc.title': 'Events Notes — From first booking to your year in numbers',
+    'doc.title': 'Events Notes — Book the shoot. Catch the light. Deliver on time.',
     'doc.desc': 'Follow one shoot through Events Notes: create the event, plan the day, hit every deadline, and watch your statistics grow. For iPhone, iPad, and Mac.',
     'nav.tutorials': 'Tutorials',
     'nav.download': 'Download',
-    'hero.eyebrow': 'For iPhone, iPad & Mac',
-    'hero.title': 'From the first booking<br />to your year in numbers',
-    'hero.lead': 'Follow one real shoot through Events Notes — create it, plan the day, deliver on time, and watch your business grow.',
+    'hero.title': 'Book the shoot. Catch the light. Deliver on time.',
+    'hero.lead': 'Bookings, clients, deposits and delivery deadlines in one app for photographers. Follow a sample shoot from the first call to your year in numbers.',
     'hero.start': 'Start the tour ↓',
     'ch.create': 'Create',
     'ch.details': 'Details',
@@ -121,13 +120,12 @@ const translations = {
     'footer.rights': 'All rights reserved.',
   },
   uk: {
-    'doc.title': 'Events Notes — від першого бронювання до підсумків року',
+    'doc.title': 'Events Notes — Забронюйте зйомку. Зловіть світло. Здайте вчасно.',
     'doc.desc': 'Пройдіть одну зйомку в Events Notes: створіть подію, сплануйте день, встигніть до кожного дедлайну й дивіться, як росте статистика. Для iPhone, iPad і Mac.',
     'nav.tutorials': 'Гайди',
     'nav.download': 'Завантажити',
-    'hero.eyebrow': 'Для iPhone, iPad і Mac',
-    'hero.title': 'Від першого бронювання<br />до підсумків року',
-    'hero.lead': 'Пройдіть одну справжню зйомку в Events Notes — створіть її, сплануйте день, здайте вчасно й подивіться, як росте ваш бізнес.',
+    'hero.title': 'Забронюйте зйомку. Зловіть світло. Здайте вчасно.',
+    'hero.lead': 'Бронювання, клієнти, передоплати й дедлайни здачі в одному застосунку для фотографів. Пройдіть приклад зйомки від першого дзвінка до підсумків року.',
     'hero.start': 'Почати тур ↓',
     'ch.create': 'Створення',
     'ch.details': 'Деталі',
@@ -219,13 +217,12 @@ const translations = {
     'footer.rights': 'Усі права захищено.',
   },
   ru: {
-    'doc.title': 'Events Notes — от первого бронирования до итогов года',
+    'doc.title': 'Events Notes — Забронируйте съёмку. Поймайте свет. Сдайте вовремя.',
     'doc.desc': 'Пройдите одну съёмку в Events Notes: создайте событие, спланируйте день, успейте к каждому дедлайну и смотрите, как растёт статистика. Для iPhone, iPad и Mac.',
     'nav.tutorials': 'Гайды',
     'nav.download': 'Скачать',
-    'hero.eyebrow': 'Для iPhone, iPad и Mac',
-    'hero.title': 'От первого бронирования<br />до итогов года',
-    'hero.lead': 'Пройдите одну настоящую съёмку в Events Notes — создайте её, спланируйте день, сдайте вовремя и посмотрите, как растёт ваш бизнес.',
+    'hero.title': 'Забронируйте съёмку. Поймайте свет. Сдайте вовремя.',
+    'hero.lead': 'Бронирования, клиенты, предоплаты и дедлайны сдачи в одном приложении для фотографов. Пройдите пример съёмки от первого звонка до итогов года.',
     'hero.start': 'Начать тур ↓',
     'ch.create': 'Создание',
     'ch.details': 'Детали',
@@ -476,6 +473,7 @@ const device = {
   const chapters = Array.from(document.querySelectorAll('.chapter'));
   const progressBar = document.querySelector('.chapters-progress');
   const stepsEl = document.querySelector('.steps');
+  const tourEl = document.querySelector('.tour');
   const caption = document.querySelector('.phone-caption');
   const mobileMq = window.matchMedia('(max-width: 860px)');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -663,7 +661,7 @@ const device = {
   // PRE: taps that lead into a step (only when scrolling forward one step)
   const PRE = {
     1: async (my) => {
-      await sleep(2000); // let the schedule be seen before the form opens
+      await sleep(600); // brief beat on the schedule (the hero already showed it) before the form opens
       if (my === token) await tap($('.js-plus'));
     },
     3: () => tap($('.js-tab[data-t="gallery"]')),
@@ -866,6 +864,7 @@ const device = {
       if (card.top + card.height / 2 <= line) active = i + 1;
     });
     steps.forEach((el, i) => el.classList.toggle('is-active', i + 1 === active));
+    tourEl.classList.toggle('at-hero', active === 0);
     const captionStep = Math.max(1, active);
     if (caption.dataset.step !== String(captionStep)) {
       caption.dataset.step = captionStep;

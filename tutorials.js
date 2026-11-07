@@ -981,6 +981,14 @@ function closeLightbox() {
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  // Mobile nav toggle
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  navToggle.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(open));
+  });
+
   // Language links open that language's page; the webview switches in place to keep its params
   document.querySelectorAll('.lang-btn').forEach((btn) =>
     btn.addEventListener('click', (e) => {

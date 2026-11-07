@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Events Notes — From first booking to your year in numbers</title>
+  <title>Events Notes — Book the shoot. Catch the light. Deliver on time.</title>
   <meta name="description" content="Follow one shoot through Events Notes: create the event, plan the day, hit every deadline, and watch your statistics grow. For iPhone, iPad, and Mac." />
 
-  <meta property="og:title" content="Events Notes — From first booking to your year in numbers" />
+  <meta property="og:title" content="Events Notes — Book the shoot. Catch the light. Deliver on time." />
   <meta property="og:description" content="Create events, check the sun, build routes, track deadlines and watch your business grow." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://www.eventsnotes.top/assets/app-icon.png" />
@@ -39,7 +39,7 @@
         ],
         "description": "Events Notes is an app for iPhone, iPad and Mac for planning and running shoots and events. Each booking keeps the client, location, price and deposit, tasks, references and delivery deadline together, and the app adds up your earnings, sessions and hours automatically.",
         "url": "https://www.eventsnotes.top/",
-        "installUrl": "https://apps.apple.com/ua/app/events-notes/id1666326813",
+        "installUrl": "https://apps.apple.com/app/events-notes/id1666326813",
         "image": "https://www.eventsnotes.top/assets/app-icon.png",
         "operatingSystem": "iOS 18.0 or later, iPadOS, macOS",
         "applicationCategory": "BusinessApplication",
@@ -101,7 +101,7 @@
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/favicon.png" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="flow.css?v=6" />
+  <link rel="stylesheet" href="flow.css?v=10" />
 </head>
 <body class="flow-page">
 
@@ -117,7 +117,7 @@
       </button>
       <ul class="nav-links">
         <li><a href="tutorials.html" data-i18n="nav.tutorials">Tutorials</a></li>
-        <li><a class="nav-cta" href="#download" data-i18n="nav.download">Download</a></li>
+        <li><a class="nav-cta" href="https://apps.apple.com/app/events-notes/id1666326813" data-i18n="nav.download">Download</a></li>
         <li class="lang-switch" role="group" aria-label="Language">
           <a class="lang-btn" data-lang="en" hreflang="en" href="./">EN</a>
           <a class="lang-btn" data-lang="uk" hreflang="uk" href="uk/">UK</a>
@@ -129,30 +129,8 @@
 
   <main id="top">
 
-    <!-- ===== Hero ===== -->
-    <section class="fhero">
-      <div class="container fhero-inner">
-        <span class="eyebrow" data-i18n="hero.eyebrow">For iPhone, iPad &amp; Mac</span>
-        <h1 data-i18n-html="hero.title">From the first booking<br />to your year in numbers</h1>
-        <p class="fhero-lead" data-i18n="hero.lead">Follow one real shoot through Events Notes — create it, plan the day, deliver on time, and watch your business grow.</p>
-        <div class="fhero-actions">
-          <a href="https://apps.apple.com/ua/app/events-notes/id1666326813" class="badge-link" aria-label="Download on the App Store">
-            <img src="assets/app-store-badge.svg" alt="Download on the App Store" class="store-badge" />
-          </a>
-          <a href="#tour" class="text-link" data-i18n="hero.start">Start the tour ↓</a>
-        </div>
-        <ol class="fhero-path" aria-label="The flow">
-          <li style="--i:0"><span class="num">1</span><span data-i18n="ch.create">Create</span></li>
-          <li style="--i:1"><span class="num">2</span><span data-i18n="ch.details">Details</span></li>
-          <li style="--i:2"><span class="num">3</span><span data-i18n="ch.deadlines">Deadlines</span></li>
-          <li style="--i:3"><span class="num">4</span><span data-i18n="ch.stats">Statistics</span></li>
-          <li style="--i:4"><span class="num">5</span><span data-i18n="ch.contacts">Contacts</span></li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- ===== Scroll tour ===== -->
-    <section id="tour" class="tour">
+    <!-- ===== Hero + scroll tour ===== -->
+    <section class="tour at-hero">
       <nav class="chapters" aria-label="Tour chapters">
         <div class="container chapters-inner">
           <button type="button" class="chapter" data-chapter="0"><span class="num">1</span><span data-i18n="ch.create">Create</span></button>
@@ -165,6 +143,20 @@
       </nav>
 
       <div class="container flow-grid">
+
+        <!-- ===== Hero: beside the tour's phone on desktop, above the tour on phones ===== -->
+        <div class="fhero">
+          <div class="fhero-inner">
+            <h1 data-i18n-html="hero.title">Book the shoot. Catch the light. Deliver on time.</h1>
+            <p class="fhero-lead" data-i18n="hero.lead">Bookings, clients, deposits and delivery deadlines in one app for photographers. Follow a sample shoot from the first call to your year in numbers.</p>
+            <div class="fhero-actions">
+              <a href="https://apps.apple.com/app/events-notes/id1666326813" class="badge-link" aria-label="Download on the App Store">
+                <img src="assets/app-store-badge.svg" alt="Download on the App Store" class="store-badge" />
+              </a>
+              <a href="#tour" class="text-link" data-i18n="hero.start">Start the tour ↓</a>
+            </div>
+          </div>
+        </div>
 
         <!-- Sticky phone: real app UI (screenshots + crops) with HTML only where it animates.
              All coordinates are iPhone points on a 440 × 956 screen. -->
@@ -466,7 +458,7 @@
         <!-- Narrative steps -->
         <div class="steps">
           <article class="step" data-step="1">
-            <div class="step-card">
+            <div class="step-card" id="tour">
               <span class="step-kicker"><span data-i18n="k.create">Create event</span> · 1/6</span>
               <h2 data-i18n="s1.t">Start a new booking</h2>
               <p data-i18n-html="s1.d">One tap on <em>+</em> from your schedule opens a new event.</p>
@@ -619,7 +611,7 @@
       <div class="container cta-inner">
         <h2 data-i18n="cta.title">Ready to organize your next shoot?</h2>
         <p data-i18n="cta.text">Download Events Notes and bring your bookings, schedule, and clients together.</p>
-        <a href="https://apps.apple.com/ua/app/events-notes/id1666326813" class="badge-link" aria-label="Download on the App Store">
+        <a href="https://apps.apple.com/app/events-notes/id1666326813" class="badge-link" aria-label="Download on the App Store">
           <img src="assets/app-store-badge.svg" alt="Download on the App Store" class="store-badge store-badge--lg" />
         </a>
       </div>
@@ -644,6 +636,6 @@
     </div>
   </footer>
 
-  <script src="flow.js?v=8"></script>
+  <script src="flow.js?v=13"></script>
 </body>
 </html>

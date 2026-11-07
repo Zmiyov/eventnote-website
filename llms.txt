@@ -3,7 +3,7 @@
 > Events Notes is a booking and business app for photographers, videographers and other event professionals on iPhone, iPad and Mac. It keeps every shoot, client, payment and delivery deadline in one place, shows the sun's path and golden hour for a location, and adds up yearly earnings, sessions and hours automatically.
 
 - Platforms: iPhone, iPad and Mac (native apps, synced through iCloud)
-- Download: [App Store](https://apps.apple.com/ua/app/events-notes/id1666326813)
+- Download: [App Store](https://apps.apple.com/app/events-notes/id1666326813)
 - Roles: Photographer, Videographer, Agency, DJ, Decorator, Event Host, Makeup Artist, Hairdresser, Catering. The chosen role adjusts event types and tools.
 - Pricing: free for up to 3 upcoming events (5 in Ukraine). Premium removes the limit and unlocks all features, billed monthly or yearly.
 - App languages: 18, including English, Ukrainian and Russian

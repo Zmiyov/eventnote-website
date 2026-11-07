@@ -20,7 +20,7 @@ const write = (f, s) => {
 };
 
 const SITE = 'https://www.eventsnotes.top/';
-const APP_STORE = 'https://apps.apple.com/ua/app/events-notes/id1666326813';
+const APP_STORE = 'https://apps.apple.com/app/events-notes/id1666326813';
 // From the App Store listing
 const APP_LANGS = ['en', 'uk', 'ru', 'ar', 'de', 'es', 'fr', 'id', 'it', 'ja', 'ko', 'nl', 'pl', 'pt', 'th', 'tr', 'vi', 'zh'];
 const LANGS = ['uk', 'ru'];
@@ -68,6 +68,14 @@ function upOneLevel(html) {
       .replace(/(\s(?:src|href)=")([^"]*)"/g, (_, attr, url) => `${attr}${fix(url)}"`)
       .replace(/url\(([^)]+)\)/g, (_, url) => `url(${fix(url)})`);
   });
+}
+
+// Apple's App Store badge in the page's language
+const BADGE_LABEL = { uk: 'Завантажити в App Store', ru: 'Загрузить в App Store' };
+function localizeBadge(html, lang) {
+  return html
+    .replaceAll('assets/app-store-badge.svg', `assets/app-store-badge-${lang}.svg`)
+    .replaceAll('"Download on the App Store"', `"${BADGE_LABEL[lang]}"`);
 }
 
 function markActiveLang(html, lang) {
@@ -204,7 +212,7 @@ const tutorials = fillGuides(read('tutorials.html'), 'en');
 write('tutorials.html', tutorials);
 
 for (const lang of LANGS) {
-  const page = (html) => markActiveLang(upOneLevel(html), lang);
+  const page = (html) => markActiveLang(upOneLevel(localizeBadge(html, lang)), lang);
   write(`${lang}/index.html`, page(setLangAndCanonical(fillSchema(translatePage(home, lang, 'doc.title', 'doc.desc'), lang, ''), lang, '')));
   write(`${lang}/faq.html`, page(setLangAndCanonical(fillSchema(translatePage(faq, lang, 'faq.doc.title', 'faq.doc.desc'), lang, 'faq.html'), lang, 'faq.html')));
   write(`${lang}/tutorials.html`, page(setLangAndCanonical(translateTutorials(fillGuides(tutorials, lang), lang), lang, 'tutorials.html')));
