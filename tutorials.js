@@ -1,9 +1,9 @@
 /* ===== Events Notes — Tutorials =====
-   Self-contained help center. Renders guides from the data below in EN / UK / RU.
+   Self-contained help center. Guides sit under tabs that mirror the app's tab bar; each one opens
+   as a step-by-step walkthrough on an animated phone, in EN / UK / RU.
    URL params for the in-app webview:
      ?embed=1        hide the site header/footer (webview mode)
      ?lang=en|uk|ru  force a language
-     ?theme=dark|light  force a color scheme
      ?topic=<id>     open a specific guide on load
 */
 
@@ -19,8 +19,15 @@ const UI = {
   },
   'search.ph':    { en: 'Search guides…', uk: 'Пошук гайдів…', ru: 'Поиск гайдов…' },
   'search.empty': { en: 'No guides match your search.', uk: 'Немає гайдів за вашим запитом.', ru: 'Нет гайдов по вашему запросу.' },
-  'chip.all':     { en: 'All', uk: 'Усі', ru: 'Все' },
+  'tabs.label':   { en: 'Guide sections', uk: 'Розділи гайдів', ru: 'Разделы гайдов' },
+  'steps':        { en: ['step', 'steps'], uk: ['крок', 'кроки', 'кроків'], ru: ['шаг', 'шага', 'шагов'] },
   'tip':          { en: 'Tip', uk: 'Порада', ru: 'Совет' },
+  'wt.step':      { en: 'Step {n} of {m}', uk: 'Крок {n} з {m}', ru: 'Шаг {n} из {m}' },
+  'wt.back':      { en: 'Back', uk: 'Назад', ru: 'Назад' },
+  'wt.next':      { en: 'Next', uk: 'Далі', ru: 'Далее' },
+  'wt.finish':    { en: 'Done', uk: 'Готово', ru: 'Готово' },
+  'wt.close':     { en: 'Close guide', uk: 'Закрити гайд', ru: 'Закрыть гайд' },
+  'wt.replay':    { en: 'Play this step again', uk: 'Показати крок ще раз', ru: 'Показать шаг ещё раз' },
   'doc.title':    { en: 'Events Notes — Tutorials', uk: 'Events Notes — Гайди', ru: 'Events Notes — Гайды' },
   'doc.desc':     {
     en: 'Learn how to use Events Notes — bookings, timelines, Sun Track, payments, backups, team and more. Step-by-step guides for iPhone, iPad and Mac.',
@@ -28,160 +35,510 @@ const UI = {
     ru: 'Как пользоваться Events Notes — бронирования, таймлайны, Sun Track, оплаты, резервные копии, команда и другое. Пошаговые гайды для iPhone, iPad и Mac.',
   },
 };
-
-/* ---- Guide groups and content ---- */
-const GROUPS = [
+/* ---- Tabs and guides ----
+   The tabs mirror the app's own tab bar (plus one for the widget and the Mac app).
+   A tab holds guides directly, or subtabs for its screens that have their own tools. */
+const TABS = [
   {
-    id: 'start', icon: '🚀',
-    title: { en: 'Getting started', uk: 'Перші кроки', ru: 'Первые шаги' },
-    sub: {
-      en: 'Set the app up for the way you work and add your first job.',
-      uk: 'Налаштуйте застосунок під свою роботу й додайте перше замовлення.',
-      ru: 'Настройте приложение под свою работу и добавьте первый заказ.',
-    },
-    items: [
+    id: 'schedule',
+    title: { en: 'Schedule', uk: 'Розклад', ru: 'Расписание' },
+    subtabs: [
       {
-        id: 'role', icon: '🎭',
-        title: { en: 'Pick your role', uk: 'Оберіть свою роль', ru: 'Выберите свою роль' },
-        summary: {
-          en: 'Your role tailors event types and which tools appear.',
-          uk: 'Роль підлаштовує типи подій і доступні інструменти.',
-          ru: 'Роль подстраивает типы событий и доступные инструменты.',
+        id: 'calendar',
+        title: { en: 'Calendar', uk: 'Календар', ru: 'Календарь' },
+        sub: {
+          en: 'Your month at a glance, and how to add a booking.',
+          uk: 'Ваш місяць з першого погляду і як додати бронювання.',
+          ru: 'Ваш месяц с первого взгляда и как добавить бронирование.',
         },
-        steps: {
-          en: [
-            'Open Settings and tap “Your role”.',
-            'Choose Photographer, Videographer, Agency, DJ, Decorator, Event Host, Makeup Artist, Hairdresser or Catering.',
-            'Event types and tools like Sun Track adjust to your role automatically.',
-          ],
-          uk: [
-            'Відкрийте Налаштування й торкніться «Your role» (Ваша роль).',
-            'Оберіть: Фотограф, Відеограф, Агенція, DJ, Декоратор, Ведучий, Візажист, Перукар або Кейтеринг.',
-            'Типи подій та інструменти на кшталт Sun Track підлаштуються автоматично.',
-          ],
-          ru: [
-            'Откройте Настройки и нажмите «Your role» (Ваша роль).',
-            'Выберите: Фотограф, Видеограф, Агентство, DJ, Декоратор, Ведущий, Визажист, Парикмахер или Кейтеринг.',
-            'Типы событий и инструменты вроде Sun Track подстроятся автоматически.',
-          ],
-        },
-        tip: {
-          en: 'You can change your role anytime — your existing events stay.',
-          uk: 'Роль можна змінити будь-коли — наявні події збережуться.',
-          ru: 'Роль можно изменить в любой момент — существующие события сохранятся.',
-        },
+        items: [
+          {
+            id: 'calendar',
+            title: { en: 'Calendar & schedule', uk: 'Календар і розклад', ru: 'Календарь и расписание' },
+            summary: {
+              en: 'Browse your month and jump to any day’s events.',
+              uk: 'Переглядайте місяць і переходьте до подій будь-якого дня.',
+              ru: 'Просматривайте месяц и переходите к событиям любого дня.',
+            },
+            steps: {
+              en: [
+                'The Schedule tab shows a month calendar with marked days.',
+                'Tap any date to see that day’s events below.',
+                'Swipe between months to plan ahead.',
+                'Tap an event to open details, or swipe a row to edit or delete it.',
+              ],
+              uk: [
+                'Вкладка «Розклад» показує календар на місяць із позначеними днями.',
+                'Торкніться дати, щоб побачити події цього дня нижче.',
+                'Гортайте місяці, щоб планувати наперед.',
+                'Торкніться події для деталей або проведіть по рядку, щоб редагувати чи видалити.',
+              ],
+              ru: [
+                'Вкладка «Расписание» показывает календарь на месяц с отмеченными днями.',
+                'Нажмите дату, чтобы увидеть события этого дня ниже.',
+                'Листайте месяцы, чтобы планировать наперёд.',
+                'Нажмите событие для деталей или проведите по строке, чтобы изменить или удалить.',
+              ],
+            },
+          },
+          {
+            id: 'create',
+            title: { en: 'Create a booking', uk: 'Створіть бронювання', ru: 'Создайте бронирование' },
+            summary: {
+              en: 'Add an event with client, type, date, place and notes.',
+              uk: 'Додайте подію з клієнтом, типом, датою, місцем і нотатками.',
+              ru: 'Добавьте событие с клиентом, типом, датой, местом и заметками.',
+            },
+            steps: {
+              en: [
+                'On the Schedule tab, pick a date and tap Add (+).',
+                'Choose the kind of shooting and set the date and time.',
+                'Add the client, location, price and any notes.',
+                'Save — the event appears on that day in your schedule.',
+              ],
+              uk: [
+                'На вкладці «Розклад» оберіть дату й торкніться «Додати» (+).',
+                'Оберіть тип зйомки та задайте дату й час.',
+                'Додайте клієнта, локацію, вартість і нотатки.',
+                'Збережіть — подія зʼявиться в розкладі на цей день.',
+              ],
+              ru: [
+                'На вкладке «Расписание» выберите дату и нажмите «Добавить» (+).',
+                'Выберите тип съёмки и задайте дату и время.',
+                'Добавьте клиента, локацию, стоимость и заметки.',
+                'Сохраните — событие появится в расписании на этот день.',
+              ],
+            },
+            tip: {
+              en: 'First launch? The guided onboarding builds your first event with you.',
+              uk: 'Перший запуск? Покроковий онбординг створить першу подію разом з вами.',
+              ru: 'Первый запуск? Пошаговый онбординг создаст первое событие вместе с вами.',
+            },
+          },
+        ],
       },
       {
-        id: 'create', icon: '📅',
-        title: { en: 'Create a booking', uk: 'Створіть бронювання', ru: 'Создайте бронирование' },
-        summary: {
-          en: 'Add an event with client, type, date, place and notes.',
-          uk: 'Додайте подію з клієнтом, типом, датою, місцем і нотатками.',
-          ru: 'Добавьте событие с клиентом, типом, датой, местом и заметками.',
+        id: 'event',
+        title: { en: 'Event', uk: 'Подія', ru: 'Событие' },
+        sub: {
+          en: 'Everything inside a booking: money, plans, light and the route.',
+          uk: 'Усе всередині бронювання: гроші, плани, світло й маршрут.',
+          ru: 'Всё внутри бронирования: деньги, планы, свет и маршрут.',
         },
-        steps: {
-          en: [
-            'On the Schedule tab, pick a date and tap Add (+).',
-            'Choose the kind of shooting and set the date and time.',
-            'Add the client, location, price and any notes.',
-            'Save — the event appears on that day in your schedule.',
-          ],
-          uk: [
-            'На вкладці «Розклад» оберіть дату й торкніться «Додати» (+).',
-            'Оберіть тип зйомки та задайте дату й час.',
-            'Додайте клієнта, локацію, вартість і нотатки.',
-            'Збережіть — подія зʼявиться в розкладі на цей день.',
-          ],
-          ru: [
-            'На вкладке «Расписание» выберите дату и нажмите «Добавить» (+).',
-            'Выберите тип съёмки и задайте дату и время.',
-            'Добавьте клиента, локацию, стоимость и заметки.',
-            'Сохраните — событие появится в расписании на этот день.',
-          ],
+        items: [
+          {
+            id: 'payments',
+            title: {
+              en: 'Payments, prepayment & certificates',
+              uk: 'Оплати, передоплата й сертифікати',
+              ru: 'Оплаты, предоплата и сертификаты',
+            },
+            summary: {
+              en: 'Track full price, deposits and gift certificates per event.',
+              uk: 'Відстежуйте повну ціну, завдаток і подарункові сертифікати в події.',
+              ru: 'Отслеживайте полную цену, задаток и подарочные сертификаты в событии.',
+            },
+            steps: {
+              en: [
+                'In an event, set the full price for the job.',
+                'Add the Prepayment (deposit) the client has already paid.',
+                'Mark a booking as a gift certificate when it is paid upfront as a gift.',
+                'Totals feed into your Statistics automatically.',
+              ],
+              uk: [
+                'У події задайте повну вартість роботи.',
+                'Додайте «Prepayment» (передоплату), яку клієнт уже вніс.',
+                'Позначте бронювання як подарунковий сертифікат, якщо його оплатили наперед у подарунок.',
+                'Суми автоматично потрапляють у «Статистику».',
+              ],
+              ru: [
+                'В событии задайте полную стоимость работы.',
+                'Добавьте «Prepayment» (предоплату), которую клиент уже внёс.',
+                'Отметьте бронирование как подарочный сертификат, если его оплатили заранее в подарок.',
+                'Суммы автоматически попадают в «Статистику».',
+              ],
+            },
+            tip: {
+              en: 'The remaining balance is simply the full price minus the prepayment.',
+              uk: 'Залишок до сплати — це повна ціна мінус передоплата.',
+              ru: 'Остаток к оплате — это полная цена минус предоплата.',
+            },
+          },
+          {
+            id: 'timeline',
+            title: { en: 'Timeline & tasks', uk: 'Таймлайн і завдання', ru: 'Таймлайн и задачи' },
+            summary: {
+              en: 'Break a shoot into timed stages and to-dos.',
+              uk: 'Розбийте зйомку на етапи за часом і список справ.',
+              ru: 'Разбейте съёмку на этапы по времени и список дел.',
+            },
+            steps: {
+              en: [
+                'Open an event and go to the Timeline section.',
+                'Add timeline stages with a time and description for each part of the day.',
+                'Add tasks (“Add a task”) for things to prepare or bring.',
+                'Check off tasks as you complete them.',
+              ],
+              uk: [
+                'Відкрийте подію й перейдіть до розділу «Timeline».',
+                'Додайте етапи таймлайну з часом і описом для кожної частини дня.',
+                'Додайте завдання («Add a task») — що підготувати чи взяти з собою.',
+                'Позначайте завдання виконаними по ходу.',
+              ],
+              ru: [
+                'Откройте событие и перейдите в раздел «Timeline».',
+                'Добавьте этапы таймлайна с временем и описанием для каждой части дня.',
+                'Добавьте задачи («Add a task») — что подготовить или взять с собой.',
+                'Отмечайте задачи выполненными по ходу.',
+              ],
+            },
+          },
+          {
+            id: 'gallery',
+            title: { en: 'Photo gallery', uk: 'Галерея фото', ru: 'Галерея фото' },
+            summary: {
+              en: 'Attach reference and inspiration photos to an event.',
+              uk: 'Прикріпіть референси та фото для натхнення до події.',
+              ru: 'Прикрепите референсы и фото для вдохновения к событию.',
+            },
+            steps: {
+              en: [
+                'Open an event and find the Gallery section.',
+                'Add photos from your library — poses, moodboards, client references.',
+                'Tap a photo to view it full-screen on the shoot day.',
+              ],
+              uk: [
+                'Відкрийте подію й знайдіть розділ «Gallery».',
+                'Додайте фото з бібліотеки — пози, мудборди, референси клієнта.',
+                'Торкніться фото, щоб відкрити його на весь екран у день зйомки.',
+              ],
+              ru: [
+                'Откройте событие и найдите раздел «Gallery».',
+                'Добавьте фото из библиотеки — позы, мудборды, референсы клиента.',
+                'Нажмите фото, чтобы открыть его на весь экран в день съёмки.',
+              ],
+            },
+          },
+          {
+            id: 'reminders',
+            title: { en: 'Reminders', uk: 'Нагадування', ru: 'Напоминания' },
+            summary: {
+              en: 'Local notifications for events and deadlines — no account needed.',
+              uk: 'Локальні сповіщення про події та дедлайни — без облікового запису.',
+              ru: 'Локальные уведомления о событиях и дедлайнах — без учётной записи.',
+            },
+            steps: {
+              en: [
+                'When creating or editing an event, set a reminder time.',
+                'Set a separate deadline reminder for delivery dates.',
+                'Allow notifications when the app asks.',
+                'Reminders fire on your device — nothing is sent to a server.',
+              ],
+              uk: [
+                'Створюючи або редагуючи подію, задайте час нагадування.',
+                'Задайте окреме нагадування про дедлайн для дат здачі.',
+                'Дозвольте сповіщення, коли застосунок попросить.',
+                'Нагадування спрацьовують на пристрої — нічого не надсилається на сервер.',
+              ],
+              ru: [
+                'Создавая или редактируя событие, задайте время напоминания.',
+                'Задайте отдельное напоминание о дедлайне для дат сдачи.',
+                'Разрешите уведомления, когда приложение попросит.',
+                'Напоминания срабатывают на устройстве — ничего не отправляется на сервер.',
+              ],
+            },
+          },
+          {
+            id: 'suntrack',
+            title: { en: 'Sun Track', uk: 'Sun Track', ru: 'Sun Track' },
+            summary: {
+              en: 'Plan golden hour and natural light for any spot and date.',
+              uk: 'Плануйте золоту годину та природне світло для будь-якого місця й дати.',
+              ru: 'Планируйте золотой час и естественный свет для любого места и даты.',
+            },
+            steps: {
+              en: [
+                'Open Sun Track (available for photographer, videographer, agency, decorator and event-host roles).',
+                'Move the map so your shoot spot sits under the center pin.',
+                'Pick the date and time to see the sun’s position and path.',
+                'Use it to plan sunrise, sunset and golden-hour shots.',
+              ],
+              uk: [
+                'Відкрийте Sun Track (доступно для ролей фотографа, відеографа, агенції, декоратора й ведучого).',
+                'Посуньте карту так, щоб місце зйомки опинилося під центральною позначкою.',
+                'Оберіть дату й час, щоб побачити положення та шлях сонця.',
+                'Плануйте кадри на схід, захід і золоту годину.',
+              ],
+              ru: [
+                'Откройте Sun Track (доступно для ролей фотографа, видеографа, агентства, декоратора и ведущего).',
+                'Подвиньте карту так, чтобы место съёмки оказалось под центральной меткой.',
+                'Выберите дату и время, чтобы увидеть положение и путь солнца.',
+                'Планируйте кадры на рассвет, закат и золотой час.',
+              ],
+            },
+            tip: {
+              en: 'Sun Track needs location access to calculate the sun’s path.',
+              uk: 'Для розрахунку шляху сонця Sun Track потрібен доступ до геолокації.',
+              ru: 'Для расчёта пути солнца Sun Track нужен доступ к геолокации.',
+            },
+          },
+          {
+            id: 'routes',
+            title: { en: 'Locations & Create Route', uk: 'Локації та маршрут', ru: 'Локации и маршрут' },
+            summary: {
+              en: 'Save a shoot spot and open directions in one tap.',
+              uk: 'Збережіть місце зйомки й відкрийте маршрут одним дотиком.',
+              ru: 'Сохраните место съёмки и откройте маршрут одним касанием.',
+            },
+            steps: {
+              en: [
+                'Add a location to an event by searching or placing it on the map.',
+                'Open the event details and tap the location.',
+                'Tap “Create route” to open directions in Maps.',
+              ],
+              uk: [
+                'Додайте локацію до події через пошук або на карті.',
+                'Відкрийте деталі події й торкніться локації.',
+                'Торкніться «Create route», щоб відкрити маршрут у Картах.',
+              ],
+              ru: [
+                'Добавьте локацию к событию через поиск или на карте.',
+                'Откройте детали события и нажмите локацию.',
+                'Нажмите «Create route», чтобы открыть маршрут в Картах.',
+              ],
+            },
+          },
+          {
+            id: 'team',
+            title: { en: 'Team members', uk: 'Учасники команди', ru: 'Участники команды' },
+            summary: {
+              en: 'Add your team to an event — for the Agency role.',
+              uk: 'Додавайте команду до події — для ролі «Агенція».',
+              ru: 'Добавляйте команду к событию — для роли «Агентство».',
+            },
+            steps: {
+              en: [
+                'Switch to the Agency role to use team features.',
+                'In an event, open the Team section and tap “Add team member”.',
+                'Assign a contact and add info for each member on that shoot.',
+              ],
+              uk: [
+                'Перейдіть на роль «Агенція», щоб користуватися командними функціями.',
+                'У події відкрийте розділ «Team» і торкніться «Add team member».',
+                'Призначте контакт і додайте інформацію для кожного учасника на цій зйомці.',
+              ],
+              ru: [
+                'Переключитесь на роль «Агентство», чтобы использовать командные функции.',
+                'В событии откройте раздел «Team» и нажмите «Add team member».',
+                'Назначьте контакт и добавьте информацию для каждого участника на этой съёмке.',
+              ],
+            },
+          },
+        ],
+      },
+      {
+        id: 'settings',
+        title: { en: 'Settings', uk: 'Налаштування', ru: 'Настройки' },
+        sub: {
+          en: 'Set the app up for the way you work, and keep your data safe.',
+          uk: 'Налаштуйте застосунок під свою роботу й бережіть дані.',
+          ru: 'Настройте приложение под свою работу и берегите данные.',
         },
-        tip: {
-          en: 'First launch? The guided onboarding builds your first event with you.',
-          uk: 'Перший запуск? Покроковий онбординг створить першу подію разом з вами.',
-          ru: 'Первый запуск? Пошаговый онбординг создаст первое событие вместе с вами.',
-        },
+        items: [
+          {
+            id: 'role',
+            title: { en: 'Pick your role', uk: 'Оберіть свою роль', ru: 'Выберите свою роль' },
+            summary: {
+              en: 'Your role tailors event types and which tools appear.',
+              uk: 'Роль підлаштовує типи подій і доступні інструменти.',
+              ru: 'Роль подстраивает типы событий и доступные инструменты.',
+            },
+            steps: {
+              en: [
+                'Open Settings and tap “Your role”.',
+                'Choose Photographer, Videographer, Agency, DJ, Decorator, Event Host, Makeup Artist, Hairdresser or Catering.',
+                'Event types and tools like Sun Track adjust to your role automatically.',
+              ],
+              uk: [
+                'Відкрийте Налаштування й торкніться «Your role» (Ваша роль).',
+                'Оберіть: Фотограф, Відеограф, Агенція, DJ, Декоратор, Ведучий, Візажист, Перукар або Кейтеринг.',
+                'Типи подій та інструменти на кшталт Sun Track підлаштуються автоматично.',
+              ],
+              ru: [
+                'Откройте Настройки и нажмите «Your role» (Ваша роль).',
+                'Выберите: Фотограф, Видеограф, Агентство, DJ, Декоратор, Ведущий, Визажист, Парикмахер или Кейтеринг.',
+                'Типы событий и инструменты вроде Sun Track подстроятся автоматически.',
+              ],
+            },
+            tip: {
+              en: 'You can change your role anytime — your existing events stay.',
+              uk: 'Роль можна змінити будь-коли — наявні події збережуться.',
+              ru: 'Роль можно изменить в любой момент — существующие события сохранятся.',
+            },
+          },
+          {
+            id: 'icloud',
+            title: { en: 'iCloud sync', uk: 'Синхронізація iCloud', ru: 'Синхронизация iCloud' },
+            summary: {
+              en: 'Your data, in sync across iPhone, iPad and Mac.',
+              uk: 'Ваші дані синхронізовані між iPhone, iPad і Mac.',
+              ru: 'Ваши данные синхронизированы между iPhone, iPad и Mac.',
+            },
+            steps: {
+              en: [
+                'Sign in to iCloud on your device and enable iCloud Drive.',
+                'In Settings → Data synchronization, check the status shows “On”.',
+                'Your events then sync across all your Apple devices automatically.',
+              ],
+              uk: [
+                'Увійдіть в iCloud на пристрої та увімкніть iCloud Drive.',
+                'У «Налаштування → Data synchronization» перевірте, що статус «On».',
+                'Події синхронізуватимуться між усіма пристроями Apple автоматично.',
+              ],
+              ru: [
+                'Войдите в iCloud на устройстве и включите iCloud Drive.',
+                'В «Настройки → Data synchronization» проверьте, что статус «On».',
+                'События будут синхронизироваться между всеми устройствами Apple автоматически.',
+              ],
+            },
+          },
+          {
+            id: 'applecal',
+            title: {
+              en: 'Import from Apple Calendar',
+              uk: 'Імпорт з Apple Календаря',
+              ru: 'Импорт из Apple Календаря',
+            },
+            summary: {
+              en: 'Bring events in from the Apple Calendar.',
+              uk: 'Перенесіть події з Apple Календаря.',
+              ru: 'Перенесите события из Apple Календаря.',
+            },
+            steps: {
+              en: [
+                'Open Settings → Import from Apple Calendar.',
+                'Allow calendar access.',
+                'Pick the events to bring in as bookings.',
+              ],
+              uk: [
+                'Відкрийте «Налаштування → Import from Apple Calendar».',
+                'Дозвольте доступ до календаря.',
+                'Оберіть події, щоб перенести їх як бронювання.',
+              ],
+              ru: [
+                'Откройте «Настройки → Import from Apple Calendar».',
+                'Разрешите доступ к календарю.',
+                'Выберите события, чтобы перенести их как бронирования.',
+              ],
+            },
+          },
+          {
+            id: 'gcal',
+            title: {
+              en: 'Import from Google Calendar',
+              uk: 'Імпорт з Google Календаря',
+              ru: 'Импорт из Google Календаря',
+            },
+            summary: {
+              en: 'Bring existing events in from Google Calendar.',
+              uk: 'Перенесіть наявні події з Google Календаря.',
+              ru: 'Перенесите существующие события из Google Календаря.',
+            },
+            steps: {
+              en: [
+                'Open Settings → Import from Google Calendar.',
+                'Sign in to your Google account.',
+                'Choose events to import into Events Notes.',
+              ],
+              uk: [
+                'Відкрийте «Налаштування → Import from Google Calendar».',
+                'Увійдіть у свій акаунт Google.',
+                'Оберіть події для імпорту в Events Notes.',
+              ],
+              ru: [
+                'Откройте «Настройки → Import from Google Calendar».',
+                'Войдите в свой аккаунт Google.',
+                'Выберите события для импорта в Events Notes.',
+              ],
+            },
+          },
+          {
+            id: 'backup',
+            title: {
+              en: 'Backups & restore',
+              uk: 'Резервні копії та відновлення',
+              ru: 'Резервные копии и восстановление',
+            },
+            summary: {
+              en: 'Save snapshots and restore data safely.',
+              uk: 'Зберігайте знімки даних і відновлюйте їх безпечно.',
+              ru: 'Сохраняйте снимки данных и восстанавливайте их безопасно.',
+            },
+            steps: {
+              en: [
+                'In Settings, open the backups (snapshots) screen.',
+                'Create a snapshot to save a copy of your data.',
+                'To restore, choose “Restore missing data” to merge, or “Replace everything” to overwrite.',
+              ],
+              uk: [
+                'У Налаштуваннях відкрийте екран резервних копій (snapshots).',
+                'Створіть знімок, щоб зберегти копію даних.',
+                'Для відновлення оберіть «Restore missing data» (обʼєднати) або «Replace everything» (перезаписати).',
+              ],
+              ru: [
+                'В Настройках откройте экран резервных копий (snapshots).',
+                'Создайте снимок, чтобы сохранить копию данных.',
+                'Для восстановления выберите «Restore missing data» (объединить) или «Replace everything» (перезаписать).',
+              ],
+            },
+            tip: {
+              en: '“Replace everything” overwrites current data — use it only on a fresh device.',
+              uk: '«Replace everything» перезаписує поточні дані — використовуйте лише на новому пристрої.',
+              ru: '«Replace everything» перезаписывает текущие данные — используйте только на новом устройстве.',
+            },
+          },
+          {
+            id: 'premium',
+            title: { en: 'Premium', uk: 'Premium', ru: 'Premium' },
+            summary: {
+              en: 'What a subscription unlocks.',
+              uk: 'Що відкриває підписка.',
+              ru: 'Что открывает подписка.',
+            },
+            steps: {
+              en: [
+                'Free accounts can keep up to 3 upcoming events (5 in Ukraine).',
+                'Premium removes the limit and unlocks all features.',
+                'Choose monthly or yearly billing.',
+              ],
+              uk: [
+                'Безкоштовний акаунт дозволяє до 3 майбутніх подій (5 в Україні).',
+                'Premium знімає обмеження й відкриває всі можливості.',
+                'Оберіть щомісячну або річну оплату.',
+              ],
+              ru: [
+                'Бесплатный аккаунт допускает до 3 будущих событий (5 в Украине).',
+                'Premium снимает ограничение и открывает все возможности.',
+                'Выберите ежемесячную или годовую оплату.',
+              ],
+            },
+          },
+        ],
       },
     ],
   },
 
   {
-    id: 'manage', icon: '🗂️',
-    title: { en: 'Managing bookings', uk: 'Керування бронюваннями', ru: 'Управление бронированиями' },
+    id: 'deadlines',
+    title: { en: 'Deadlines', uk: 'Дедлайни', ru: 'Дедлайны' },
     sub: {
-      en: 'Everything inside an event, and how to stay on top of your schedule.',
-      uk: 'Усе всередині події та як тримати розклад під контролем.',
-      ru: 'Всё внутри события и как держать расписание под контролем.',
+      en: 'Every delivery counted down, and off your list once it’s done.',
+      uk: 'Відлік до кожної здачі — і геть зі списку, щойно готово.',
+      ru: 'Отсчёт до каждой сдачи — и долой из списка, как только готово.',
     },
     items: [
       {
-        id: 'payments', icon: '💰',
-        title: { en: 'Payments, prepayment & certificates', uk: 'Оплати, передоплата й сертифікати', ru: 'Оплаты, предоплата и сертификаты' },
-        summary: {
-          en: 'Track full price, deposits and gift certificates per event.',
-          uk: 'Відстежуйте повну ціну, завдаток і подарункові сертифікати в події.',
-          ru: 'Отслеживайте полную цену, задаток и подарочные сертификаты в событии.',
-        },
-        steps: {
-          en: [
-            'In an event, set the full price for the job.',
-            'Add the Prepayment (deposit) the client has already paid.',
-            'Mark a booking as a gift certificate when it is paid upfront as a gift.',
-            'Totals feed into your Statistics automatically.',
-          ],
-          uk: [
-            'У події задайте повну вартість роботи.',
-            'Додайте «Prepayment» (передоплату), яку клієнт уже вніс.',
-            'Позначте бронювання як подарунковий сертифікат, якщо його оплатили наперед у подарунок.',
-            'Суми автоматично потрапляють у «Статистику».',
-          ],
-          ru: [
-            'В событии задайте полную стоимость работы.',
-            'Добавьте «Prepayment» (предоплату), которую клиент уже внёс.',
-            'Отметьте бронирование как подарочный сертификат, если его оплатили заранее в подарок.',
-            'Суммы автоматически попадают в «Статистику».',
-          ],
-        },
-        tip: {
-          en: 'The remaining balance is simply the full price minus the prepayment.',
-          uk: 'Залишок до сплати — це повна ціна мінус передоплата.',
-          ru: 'Остаток к оплате — это полная цена минус предоплата.',
-        },
-      },
-      {
-        id: 'calendar', icon: '🗓️',
-        title: { en: 'Calendar & schedule', uk: 'Календар і розклад', ru: 'Календарь и расписание' },
-        summary: {
-          en: 'Browse your month and jump to any day’s events.',
-          uk: 'Переглядайте місяць і переходьте до подій будь-якого дня.',
-          ru: 'Просматривайте месяц и переходите к событиям любого дня.',
-        },
-        steps: {
-          en: [
-            'The Schedule tab shows a month calendar with marked days.',
-            'Tap any date to see that day’s events below.',
-            'Swipe between months to plan ahead.',
-            'Tap an event to open details, or swipe a row to edit or delete it.',
-          ],
-          uk: [
-            'Вкладка «Розклад» показує календар на місяць із позначеними днями.',
-            'Торкніться дати, щоб побачити події цього дня нижче.',
-            'Гортайте місяці, щоб планувати наперед.',
-            'Торкніться події для деталей або проведіть по рядку, щоб редагувати чи видалити.',
-          ],
-          ru: [
-            'Вкладка «Расписание» показывает календарь на месяц с отмеченными днями.',
-            'Нажмите дату, чтобы увидеть события этого дня ниже.',
-            'Листайте месяцы, чтобы планировать наперёд.',
-            'Нажмите событие для деталей или проведите по строке, чтобы изменить или удалить.',
-          ],
-        },
-      },
-      {
-        id: 'deadlines', icon: '⏳',
+        id: 'deadlines',
         title: { en: 'Deadlines & countdowns', uk: 'Дедлайни й відлік', ru: 'Дедлайны и отсчёт' },
         summary: {
           en: 'See what’s unfinished and how many days are left.',
@@ -191,134 +548,149 @@ const GROUPS = [
         steps: {
           en: [
             'Open the Deadlines tab to see unfinished jobs.',
-            'Each one shows the days left until its deadline.',
+            'Each one shows the days left until its deadline — urgent ones turn red.',
             'Set a deadline (and a deadline reminder) when creating or editing an event.',
-            'Long-press a job to mark it ready.',
           ],
           uk: [
             'Відкрийте вкладку «Дедлайни», щоб побачити незавершені роботи.',
-            'Кожна показує, скільки днів лишилося до дедлайну.',
+            'Кожна показує, скільки днів лишилося до дедлайну, — термінові стають червоними.',
             'Задайте дедлайн (і нагадування про нього) при створенні або редагуванні події.',
-            'Утримуйте роботу, щоб позначити її виконаною.',
           ],
           ru: [
             'Откройте вкладку «Дедлайны», чтобы увидеть незавершённые работы.',
-            'Каждая показывает, сколько дней осталось до дедлайна.',
+            'Каждая показывает, сколько дней осталось до дедлайна, — срочные становятся красными.',
             'Задайте дедлайн (и напоминание о нём) при создании или редактировании события.',
-            'Удерживайте работу, чтобы отметить её выполненной.',
           ],
         },
       },
       {
-        id: 'timeline', icon: '📋',
-        title: { en: 'Timeline & tasks', uk: 'Таймлайн і завдання', ru: 'Таймлайн и задачи' },
+        id: 'deadline-done',
+        title: {
+          en: 'Mark a job as done',
+          uk: 'Позначте роботу як виконану',
+          ru: 'Отметьте работу как выполненную',
+        },
         summary: {
-          en: 'Break a shoot into timed stages and to-dos.',
-          uk: 'Розбийте зйомку на етапи за часом і список справ.',
-          ru: 'Разбейте съёмку на этапы по времени и список дел.',
+          en: 'Delivered it? Take it off your deadlines list.',
+          uk: 'Здали? Приберіть роботу зі списку дедлайнів.',
+          ru: 'Сдали? Уберите работу из списка дедлайнов.',
         },
         steps: {
           en: [
-            'Open an event and go to the Timeline section.',
-            'Add timeline stages with a time and description for each part of the day.',
-            'Add tasks (“Add a task”) for things to prepare or bring.',
-            'Check off tasks as you complete them.',
+            'Open the Deadlines tab.',
+            'Press and hold the job you’ve delivered.',
+            'Tap Done — it’s off your list.',
           ],
           uk: [
-            'Відкрийте подію й перейдіть до розділу «Timeline».',
-            'Додайте етапи таймлайну з часом і описом для кожної частини дня.',
-            'Додайте завдання («Add a task») — що підготувати чи взяти з собою.',
-            'Позначайте завдання виконаними по ходу.',
+            'Відкрийте вкладку «Дедлайни».',
+            'Затисніть картку роботи, яку ви здали.',
+            'Торкніться «Готово» — і її більше немає у списку.',
           ],
           ru: [
-            'Откройте событие и перейдите в раздел «Timeline».',
-            'Добавьте этапы таймлайна с временем и описанием для каждой части дня.',
-            'Добавьте задачи («Add a task») — что подготовить или взять с собой.',
-            'Отмечайте задачи выполненными по ходу.',
+            'Откройте вкладку «Дедлайны».',
+            'Зажмите карточку работы, которую вы сдали.',
+            'Коснитесь «Готово» — и её больше нет в списке.',
           ],
         },
       },
+    ],
+  },
+
+  {
+    id: 'contacts',
+    title: { en: 'Contacts', uk: 'Контакти', ru: 'Контакты' },
+    sub: {
+      en: 'Clients and colleagues, one tap away.',
+      uk: 'Клієнти й колеги на відстані одного дотику.',
+      ru: 'Клиенты и коллеги на расстоянии одного касания.',
+    },
+    items: [
       {
-        id: 'gallery', icon: '🖼️',
-        title: { en: 'Photo gallery', uk: 'Галерея фото', ru: 'Галерея фото' },
-        summary: {
-          en: 'Attach reference and inspiration photos to an event.',
-          uk: 'Прикріпіть референси та фото для натхнення до події.',
-          ru: 'Прикрепите референсы и фото для вдохновения к событию.',
+        id: 'contacts',
+        title: {
+          en: 'Every client in one list',
+          uk: 'Усі клієнти в одному списку',
+          ru: 'Все клиенты в одном списке',
         },
-        steps: {
-          en: [
-            'Open an event and find the Gallery section.',
-            'Add photos from your library — poses, moodboards, client references.',
-            'Tap a photo to view it full-screen on the shoot day.',
-          ],
-          uk: [
-            'Відкрийте подію й знайдіть розділ «Gallery».',
-            'Додайте фото з бібліотеки — пози, мудборди, референси клієнта.',
-            'Торкніться фото, щоб відкрити його на весь екран у день зйомки.',
-          ],
-          ru: [
-            'Откройте событие и найдите раздел «Gallery».',
-            'Добавьте фото из библиотеки — позы, мудборды, референсы клиента.',
-            'Нажмите фото, чтобы открыть его на весь экран в день съёмки.',
-          ],
-        },
-      },
-      {
-        id: 'contacts', icon: '👤',
-        title: { en: 'Client contacts', uk: 'Контакти клієнтів', ru: 'Контакты клиентов' },
         summary: {
-          en: 'Keep every client’s links and reach them in one tap.',
-          uk: 'Зберігайте контакти клієнтів і звʼязуйтеся в один дотик.',
-          ru: 'Храните контакты клиентов и связывайтесь в одно касание.',
+          en: 'Clients from your events are saved for you.',
+          uk: 'Клієнти з ваших подій зберігаються самі.',
+          ru: 'Клиенты из ваших событий сохраняются сами.',
         },
         steps: {
           en: [
             'The Contacts tab lists everyone you’ve saved.',
-            'Save phone, Telegram, Instagram and website for a client.',
-            'Tap the phone number to call; tap Telegram or Instagram to open the app.',
-            'When creating an event, you can pick a client from your phone’s contacts.',
+            'Clients from your events are added automatically.',
+            'Switch to Colleagues for the people you shoot with.',
+            'Search by name to find anyone fast.',
           ],
           uk: [
             'Вкладка «Контакти» містить усіх збережених клієнтів.',
-            'Збережіть телефон, Telegram, Instagram і сайт клієнта.',
-            'Торкніться номера, щоб подзвонити; торкніться Telegram чи Instagram, щоб відкрити застосунок.',
-            'Створюючи подію, можна обрати клієнта з контактів телефону.',
+            'Клієнти з ваших подій додаються автоматично.',
+            'Перемкніться на «Колеги» — там люди, з якими ви знімаєте.',
+            'Шукайте за імʼям, щоб швидко знайти будь-кого.',
           ],
           ru: [
             'Вкладка «Контакты» содержит всех сохранённых клиентов.',
-            'Сохраните телефон, Telegram, Instagram и сайт клиента.',
-            'Нажмите номер, чтобы позвонить; нажмите Telegram или Instagram, чтобы открыть приложение.',
-            'При создании события можно выбрать клиента из контактов телефона.',
+            'Клиенты из ваших событий добавляются автоматически.',
+            'Переключитесь на «Коллеги» — там люди, с которыми вы снимаете.',
+            'Ищите по имени, чтобы быстро найти кого угодно.',
           ],
         },
       },
       {
-        id: 'reminders', icon: '🔔',
-        title: { en: 'Reminders', uk: 'Нагадування', ru: 'Напоминания' },
+        id: 'contacts-save',
+        title: { en: 'Save client details', uk: 'Збережіть дані клієнта', ru: 'Сохраните данные клиента' },
         summary: {
-          en: 'Local notifications for events and deadlines — no account needed.',
-          uk: 'Локальні сповіщення про події та дедлайни — без облікового запису.',
-          ru: 'Локальные уведомления о событиях и дедлайнах — без учётной записи.',
+          en: 'Phone, Telegram and Instagram, typed once.',
+          uk: 'Телефон, Telegram та Instagram — лише один раз.',
+          ru: 'Телефон, Telegram и Instagram — всего один раз.',
         },
         steps: {
           en: [
-            'When creating or editing an event, set a reminder time.',
-            'Set a separate deadline reminder for delivery dates.',
-            'Allow notifications when the app asks.',
-            'Reminders fire on your device — nothing is sent to a server.',
+            'When creating an event, fill in the client’s name and phone.',
+            'Add Telegram and Instagram — a @username or a link works.',
+            'Or tap “Add from Contacts” to pick someone from your phone.',
           ],
           uk: [
-            'Створюючи або редагуючи подію, задайте час нагадування.',
-            'Задайте окреме нагадування про дедлайн для дат здачі.',
-            'Дозвольте сповіщення, коли застосунок попросить.',
-            'Нагадування спрацьовують на пристрої — нічого не надсилається на сервер.',
+            'Створюючи подію, заповніть імʼя та телефон клієнта.',
+            'Додайте Telegram та Instagram — підійде @імʼя або посилання.',
+            'Або торкніться «Add from Contacts» (Додати з контактів), щоб обрати людину з телефона.',
           ],
           ru: [
-            'Создавая или редактируя событие, задайте время напоминания.',
-            'Задайте отдельное напоминание о дедлайне для дат сдачи.',
-            'Разрешите уведомления, когда приложение попросит.',
-            'Напоминания срабатывают на устройстве — ничего не отправляется на сервер.',
+            'Создавая событие, заполните имя и телефон клиента.',
+            'Добавьте Telegram и Instagram — подойдёт @имя или ссылка.',
+            'Или нажмите «Add from Contacts» (Добавить из контактов), чтобы выбрать человека из телефона.',
+          ],
+        },
+      },
+      {
+        id: 'contacts-reach',
+        title: {
+          en: 'Reach a client in a tap',
+          uk: 'Звʼязок із клієнтом одним дотиком',
+          ru: 'Связь с клиентом одним касанием',
+        },
+        summary: {
+          en: 'Call, message or open Instagram from their card.',
+          uk: 'Дзвінок, повідомлення чи Instagram просто з картки.',
+          ru: 'Звонок, сообщение или Instagram прямо из карточки.',
+        },
+        steps: {
+          en: [
+            'Find the client in Contacts and open their card.',
+            'Tap the phone number to call.',
+            'Tap Telegram or Instagram to open the app.',
+          ],
+          uk: [
+            'Знайдіть клієнта в «Контактах» і відкрийте його картку.',
+            'Торкніться номера телефону, щоб зателефонувати.',
+            'Торкніться Telegram чи Instagram, щоб відкрити застосунок.',
+          ],
+          ru: [
+            'Найдите клиента в «Контактах» и откройте его карточку.',
+            'Нажмите на номер телефона, чтобы позвонить.',
+            'Нажмите Telegram или Instagram, чтобы открыть приложение.',
           ],
         },
       },
@@ -326,89 +698,21 @@ const GROUPS = [
   },
 
   {
-    id: 'plan', icon: '🧭',
-    title: { en: 'Planning tools', uk: 'Інструменти планування', ru: 'Инструменты планирования' },
+    id: 'stats',
+    title: { en: 'Statistics', uk: 'Статистика', ru: 'Статистика' },
     sub: {
-      en: 'Plan light and travel before you arrive.',
-      uk: 'Плануйте світло й дорогу ще до приїзду.',
-      ru: 'Планируйте свет и дорогу ещё до приезда.',
+      en: 'See how your year is really going.',
+      uk: 'Дивіться, як насправді йде ваш рік.',
+      ru: 'Смотрите, как на самом деле идёт ваш год.',
     },
     items: [
       {
-        id: 'suntrack', icon: '☀️',
-        title: { en: 'Sun Track', uk: 'Sun Track', ru: 'Sun Track' },
-        summary: {
-          en: 'Plan golden hour and natural light for any spot and date.',
-          uk: 'Плануйте золоту годину та природне світло для будь-якого місця й дати.',
-          ru: 'Планируйте золотой час и естественный свет для любого места и даты.',
+        id: 'analytics',
+        title: {
+          en: 'Your year at a glance',
+          uk: 'Ваш рік з першого погляду',
+          ru: 'Ваш год с первого взгляда',
         },
-        steps: {
-          en: [
-            'Open Sun Track (available for photographer, videographer, agency, decorator and event-host roles).',
-            'Move the map so your shoot spot sits under the center pin.',
-            'Pick the date and time to see the sun’s position and path.',
-            'Use it to plan sunrise, sunset and golden-hour shots.',
-          ],
-          uk: [
-            'Відкрийте Sun Track (доступно для ролей фотографа, відеографа, агенції, декоратора й ведучого).',
-            'Посуньте карту так, щоб місце зйомки опинилося під центральною позначкою.',
-            'Оберіть дату й час, щоб побачити положення та шлях сонця.',
-            'Плануйте кадри на схід, захід і золоту годину.',
-          ],
-          ru: [
-            'Откройте Sun Track (доступно для ролей фотографа, видеографа, агентства, декоратора и ведущего).',
-            'Подвиньте карту так, чтобы место съёмки оказалось под центральной меткой.',
-            'Выберите дату и время, чтобы увидеть положение и путь солнца.',
-            'Планируйте кадры на рассвет, закат и золотой час.',
-          ],
-        },
-        tip: {
-          en: 'Sun Track needs location access to calculate the sun’s path.',
-          uk: 'Для розрахунку шляху сонця Sun Track потрібен доступ до геолокації.',
-          ru: 'Для расчёта пути солнца Sun Track нужен доступ к геолокации.',
-        },
-      },
-      {
-        id: 'routes', icon: '📍',
-        title: { en: 'Locations & Create Route', uk: 'Локації та маршрут', ru: 'Локации и маршрут' },
-        summary: {
-          en: 'Save a shoot spot and open directions in one tap.',
-          uk: 'Збережіть місце зйомки й відкрийте маршрут одним дотиком.',
-          ru: 'Сохраните место съёмки и откройте маршрут одним касанием.',
-        },
-        steps: {
-          en: [
-            'Add a location to an event by searching or placing it on the map.',
-            'Open the event details and tap the location.',
-            'Tap “Create route” to open directions in Maps.',
-          ],
-          uk: [
-            'Додайте локацію до події через пошук або на карті.',
-            'Відкрийте деталі події й торкніться локації.',
-            'Торкніться «Create route», щоб відкрити маршрут у Картах.',
-          ],
-          ru: [
-            'Добавьте локацию к событию через поиск или на карте.',
-            'Откройте детали события и нажмите локацию.',
-            'Нажмите «Create route», чтобы открыть маршрут в Картах.',
-          ],
-        },
-      },
-    ],
-  },
-
-  {
-    id: 'insights', icon: '📊',
-    title: { en: 'Insights', uk: 'Аналітика', ru: 'Аналитика' },
-    sub: {
-      en: 'See how your business is really doing.',
-      uk: 'Побачте, як насправді йдуть справи.',
-      ru: 'Посмотрите, как на самом деле идут дела.',
-    },
-    items: [
-      {
-        id: 'analytics', icon: '📈',
-        title: { en: 'Analytics', uk: 'Аналітика', ru: 'Аналитика' },
         summary: {
           en: 'Earnings, sessions and hours at a glance.',
           uk: 'Дохід, сесії та години одним поглядом.',
@@ -432,141 +736,46 @@ const GROUPS = [
           ],
         },
       },
-    ],
-  },
-
-  {
-    id: 'sync', icon: '☁️',
-    title: { en: 'Sync, import & backup', uk: 'Синхронізація, імпорт і копії', ru: 'Синхронизация, импорт и копии' },
-    sub: {
-      en: 'Keep your data safe and bring in events you already have.',
-      uk: 'Тримайте дані в безпеці й переносьте наявні події.',
-      ru: 'Держите данные в безопасности и переносите существующие события.',
-    },
-    items: [
       {
-        id: 'icloud', icon: '☁️',
-        title: { en: 'iCloud sync', uk: 'Синхронізація iCloud', ru: 'Синхронизация iCloud' },
+        id: 'charts',
+        title: { en: 'Build your own charts', uk: 'Створюйте власні графіки', ru: 'Создавайте свои графики' },
         summary: {
-          en: 'Your data, in sync across iPhone, iPad and Mac.',
-          uk: 'Ваші дані синхронізовані між iPhone, iPad і Mac.',
-          ru: 'Ваши данные синхронизированы между iPhone, iPad и Mac.',
+          en: 'Chart what matters to your business.',
+          uk: 'Графіки того, що важливо для вашого бізнесу.',
+          ru: 'Графики того, что важно для вашего бизнеса.',
         },
         steps: {
           en: [
-            'Sign in to iCloud on your device and enable iCloud Drive.',
-            'In Settings → Data synchronization, check the status shows “On”.',
-            'Your events then sync across all your Apple devices automatically.',
+            'Open the Statistics tab.',
+            'Under “Create custom charts”, tap Create.',
+            'Your charts sit on the Statistics screen — like shoots by type for a quarter.',
           ],
           uk: [
-            'Увійдіть в iCloud на пристрої та увімкніть iCloud Drive.',
-            'У «Налаштування → Data synchronization» перевірте, що статус «On».',
-            'Події синхронізуватимуться між усіма пристроями Apple автоматично.',
+            'Відкрийте вкладку «Статистика».',
+            'У блоці «Create custom charts» (Створити власні графіки) торкніться «Create».',
+            'Ваші графіки зʼявляться на екрані статистики — наприклад, зйомки за типами за квартал.',
           ],
           ru: [
-            'Войдите в iCloud на устройстве и включите iCloud Drive.',
-            'В «Настройки → Data synchronization» проверьте, что статус «On».',
-            'События будут синхронизироваться между всеми устройствами Apple автоматически.',
+            'Откройте вкладку «Статистика».',
+            'В блоке «Create custom charts» (Создать свои графики) нажмите «Create».',
+            'Ваши графики появятся на экране статистики — например, съёмки по типам за квартал.',
           ],
-        },
-      },
-      {
-        id: 'applecal', icon: '📆',
-        title: { en: 'Import from Apple Calendar', uk: 'Імпорт з Apple Календаря', ru: 'Импорт из Apple Календаря' },
-        summary: {
-          en: 'Bring events in from the Apple Calendar.',
-          uk: 'Перенесіть події з Apple Календаря.',
-          ru: 'Перенесите события из Apple Календаря.',
-        },
-        steps: {
-          en: [
-            'Open Settings → Import from Apple Calendar.',
-            'Allow calendar access.',
-            'Pick the events to bring in as bookings.',
-          ],
-          uk: [
-            'Відкрийте «Налаштування → Import from Apple Calendar».',
-            'Дозвольте доступ до календаря.',
-            'Оберіть події, щоб перенести їх як бронювання.',
-          ],
-          ru: [
-            'Откройте «Настройки → Import from Apple Calendar».',
-            'Разрешите доступ к календарю.',
-            'Выберите события, чтобы перенести их как бронирования.',
-          ],
-        },
-      },
-      {
-        id: 'gcal', icon: '🔄',
-        title: { en: 'Import from Google Calendar', uk: 'Імпорт з Google Календаря', ru: 'Импорт из Google Календаря' },
-        summary: {
-          en: 'Bring existing events in from Google Calendar.',
-          uk: 'Перенесіть наявні події з Google Календаря.',
-          ru: 'Перенесите существующие события из Google Календаря.',
-        },
-        steps: {
-          en: [
-            'Open Settings → Import from Google Calendar.',
-            'Sign in to your Google account.',
-            'Choose events to import into Events Notes.',
-          ],
-          uk: [
-            'Відкрийте «Налаштування → Import from Google Calendar».',
-            'Увійдіть у свій акаунт Google.',
-            'Оберіть події для імпорту в Events Notes.',
-          ],
-          ru: [
-            'Откройте «Настройки → Import from Google Calendar».',
-            'Войдите в свой аккаунт Google.',
-            'Выберите события для импорта в Events Notes.',
-          ],
-        },
-      },
-      {
-        id: 'backup', icon: '🛟',
-        title: { en: 'Backups & restore', uk: 'Резервні копії та відновлення', ru: 'Резервные копии и восстановление' },
-        summary: {
-          en: 'Save snapshots and restore data safely.',
-          uk: 'Зберігайте знімки даних і відновлюйте їх безпечно.',
-          ru: 'Сохраняйте снимки данных и восстанавливайте их безопасно.',
-        },
-        steps: {
-          en: [
-            'In Settings, open the backups (snapshots) screen.',
-            'Create a snapshot to save a copy of your data.',
-            'To restore, choose “Restore missing data” to merge, or “Replace everything” to overwrite.',
-          ],
-          uk: [
-            'У Налаштуваннях відкрийте екран резервних копій (snapshots).',
-            'Створіть знімок, щоб зберегти копію даних.',
-            'Для відновлення оберіть «Restore missing data» (обʼєднати) або «Replace everything» (перезаписати).',
-          ],
-          ru: [
-            'В Настройках откройте экран резервных копий (snapshots).',
-            'Создайте снимок, чтобы сохранить копию данных.',
-            'Для восстановления выберите «Restore missing data» (объединить) или «Replace everything» (перезаписать).',
-          ],
-        },
-        tip: {
-          en: '“Replace everything” overwrites current data — use it only on a fresh device.',
-          uk: '«Replace everything» перезаписує поточні дані — використовуйте лише на новому пристрої.',
-          ru: '«Replace everything» перезаписывает текущие данные — используйте только на новом устройстве.',
         },
       },
     ],
   },
 
   {
-    id: 'more', icon: '✨',
-    title: { en: 'More', uk: 'Більше', ru: 'Больше' },
+    id: 'beyond',
+    title: { en: 'Beyond the app', uk: 'Поза застосунком', ru: 'Вне приложения' },
     sub: {
-      en: 'Widgets, team, Mac and your subscription.',
-      uk: 'Віджети, команда, Mac і ваша підписка.',
-      ru: 'Виджеты, команда, Mac и ваша подписка.',
+      en: 'Events Notes on your Home Screen and on your Mac.',
+      uk: 'Events Notes на екрані «Додому» і на Mac.',
+      ru: 'Events Notes на домашнем экране и на Mac.',
     },
     items: [
       {
-        id: 'widget', icon: '🧩',
+        id: 'widget',
         title: { en: 'Home Screen widget', uk: 'Віджет на екрані «Додому»', ru: 'Виджет на домашнем экране' },
         summary: {
           en: 'Upcoming events, always one glance away.',
@@ -592,33 +801,7 @@ const GROUPS = [
         },
       },
       {
-        id: 'team', icon: '👥',
-        title: { en: 'Team members', uk: 'Учасники команди', ru: 'Участники команды' },
-        summary: {
-          en: 'Add your team to an event — for the Agency role.',
-          uk: 'Додавайте команду до події — для ролі «Агенція».',
-          ru: 'Добавляйте команду к событию — для роли «Агентство».',
-        },
-        steps: {
-          en: [
-            'Switch to the Agency role to use team features.',
-            'In an event, open the Team section and tap “Add team member”.',
-            'Assign a contact and add info for each member on that shoot.',
-          ],
-          uk: [
-            'Перейдіть на роль «Агенція», щоб користуватися командними функціями.',
-            'У події відкрийте розділ «Team» і торкніться «Add team member».',
-            'Призначте контакт і додайте інформацію для кожного учасника на цій зйомці.',
-          ],
-          ru: [
-            'Переключитесь на роль «Агентство», чтобы использовать командные функции.',
-            'В событии откройте раздел «Team» и нажмите «Add team member».',
-            'Назначьте контакт и добавьте информацию для каждого участника на этой съёмке.',
-          ],
-        },
-      },
-      {
-        id: 'mac', icon: '💻',
+        id: 'mac',
         title: { en: 'The Mac app', uk: 'Застосунок для Mac', ru: 'Приложение для Mac' },
         summary: {
           en: 'Manage bookings full-screen on your Mac.',
@@ -643,70 +826,428 @@ const GROUPS = [
           ],
         },
       },
-      {
-        id: 'premium', icon: '⭐',
-        title: { en: 'Premium', uk: 'Premium', ru: 'Premium' },
-        summary: {
-          en: 'What a subscription unlocks.',
-          uk: 'Що відкриває підписка.',
-          ru: 'Что открывает подписка.',
-        },
-        steps: {
-          en: [
-            'Free accounts can keep up to 3 upcoming events (5 in Ukraine).',
-            'Premium removes the limit and unlocks all features.',
-            'Choose monthly or yearly billing.',
-          ],
-          uk: [
-            'Безкоштовний акаунт дозволяє до 3 майбутніх подій (5 в Україні).',
-            'Premium знімає обмеження й відкриває всі можливості.',
-            'Оберіть щомісячну або річну оплату.',
-          ],
-          ru: [
-            'Бесплатный аккаунт допускает до 3 будущих событий (5 в Украине).',
-            'Premium снимает ограничение и открывает все возможности.',
-            'Выберите ежемесячную или годовую оплату.',
-          ],
-        },
-      },
     ],
   },
 ];
 
-/* ---- Step screenshots ----
-   Captured on the iOS simulator with the App Store demo data. One entry per guide,
-   aligned to its steps (null = no screenshot for that step). Shared across languages. */
-// From the site root, so screenshots load the same from / and from /uk/ or /ru/
-const SHOT_BASE = new URL('assets/tutorials/', document.currentScript.src).href;
-const SHOTS = {
-  role:      ['settings', 'role', null],
-  create:    ['schedule', 'newevent-type', 'newevent-main', 'details-main'],
-  payments:  ['details-main', 'newevent-payment', null, 'stats'],
-  calendar:  ['schedule', null, null, null],
-  deadlines: ['deadlines', null, 'newevent-main', null],
-  timeline:  ['timeline-editor', null, 'tasks', null],
-  gallery:   ['gallery', null, null],
-  contacts:  [null, 'newevent-main', 'details-main', null],
-  reminders: ['newevent-payment', null, null, null],
-  suntrack:  ['sun', null, null, null],
-  routes:    ['newevent-payment', 'details-main', 'route'],
-  analytics: ['stats', null, null],
-  icloud:    [null, 'settings', null],
-  applecal:  ['import-apple', null, null],
-  gcal:      ['import-google', null, null],
-  backup:    ['backup', null, null],
-  widget:    [null, 'widget', null],
-  team:      ['role', 'team', null],
-  premium:   [null, 'premium', null],
+
+/* ---- Walkthrough screens ----
+   Drawn in iPhone points on a 440 × 956 screen, like the home page tour. A screen is a real
+   screenshot (a path under assets/), or markup built here where the step animates ({A} = assets/).
+   Overlays (sheets, alerts, banners) sit on top of the screen below them. */
+const ASSET_BASE = new URL('assets/', document.currentScript.src).href;
+const CHEV = '<img class="chev" src="{A}flow/ui/chev.webp" alt="" />';
+const SCREENS = {
+  schedule: 'flow/schedule.webp',
+  details: 'flow/details.webp',
+  contact: 'flow/contact-detail.webp',
+  maps: 'flow/maps-route.webp',
+  settings: 'tutorials/settings.webp',
+  role: 'tutorials/role.webp',
+  'newevent-type': 'tutorials/newevent-type.webp',
+  'newevent-main': 'tutorials/newevent-main.webp',
+  'newevent-payment': 'tutorials/newevent-payment.webp',
+  'details-main': 'tutorials/details-main.webp',
+  route: 'tutorials/route.webp',
+  stats: 'tutorials/stats.webp',
+  timeline: 'tutorials/timeline-editor.webp',
+  tasks: 'tutorials/tasks.webp',
+  team: 'tutorials/team.webp',
+  'import-apple': 'tutorials/import-apple.webp',
+  'import-google': 'tutorials/import-google.webp',
+  backup: 'tutorials/backup.webp',
+  widget: 'tutorials/widget.webp',
+  premium: 'tutorials/premium.webp',
+
+  // New Event sheet, filled in as you watch (Create a booking)
+  newevent: {
+    overlay: true,
+    html:
+      '<div class="ph-dim" data-dim></div>' +
+      '<div class="ph-sheet" data-sheet><div class="ne-scroll">' +
+        '<div class="icard" style="top:187px;height:258px">' +
+          `<div class="irow" style="top:-1px"><span class="lab">Event type</span><span class="typed" data-g="type" data-text="Wedding"></span>${CHEV}</div>` +
+          '<div class="irow on" style="top:51px"><span class="lab">Date</span><span class="pills">' +
+            '<span class="pill"><span class="swap" data-g="type" data-from="Nov 6, 2026" data-text="Nov 7, 2026">Nov 6, 2026</span></span>' +
+            '<span class="pill"><span class="swap" data-g="type" data-from="12:00 AM" data-text="1:00 PM">12:00 AM</span></span></span></div>' +
+          '<div class="irow on" style="top:103px"><span class="lab">Timezone: New_York, United States (Eastern)</span><img class="chev" src="{A}flow/ui/chev-dark.webp" alt="" /></div>' +
+          `<div class="irow" style="top:155px"><span class="lab">Deadline</span><span class="typed" data-g="type" data-text="In a month"></span>${CHEV}</div>` +
+          `<div class="irow" style="top:207px"><span class="lab">Number of Hours</span><span class="typed" data-g="type" data-text="9"></span>${CHEV}</div>` +
+          '<i class="sep" style="top:51px"></i><i class="sep" style="top:103px"></i><i class="sep" style="top:155px"></i><i class="sep" style="top:207px"></i>' +
+        '</div>' +
+        '<div class="ihead" style="top:487px"><span>Contacts</span><a>Add from Contacts</a></div>' +
+        '<div class="icard" style="top:510px;height:308px">' +
+          '<div class="field" style="top:15px"><span class="ph">Name (required)</span><span class="typed" data-g="client" data-text="Emma &amp; James"></span></div>' +
+          '<div class="field" style="top:79px"><span class="ph">Phone number</span><span class="typed" data-g="client" data-text="+1 212 555 0148"></span></div>' +
+          '<div class="field" style="top:143px"><span class="ph">Telegram</span></div>' +
+          '<span class="hint" style="top:195px">Format: @username or link</span>' +
+          '<div class="field" style="top:226px"><span class="ph">Instagram</span><span class="typed" data-g="client" data-text="emma.and.james"></span></div>' +
+          '<span class="hint" style="top:278px">Format: @username or link</span>' +
+        '</div>' +
+        '<div class="ihead" style="top:858px"><span>Location</span><a>Open Map</a></div>' +
+        '<div class="icard" style="top:881px;height:77px">' +
+          '<div class="field" style="top:15px"><span class="ph">Input location name</span><span class="typed" data-g="place" data-text="Central Park, New York"></span></div>' +
+        '</div>' +
+        '<div class="ihead" style="top:1000px"><span>Payment</span></div>' +
+        '<div class="icard" style="top:1023px;height:205px">' +
+          '<div class="field" style="top:15px"><span class="ph">Full Price</span><span class="typed" data-g="place" data-text="4 800"></span></div>' +
+          '<div class="field" style="top:79px"><span class="ph">Prepayment</span><span class="typed" data-g="place" data-text="1 200"></span></div>' +
+          '<div class="field gift" style="top:142px"><span>Gift certificate</span><i class="toggle"></i></div>' +
+        '</div>' +
+        '<div class="ihead" style="top:1269px"><span>Reminder</span></div>' +
+        '<div class="icard" style="top:1293px;height:102px">' +
+          `<div class="irow" style="top:-1px"><span class="lab">Event Alert</span>${CHEV}</div>` +
+          `<div class="irow" style="top:51px"><span class="lab">Deadline Alert</span>${CHEV}</div><i class="sep" style="top:51px"></i>` +
+        '</div>' +
+      '</div>' +
+      '<div class="ne-head">' +
+        '<img class="ui" src="{A}flow/ui/nav-new.webp" style="top:8px;width:440px" alt="" />' +
+        '<img class="ui" src="{A}flow/ui/tabs-main.webp" style="top:71px;width:440px" alt="" />' +
+      '</div></div>',
+  },
+
+  // Sun Track with the app's own frames, cross-faded as the time changes
+  sun: {
+    html:
+      '<img class="full" src="{A}flow/sun/base.webp" alt="" />' +
+      '<div class="frames" data-f="a" style="left:88px;top:388px;width:264px;height:142px"></div>' +
+      '<div class="frames" data-f="b" style="left:0;top:604px;width:440px;height:90px"></div>' +
+      '<div class="frames" data-f="c" style="left:225px;top:828px;width:183px;height:49px"></div>' +
+      '<div class="frames" data-f="d" style="left:20px;top:708px;width:400px;height:42px"></div>',
+  },
+
+  // Deadlines tab: counters run up; press and hold lifts the first card and opens its menu
+  dlist: {
+    html:
+      '<img class="ui" src="{A}flow/ui/dl-status.webp" style="top:0;width:440px" alt="" />' +
+      '<img class="ui" src="{A}flow/ui/dl-top.webp" style="top:56px;width:440px" alt="" />' +
+      '<div class="dl-list">' +
+        [
+          ['Lauren &amp; Chris', 'Wedding', '2026, November 9', 3],
+          ['Claire Donovan', 'Portrait', '2026, November 14', 8],
+          ['The Hughes Family', 'Family', '2026, November 16', 10],
+          ['Megan &amp; Josh', 'Wedding', '2026, November 23', 17],
+          ['Rachel &amp; Tom', 'Wedding', '2026, November 30', 24],
+        ].map(([n, type, d, v], i) =>
+          `<div class="dl-card${i ? '' : ' first'}" style="--i:${i}"><b class="dl-name">${n}</b><span class="dl-type">${type}</span>` +
+          `<p class="dl-sub">Submit by: <em>${d}</em></p><b class="dl-num${v < 5 ? ' red' : ''}" data-to="${v}">0</b>` +
+          `<span class="dl-left${v < 5 ? ' red' : ''}">Days left</span></div>`).join('') +
+      '</div>' +
+      '<img class="ui" src="{A}flow/ui/tab-dl.webp" style="top:866px;width:440px" alt="" />' +
+      '<div class="dl-dim"></div>' +
+      '<div class="dl-lift"><b class="dl-name">Lauren &amp; Chris</b><span class="dl-type">Wedding</span>' +
+        '<p class="dl-sub">Submit by: <em>2026, November 9</em></p><b class="dl-num red">3</b><span class="dl-left red">Days left</span></div>' +
+      '<img class="ui dl-menu" src="{A}flow/ui/done-menu.webp" style="left:92px;top:266px;width:258px" alt="" />',
+  },
+
+  // Contacts tab: the client list, filtered by a search as you watch
+  clients: {
+    html:
+      '<img class="ui" src="{A}flow/ui/ct-status.webp" style="top:0;width:440px" alt="" />' +
+      '<img class="ui" src="{A}flow/ui/ct-top.webp" style="top:56px;width:440px" alt="" />' +
+      '<span class="ct-search"><span class="typed" data-g="search" data-text="Emma"></span></span>' +
+      '<div class="ct-list">' +
+        ['Emma &amp; James', 'Lauren &amp; Chris', 'Claire Donovan', 'The Hughes Family', 'Megan &amp; Josh', 'Rachel &amp; Tom']
+          .map((n, i) => `<div class="ct-card" style="--i:${i}"><b>${n}</b></div>`).join('') +
+      '</div>' +
+      '<img class="ui" src="{A}flow/ui/tab-contacts.webp" style="top:866px;width:440px" alt="" />',
+  },
+
+  // Edit Event › Gallery, with photos added from the library
+  gallery: {
+    html:
+      '<img class="full" src="{A}tutorials/gallery.webp" alt="" />' +
+      '<div class="icard grow" style="top:321px">' +
+        '<img class="ui" src="{A}flow/ui/row-addimg.webp" style="left:9px;top:5px;width:270px" alt="" />' +
+        '<i class="sep" style="top:51px"></i>' +
+        '<div class="photos">' +
+          [1, 2, 3].map((n, i) => `<i style="--i:${i}"><img src="{A}flow/photo${n}.webp" alt="" /></i>`).join('') +
+        '</div>' +
+      '</div>',
+  },
+  photo: { html: '<div class="ph-photo"><img src="{A}flow/photo1.webp" alt="" /></div>' },
+
+  // System pieces drawn here: the notification prompt, a reminder banner, the restore choices
+  notify: {
+    overlay: true,
+    html:
+      '<div class="ph-dim" data-dim></div>' +
+      '<div class="ios-alert" data-pop><b>“Events Notes” Would Like to Send You Notifications</b>' +
+        '<p>Notifications may include alerts, sounds and icon badges. These can be configured in Settings.</p>' +
+        '<span class="ios-btn" style="left:22px">Don’t Allow</span><span class="ios-btn is-bold" style="left:155px">Allow</span></div>',
+  },
+  banner: {
+    overlay: true,
+    html:
+      '<div class="ios-banner" data-drop><img src="{A}app-icon.png" alt="" />' +
+        '<span class="ios-banner-text"><b>The Foster Family</b><span>Family · 9:00 AM – 11:00 AM, Central Park</span></span><time>now</time></div>',
+  },
+  restore: {
+    overlay: true,
+    html:
+      '<div class="ph-dim" data-dim></div>' +
+      '<div class="ios-actions" data-sheet>' +
+        '<div class="ios-group"><span>Restore missing data</span><span class="is-red">Replace everything</span></div>' +
+        '<div class="ios-group"><span class="is-bold">Cancel</span></div>' +
+      '</div>',
+  },
 };
+
+/* ---- Walkthrough steps ----
+   One list of beats per step, played in order:
+     { show: screen, via: 'push' | 'pop' | 'sheet' | 'dismiss' | 'fade' }   change the screen
+     { tap: [x, y] }  { hold: [x, y] }  { swipe: [[x, y], [x, y]] }        a finger on the glass
+     { spot: [x, y, w, h] | null }                                          light up part of the screen
+     { fn: (ctx, animate) => … }                                            hand-built changes
+   Going to a step replays the earlier ones instantly, so every beat must also work with animate = false. */
+const typeIn = (screen, group) => ({ fn: (c, a) => c.type(screen, group, a) });
+const state = (screen, cls, on = true) => ({ fn: (c) => c.cls(screen, cls, on) });
+const SETTINGS_ROW = (y) => ({ spot: [18, y - 26, 404, 52] });
+const toTab = (x, screen, extra = []) => [{ show: 'schedule' }, { tap: [x, 904] }, { show: screen, via: 'fade' }, ...extra];
+const TAB_X = { deadlines: 173, contacts: 267, stats: 361 };
+
+const SCENES = {
+  calendar: [
+    [{ show: 'schedule' }, { spot: [0, 118, 440, 330] }],
+    [{ tap: [345, 239] }, { spot: [20, 475, 400, 345] }],
+    [{ spot: [0, 118, 440, 330] }, { swipe: [[380, 320], [90, 320]] }],
+    [{ tap: [220, 535] }, { show: 'details', via: 'sheet' }],
+  ],
+  create: [
+    [{ show: 'schedule' }, { tap: [345, 239] }, { tap: [398, 832] }],
+    [{ show: 'newevent', via: 'sheet' }, { tap: [220, 274] }, typeIn('newevent', 'type')],
+    [typeIn('newevent', 'client'), state('newevent', 'scrolled'), { fn: (c, a) => c.sleep(a ? 900 : 0) }, typeIn('newevent', 'place')],
+    [{ tap: [398, 104] }, { show: 'schedule', via: 'dismiss' }, { spot: [316, 206, 60, 64] }],
+  ],
+  payments: [
+    [{ show: 'details-main' }, { spot: [18, 505, 404, 82] }, { tap: [393, 126] }],
+    [{ show: 'newevent-payment', via: 'sheet' }, { tap: [180, 505] }, { spot: [18, 478, 404, 54] }],
+    [{ spot: [18, 548, 404, 52] }, { tap: [364, 574] }],
+    [{ show: 'stats', via: 'fade' }, { spot: [18, 222, 404, 212] }],
+  ],
+  timeline: [
+    [{ show: 'team' }, { tap: [224, 207] }],
+    [{ show: 'timeline', via: 'sheet' }, { spot: [18, 188, 404, 178] }, { tap: [130, 453] }],
+    [{ show: 'tasks', via: 'fade' }, { spot: [18, 192, 404, 170] }],
+    [{ tap: [40, 333] }],
+  ],
+  gallery: [
+    [{ show: 'team' }, { tap: [310, 166] }, { show: 'gallery', via: 'fade' }, { spot: [18, 290, 404, 84] }],
+    [{ tap: [110, 347] }, state('gallery', 'open'), { fn: (c, a) => c.sleep(a ? 900 : 0) }],
+    [{ tap: [83, 442] }, { show: 'photo', via: 'fade' }],
+  ],
+  reminders: [
+    [{ show: 'newevent-payment' }, { spot: [18, 692, 404, 50] }, { tap: [200, 717] }],
+    [{ spot: [18, 741, 404, 50] }, { tap: [200, 766] }],
+    [{ show: 'schedule', via: 'dismiss' }, { show: 'notify', via: 'sheet' }, { tap: [286, 524] }, { show: 'schedule', via: 'dismiss' }],
+    [{ show: 'banner', via: 'sheet' }],
+  ],
+  suntrack: [
+    [{ show: 'details' }, { tap: [318, 276] }, { show: 'sun', via: 'sheet' }],
+    [{ spot: [20, 150, 400, 440] }, { swipe: [[300, 480], [220, 390]] }],
+    [{ tap: [218, 114] }, { spot: [0, 598, 440, 102] }, { fn: (c, a) => c.frames(a) }],
+    [{ spot: [32, 700, 392, 190] }],
+  ],
+  routes: [
+    [{ show: 'newevent-payment' }, { spot: [18, 252, 404, 52] }, { tap: [180, 278] }],
+    [{ show: 'details-main', via: 'sheet' }, { spot: [150, 396, 250, 44] }, { tap: [207, 416] }, { show: 'route', via: 'fade' }],
+    [{ tap: [235, 399] }, { show: 'maps', via: 'fade' }],
+  ],
+  team: [
+    [{ show: 'settings' }, { tap: [220, 330] }, { show: 'role', via: 'push' }, { spot: [18, 278, 404, 52] }, { tap: [120, 304] }],
+    [{ show: 'team', via: 'sheet' }, { tap: [347, 207] }, { spot: [18, 315, 404, 54] }, { tap: [150, 341] }],
+    [{ spot: [18, 290, 404, 84] }],
+  ],
+
+  role: [
+    [{ show: 'schedule' }, { tap: [395, 84] }, { show: 'settings', via: 'push' }, SETTINGS_ROW(330), { tap: [220, 330] }],
+    [{ show: 'role', via: 'push' }, { spot: [18, 163, 404, 52] }, { tap: [220, 189] }],
+    [{ show: 'newevent-type', via: 'sheet' }, { spot: [18, 186, 404, 226] }],
+  ],
+  icloud: [
+    [{ show: 'schedule' }, { spot: [350, 410, 86, 36] }],
+    [{ tap: [395, 84] }, { show: 'settings', via: 'push' }, SETTINGS_ROW(448)],
+    [{ show: 'schedule', via: 'pop' }, { spot: [350, 410, 86, 36] }],
+  ],
+  applecal: [
+    [{ show: 'settings' }, SETTINGS_ROW(554), { tap: [220, 554] }],
+    [{ show: 'import-apple', via: 'push' }, { spot: [24, 830, 392, 62] }, { tap: [220, 861] }],
+    [{ spot: [30, 380, 380, 230] }],
+  ],
+  gcal: [
+    [{ show: 'settings' }, SETTINGS_ROW(501), { tap: [220, 501] }],
+    [{ show: 'import-google', via: 'push' }, { spot: [24, 820, 392, 62] }, { tap: [220, 850] }],
+    [{ spot: [30, 380, 380, 230] }],
+  ],
+  backup: [
+    [{ show: 'settings' }, SETTINGS_ROW(607), { tap: [220, 607] }],
+    [{ show: 'backup', via: 'push' }, { spot: [18, 236, 404, 104] }],
+    [{ tap: [200, 270] }, { show: 'restore', via: 'sheet' }, { tap: [220, 768] }],
+  ],
+  premium: [
+    [{ show: 'settings' }, SETTINGS_ROW(211), { tap: [220, 211] }],
+    [{ show: 'premium', via: 'sheet' }, { spot: [18, 620, 404, 140] }],
+    [{ spot: [120, 478, 200, 48] }, { tap: [250, 502] }, { tap: [141, 502] }],
+  ],
+
+  deadlines: [
+    toTab(TAB_X.deadlines, 'dlist', [{ fn: (c, a) => c.count('dlist', a) }]),
+    [{ spot: [322, 140, 104, 104] }],
+    [{ show: 'newevent-main', via: 'sheet' }, { spot: [18, 430, 404, 52] }],
+  ],
+  'deadline-done': [
+    toTab(TAB_X.deadlines, 'dlist', [{ fn: (c, a) => c.count('dlist', a) }]),
+    [{ hold: [200, 191] }, state('dlist', 'press')],
+    [{ tap: [220, 302] }, state('dlist', 'press', false), state('dlist', 'done')],
+  ],
+
+  contacts: [
+    toTab(TAB_X.contacts, 'clients', [state('clients', 'listed')]),
+    [{ spot: [21, 172, 398, 360] }],
+    [{ spot: [124, 60, 192, 48] }],
+    [{ tap: [200, 139] }, typeIn('clients', 'search'), state('clients', 'filtered')],
+  ],
+  'contacts-save': [
+    [{ show: 'newevent-main' }, { spot: [18, 626, 404, 124] }],
+    [{ spot: [18, 764, 404, 160] }],
+    [{ spot: [262, 572, 160, 30] }, { tap: [324, 586] }],
+  ],
+  'contacts-reach': [
+    [{ show: 'clients' }, state('clients', 'listed'), { tap: [220, 215] }, { show: 'contact', via: 'push' }],
+    [{ spot: [18, 314, 404, 52] }, { tap: [160, 338] }],
+    [{ spot: [18, 378, 404, 116] }, { tap: [160, 466] }],
+  ],
+
+  analytics: [
+    toTab(TAB_X.stats, 'stats'),
+    [{ spot: [18, 222, 404, 212] }],
+    [{ spot: [18, 222, 222, 212] }],
+  ],
+  charts: [
+    toTab(TAB_X.stats, 'stats'),
+    [{ spot: [110, 410, 220, 82] }, { tap: [218, 468] }],
+    [{ spot: [18, 120, 404, 376] }],
+  ],
+
+  widget: [
+    [{ show: 'widget' }, { hold: [120, 62] }],
+    [{ spot: [120, 410, 200, 250] }],
+    [{ spot: [20, 826, 400, 60] }, { tap: [220, 855] }],
+  ],
+  mac: [
+    [{ show: 'settings' }, SETTINGS_ROW(779), { tap: [220, 779] }],
+    [SETTINGS_ROW(448)],
+    [{ show: 'schedule', via: 'pop' }, { spot: [350, 410, 86, 36] }],
+  ],
+};
+
+/* ---- Grid art ----
+   The screen each guide's cell shows: a screen id or an image under assets/, and how far down
+   the screen (in points) the crop starts. */
+const ART = {
+  calendar: ['schedule', 90], create: ['newevent-main', 0],
+  payments: ['details-main', 330], timeline: ['timeline', 0], gallery: ['tutorials/gallery.webp', 0],
+  reminders: ['newevent-payment', 520], suntrack: ['flow/sun/base.webp', 120], routes: ['route', 200], team: ['team', 0],
+  role: ['role', 0], icloud: ['settings', 360], applecal: ['import-apple', 280], gcal: ['import-google', 280],
+  backup: ['backup', 0], premium: ['premium', 360],
+  deadlines: ['tutorials/deadlines.webp', 0], 'deadline-done': ['tutorials/deadlines.webp', 120],
+  contacts: ['flow/ui/ct-top.webp', 'strip'], 'contacts-save': ['newevent-main', 440], 'contacts-reach': ['contact', 0],
+  analytics: ['stats', 0], charts: ['stats', 300],
+  widget: ['widget', 300], mac: ['settings', 600],
+};
+const artSrc = (art) => (typeof SCREENS[art] === 'string' ? SCREENS[art] : art);
+
+/* ---- Tab icons (drawn to match the app's tab bar, one stroke weight) ---- */
+const ICON = (body) => `<svg class="tut-tab-icon" viewBox="0 0 28 28" aria-hidden="true">${body}</svg>`;
+const ICONS = {
+  schedule: ICON('<rect x="4" y="5.5" width="20" height="18" rx="4"/><path d="M4 11h20"/><path class="dot" d="M9.5 15.5h.01M14 15.5h.01M18.5 15.5h.01M9.5 19.5h.01M14 19.5h.01"/>'),
+  deadlines: ICON('<path d="M17.5 23.5H8a4 4 0 0 1-4-4v-10a4 4 0 0 1 4-4h12a4 4 0 0 1 4 4v4"/><path d="M4 11h20"/><path class="dot" d="M9.5 15.5h.01M14 15.5h.01M9.5 19.5h.01"/><circle cx="21.5" cy="20.5" r="4.5"/><path d="M21.5 18.4v2.1"/><path class="dot" d="M21.5 22.8h.01"/>'),
+  contacts: ICON('<circle cx="14" cy="14" r="10"/><circle cx="14" cy="11.5" r="3.5"/><path d="M7.6 21.6c1.4-2.6 3.8-3.9 6.4-3.9s5 1.3 6.4 3.9"/>'),
+  stats: ICON('<path d="M6 22.5v-6M11.3 22.5V9M16.7 22.5v-9M22 22.5V5.5"/>'),
+  beyond: ICON('<rect x="3.5" y="6" width="15" height="10.5" rx="1.5"/><path d="M1.5 19.5h15"/><rect x="18.5" y="10" width="7" height="12.5" rx="2"/>'),
+};
+const PLAY = '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M5 3.4v9.2a.6.6 0 0 0 .9.5l7.3-4.6a.6.6 0 0 0 0-1L5.9 2.9a.6.6 0 0 0-.9.5Z" fill="currentColor"/></svg>';
+
+/* ---- Markup for the tab bar, panels and guide grid ----
+   Used by the page on load and by tools/build-pages.mjs for the static pages, so both always match. */
+function plural(lang, n) {
+  const f = UI.steps[lang] || UI.steps.en;
+  if (lang === 'en') return n === 1 ? f[0] : f[1];
+  const d = n % 10, h = n % 100;
+  return d === 1 && h !== 11 ? f[0] : d >= 2 && d <= 4 && (h < 12 || h > 14) ? f[1] : f[2];
+}
+
+function renderGuides(lang, base) {
+  const tx = (o) => (o && (o[lang] || o.en)) || '';
+  const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  const art = (id) => {
+    const [a, y] = ART[id];
+    if (y === 'strip') { // a header strip rather than a whole screen
+      return `<span class="tut-cell-screen is-strip"><img src="${base}${artSrc(a)}" alt="" loading="lazy" decoding="async" /></span>`;
+    }
+    return `<span class="tut-cell-screen"><img src="${base}${artSrc(a)}" alt="" loading="lazy" decoding="async" style="--y:${y}" /></span>`;
+  };
+
+  const cell = (item, crumb) => {
+    const steps = item.steps[lang] || item.steps.en;
+    const search = [tx(item.title), tx(item.summary), steps.join(' ')].join(' ').toLowerCase();
+    const tip = item.tip ? `<p>${esc(UI.tip[lang])}: ${esc(tx(item.tip))}</p>` : '';
+    return (
+      `<li class="tut-item"><a class="tut-cell" id="guide-${item.id}" href="?topic=${item.id}" data-topic="${item.id}" data-search="${esc(search)}">` +
+      `<span class="tut-cell-art" aria-hidden="true">${art(item.id)}</span>` +
+      `<span class="tut-cell-body"><span class="tut-cell-title">${esc(tx(item.title))}</span>` +
+      `<span class="tut-cell-summary">${esc(tx(item.summary))}</span>` +
+      `<span class="tut-cell-meta">${PLAY}<span>${steps.length} ${plural(lang, steps.length)}</span>` +
+      `<span class="tut-cell-crumb">· ${esc(crumb)}</span></span></span>` +
+      `<div class="tut-cell-steps" hidden><ol>${steps.map((s) => `<li>${esc(s)}</li>`).join('')}</ol>${tip}</div>` +
+      `</a></li>`
+    );
+  };
+  const grid = (items, crumb) => `<ul class="tut-grid">${items.map((i) => cell(i, crumb)).join('')}</ul>`;
+
+  const tabBtn = (tab, i) =>
+    `<button type="button" role="tab" class="tut-tab" id="tabbtn-${tab.id}" aria-controls="tab-${tab.id}" ` +
+    `aria-selected="${i === 0}"${i ? ' tabindex="-1"' : ''} data-tab="${tab.id}">${ICONS[tab.id]}<span class="tut-tab-label">${esc(tx(tab.title))}</span></button>`;
+
+  const panel = (tab, i) => {
+    let inner;
+    if (tab.subtabs) {
+      inner =
+        `<div class="tut-seg" role="tablist" aria-label="${esc(tx(tab.title))}">` +
+        tab.subtabs.map((s, j) =>
+          `<button type="button" role="tab" class="tut-seg-btn" id="segbtn-${s.id}" aria-controls="sub-${s.id}" ` +
+          `aria-selected="${j === 0}"${j ? ' tabindex="-1"' : ''} data-sub="${s.id}">${esc(tx(s.title))}</button>`).join('') +
+        `</div>` +
+        tab.subtabs.map((s, j) =>
+          `<div class="tut-subpanel" id="sub-${s.id}" role="tabpanel" aria-labelledby="segbtn-${s.id}" data-sub="${s.id}"${j ? ' hidden' : ''}>` +
+          `<p class="tut-panel-sub">${esc(tx(s.sub))}</p>${grid(s.items, `${tx(tab.title)} › ${tx(s.title)}`)}</div>`).join('');
+    } else {
+      inner = `<p class="tut-panel-sub">${esc(tx(tab.sub))}</p>${grid(tab.items, tx(tab.title))}`;
+    }
+    return `<section class="tut-panel" id="tab-${tab.id}" role="tabpanel" aria-labelledby="tabbtn-${tab.id}" data-tab="${tab.id}"${i ? ' hidden' : ''}>${inner}</section>`;
+  };
+
+  const last = TABS.length - 1;
+  return (
+    `<div class="tut-tabbar"><div class="tut-tabs" role="tablist" aria-label="${esc(tx(UI['tabs.label']))}">` +
+    `<div class="tut-pill">${TABS.slice(0, last).map(tabBtn).join('')}</div>` +
+    `<div class="tut-pill tut-pill-solo">${tabBtn(TABS[last], last)}</div>` +
+    `</div></div>\n` +
+    `<div class="tut-panels">${TABS.map(panel).join('\n')}</div>\n`
+  );
+}
 
 /* ===== State & helpers ===== */
 const params = new URLSearchParams(location.search);
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let lang = 'en';
 
-function t(key) {
+function t(key, vars) {
   const entry = UI[key];
-  return (entry && (entry[lang] || entry.en)) || '';
+  let s = (entry && (entry[lang] || entry.en)) || '';
+  if (vars) Object.keys(vars).forEach((k) => { s = s.replace('{' + k + '}', vars[k]); });
+  return s;
 }
 
 function detectLang() {
@@ -721,184 +1262,559 @@ function detectLang() {
   return SUPPORTED_LANGS.includes(browser) ? browser : 'en';
 }
 
-function applyTheme() {
-  const theme = (params.get('theme') || '').toLowerCase();
-  if (theme === 'dark' || theme === 'light') {
-    document.documentElement.setAttribute('data-theme', theme);
-  }
-}
-
-/* ===== Rendering ===== */
-function render() {
-  const root = document.getElementById('tutRoot');
-  root.innerHTML = '';
-
-  GROUPS.forEach((group) => {
-    const section = document.createElement('section');
-    section.className = 'tut-group';
-    section.id = 'group-' + group.id;
-    section.dataset.group = group.id;
-
-    const head = document.createElement('div');
-    head.className = 'tut-group-head';
-    head.innerHTML =
-      '<span class="tut-group-icon" aria-hidden="true">' + group.icon + '</span>' +
-      '<h2 class="tut-group-title"></h2>';
-    head.querySelector('.tut-group-title').textContent = group.title[lang];
-    section.appendChild(head);
-
-    const sub = document.createElement('p');
-    sub.className = 'tut-group-sub';
-    sub.textContent = group.sub[lang];
-    section.appendChild(sub);
-
-    group.items.forEach((item) => {
-      section.appendChild(buildCard(item, group.id));
-    });
-
-    root.appendChild(section);
-  });
-}
-
-function buildCard(item, groupId) {
-  const card = document.createElement('details');
-  card.className = 'tut-card';
-  card.id = 'guide-' + item.id;
-  card.dataset.group = groupId;
-  // Lowercased searchable text
-  const steps = item.steps[lang] || item.steps.en;
-  card.dataset.search = [
-    item.title[lang], item.summary ? item.summary[lang] : '', steps.join(' '),
-  ].join(' ').toLowerCase();
-
-  const summary = document.createElement('summary');
-  summary.className = 'tut-summary';
-
-  const badge = item.badge
-    ? '<span class="tut-badge">' + t('badge.' + item.badge) + '</span>'
-    : '';
-
-  summary.innerHTML =
-    '<span class="tut-card-icon" aria-hidden="true">' + item.icon + '</span>' +
-    '<span class="tut-card-text">' +
-      '<span class="tut-card-title"></span>' +
-      '<span class="tut-card-summary"></span>' +
-    '</span>' +
-    badge +
-    '<svg class="tut-chevron" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>';
-  summary.querySelector('.tut-card-title').textContent = item.title[lang];
-  if (item.summary) summary.querySelector('.tut-card-summary').textContent = item.summary[lang];
-  card.appendChild(summary);
-
-  const detail = document.createElement('div');
-  detail.className = 'tut-detail';
-  const inner = document.createElement('div');
-  inner.className = 'tut-detail-inner';
-
-  const ol = document.createElement('ol');
-  ol.className = 'tut-steps';
-  const shots = SHOTS[item.id];
-  steps.forEach((s, i) => {
-    const li = document.createElement('li');
-    const text = document.createElement('p');
-    text.className = 'tut-step-text';
-    text.textContent = s;
-    li.appendChild(text);
-
-    const shot = shots && shots[i];
-    if (shot) {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'tut-shot';
-      btn.setAttribute('aria-label', s);
-      const img = document.createElement('img');
-      img.src = SHOT_BASE + shot + '.webp';
-      img.alt = s;
-      img.loading = 'lazy';
-      img.decoding = 'async';
-      btn.appendChild(img);
-      btn.addEventListener('click', () => openLightbox(img.src, s));
-      li.appendChild(btn);
-      li.classList.add('has-shot');
+// Every guide with the tab (and subtab) it lives in
+function findGuide(id) {
+  for (const tab of TABS) {
+    for (const sub of tab.subtabs || [null]) {
+      const item = (sub ? sub.items : tab.items).find((it) => it.id === id);
+      if (item) return { item, tab, sub };
     }
-    ol.appendChild(li);
-  });
-  inner.appendChild(ol);
-
-  if (item.tip) {
-    const tip = document.createElement('div');
-    tip.className = 'tut-tip';
-    tip.innerHTML = '<span class="tut-tip-icon" aria-hidden="true">💡</span><span></span>';
-    tip.querySelector('span:last-child').innerHTML =
-      '<strong>' + t('tip') + ':</strong> ';
-    tip.querySelector('span:last-child').append(item.tip[lang]);
-    inner.appendChild(tip);
   }
-
-  detail.appendChild(inner);
-  card.appendChild(detail);
-  return card;
+  return null;
 }
 
-/* ===== Category chips ===== */
-function buildChips() {
-  const wrap = document.getElementById('tutChips');
-  wrap.innerHTML = '';
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-  const all = document.createElement('button');
-  all.type = 'button';
-  all.className = 'tut-chip is-active';
-  all.textContent = t('chip.all');
-  all.dataset.target = '';
-  wrap.appendChild(all);
+/* ===== Tabs ===== */
+const root = document.getElementById('tutRoot');
 
-  GROUPS.forEach((group) => {
-    const chip = document.createElement('button');
-    chip.type = 'button';
-    chip.className = 'tut-chip';
-    chip.textContent = group.icon + '  ' + group.title[lang];
-    chip.dataset.target = 'group-' + group.id;
-    wrap.appendChild(chip);
+function selectTab(tabId, focus) {
+  root.querySelectorAll('.tut-tab').forEach((btn) => {
+    const on = btn.dataset.tab === tabId;
+    btn.setAttribute('aria-selected', String(on));
+    btn.tabIndex = on ? 0 : -1;
+    if (on && focus) btn.focus();
   });
+  root.querySelectorAll('.tut-panel').forEach((p) => { p.hidden = p.dataset.tab !== tabId; });
+}
 
-  wrap.querySelectorAll('.tut-chip').forEach((chip) => {
-    chip.addEventListener('click', () => {
-      wrap.querySelectorAll('.tut-chip').forEach((c) => c.classList.remove('is-active'));
-      chip.classList.add('is-active');
-      const target = chip.dataset.target;
-      if (target) {
-        const el = document.getElementById(target);
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+function selectSub(subId, focus) {
+  const btn = document.getElementById('segbtn-' + subId);
+  const seg = btn.parentElement;
+  seg.querySelectorAll('.tut-seg-btn').forEach((b) => {
+    const on = b === btn;
+    b.setAttribute('aria-selected', String(on));
+    b.tabIndex = on ? 0 : -1;
+  });
+  seg.parentElement.querySelectorAll('.tut-subpanel').forEach((p) => { p.hidden = p.dataset.sub !== subId; });
+  if (focus) btn.focus();
+}
+
+// Arrow keys move between tabs, as the ARIA tabs pattern expects
+function arrowNav(e, selector, pick) {
+  if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+  const scope = selector === '.tut-seg-btn' ? [...e.target.parentElement.children] : [...root.querySelectorAll(selector)];
+  let i = scope.indexOf(e.target);
+  if (e.key === 'ArrowLeft') i = (i - 1 + scope.length) % scope.length;
+  if (e.key === 'ArrowRight') i = (i + 1) % scope.length;
+  if (e.key === 'Home') i = 0;
+  if (e.key === 'End') i = scope.length - 1;
+  e.preventDefault();
+  pick(scope[i]);
+}
+
+function wireGuides() {
+  root.querySelectorAll('.tut-tab').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      clearSearch();
+      selectTab(btn.dataset.tab);
+    });
+    btn.addEventListener('keydown', (e) => arrowNav(e, '.tut-tab', (b) => { clearSearch(); selectTab(b.dataset.tab, true); }));
+  });
+  root.querySelectorAll('.tut-seg-btn').forEach((btn) => {
+    btn.addEventListener('click', () => selectSub(btn.dataset.sub));
+    btn.addEventListener('keydown', (e) => arrowNav(e, '.tut-seg-btn', (b) => selectSub(b.dataset.sub, true)));
+  });
+  root.querySelectorAll('.tut-cell').forEach((cell) => {
+    cell.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+      e.preventDefault();
+      openGuide(cell.dataset.topic, { push: true });
     });
   });
+}
+
+function render() {
+  root.innerHTML = renderGuides(lang, ASSET_BASE);
+  wireGuides();
 }
 
 /* ===== Search ===== */
-function initSearch() {
-  const input = document.getElementById('tutSearch');
-  const empty = document.getElementById('tutEmpty');
-  input.addEventListener('input', () => {
-    const q = input.value.trim().toLowerCase();
-    let anyVisible = false;
+const searchInput = document.getElementById('tutSearch');
+const emptyEl = document.getElementById('tutEmpty');
 
-    document.querySelectorAll('.tut-group').forEach((group) => {
-      let groupHasMatch = false;
-      group.querySelectorAll('.tut-card').forEach((card) => {
-        const match = !q || card.dataset.search.includes(q);
-        card.hidden = !match;
-        if (match) { groupHasMatch = true; anyVisible = true; }
-        if (q && match) card.open = true;
-        if (!q) card.open = false;
-      });
-      group.hidden = !groupHasMatch;
-    });
-
-    empty.hidden = anyVisible;
+function runSearch() {
+  const q = searchInput.value.trim().toLowerCase();
+  root.classList.toggle('is-searching', !!q);
+  let any = false;
+  root.querySelectorAll('.tut-item').forEach((li) => {
+    const match = !q || li.firstElementChild.dataset.search.includes(q);
+    li.hidden = !match;
+    if (match) any = true;
   });
+  // while searching, every panel shows and only those with matches stay
+  root.querySelectorAll('.tut-panel, .tut-subpanel').forEach((p) => {
+    p.classList.toggle('has-none', !!q && !p.querySelector('.tut-item:not([hidden])'));
+  });
+  emptyEl.hidden = !q || any;
 }
+
+function clearSearch() {
+  if (!searchInput.value) return;
+  searchInput.value = '';
+  runSearch();
+}
+
+searchInput.addEventListener('input', runSearch);
+
+/* ===== Walkthrough player ===== */
+const SUN_FRAMES = 14;
+const EASE_IOS = 'cubic-bezier(.32, .72, 0, 1)';
+let wt = null;            // the overlay, built on first use
+let guide = null;         // { id, item, tab, sub, scene }
+let stepIndex = 0;
+let token = 0;
+let zTop = 0;
+let current = null;       // id of the screen in front
+let pushedState = false;
+let returnFocus = null;
+const layers = {};
+
+function buildOverlay() {
+  wt = document.createElement('div');
+  wt.className = 'wt';
+  wt.hidden = true;
+  wt.setAttribute('role', 'dialog');
+  wt.setAttribute('aria-modal', 'true');
+  wt.setAttribute('aria-labelledby', 'wtTitle');
+  wt.innerHTML =
+    '<div class="wt-backdrop"></div>' +
+    '<div class="wt-sheet">' +
+      '<button type="button" class="wt-close"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
+      '<div class="wt-body">' +
+        '<div class="wt-device">' +
+          '<div class="wt-holder"><div class="wt-phone"><div class="wt-screen">' +
+            '<span class="wt-spot"></span><span class="wt-tap"></span>' +
+          '</div><button type="button" class="wt-replay"></button></div></div>' +
+        '</div>' +
+        '<div class="wt-copy">' +
+          '<h2 class="wt-title" id="wtTitle"></h2>' +
+          '<p class="wt-summary"></p>' +
+          '<ol class="wt-steps"></ol>' +
+          '<p class="wt-tip"></p>' +
+          '<div class="wt-nav">' +
+            '<div class="wt-progress" aria-hidden="true"></div>' +
+            '<span class="wt-count" aria-live="polite"></span>' +
+            '<button type="button" class="wt-btn wt-prev"></button>' +
+            '<button type="button" class="wt-btn wt-next is-primary"></button>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(wt);
+
+  wt.querySelector('.wt-close').addEventListener('click', () => closeGuide());
+  wt.querySelector('.wt-backdrop').addEventListener('click', () => closeGuide());
+  wt.querySelector('.wt-prev').addEventListener('click', () => go(stepIndex - 1));
+  wt.querySelector('.wt-next').addEventListener('click', () => {
+    if (stepIndex < guide.scene.length - 1) go(stepIndex + 1);
+    else closeGuide();
+  });
+  let swiped = false;
+  wt.querySelector('.wt-replay').addEventListener('click', () => {
+    if (swiped) { swiped = false; return; }
+    go(stepIndex, { replay: true });
+  });
+  wt.querySelector('.wt-steps').addEventListener('click', (e) => {
+    const li = e.target.closest('li');
+    if (li) go(Number(li.dataset.i));
+  });
+
+  wt.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { e.preventDefault(); closeGuide(); }
+    else if (e.key === 'ArrowRight' && !e.target.closest('.wt-steps')) { e.preventDefault(); if (stepIndex < guide.scene.length - 1) go(stepIndex + 1); }
+    else if (e.key === 'ArrowLeft' && !e.target.closest('.wt-steps')) { e.preventDefault(); if (stepIndex > 0) go(stepIndex - 1); }
+    else if (e.key === 'Tab') trapFocus(e);
+  });
+
+  // Swipe the phone sideways to change steps
+  const device = wt.querySelector('.wt-device');
+  let sx = null, sy = 0;
+  device.addEventListener('pointerdown', (e) => { sx = e.clientX; sy = e.clientY; });
+  device.addEventListener('pointerup', (e) => {
+    if (sx === null) return;
+    const dx = e.clientX - sx, dy = e.clientY - sy;
+    sx = null;
+    if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+    swiped = true; // the click that follows is part of the swipe, not a replay
+    setTimeout(() => { swiped = false; }, 400);
+    if (dx < 0 && stepIndex < guide.scene.length - 1) go(stepIndex + 1);
+    if (dx > 0 && stepIndex > 0) go(stepIndex - 1);
+  });
+  device.addEventListener('pointercancel', () => { sx = null; });
+
+  window.addEventListener('resize', fitPhone);
+}
+
+function trapFocus(e) {
+  const items = [...wt.querySelectorAll('button:not([disabled]), [tabindex="0"]')].filter((el) => el.offsetParent);
+  if (!items.length) return;
+  const first = items[0], last = items[items.length - 1];
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+}
+
+// The phone is drawn at 460 × 976 and scaled to fit its column
+function fitPhone() {
+  if (!wt || wt.hidden) return;
+  const box = wt.querySelector('.wt-device').getBoundingClientRect();
+  const s = Math.min(box.height / 976, box.width / 460, 0.9);
+  wt.style.setProperty('--s', Math.max(0.3, s).toFixed(4));
+}
+
+/* ----- Screens ----- */
+const screenEl = () => wt.querySelector('.wt-screen');
+
+function layerFor(id) {
+  if (layers[id]) return layers[id];
+  const def = SCREENS[id];
+  const el = document.createElement('section');
+  el.className = 'wt-layer';
+  el.dataset.s = id;
+  if (typeof def === 'string') {
+    el.innerHTML = `<img class="full" src="${ASSET_BASE}${def}" alt="" />`;
+  } else {
+    el.innerHTML = def.html.replace(/\{A\}/g, ASSET_BASE);
+    if (def.overlay) el.classList.add('is-overlay');
+    el.querySelectorAll('.frames').forEach((set) => {
+      for (let i = 0; i < SUN_FRAMES; i++) {
+        const img = document.createElement('img');
+        img.alt = '';
+        img.src = `${ASSET_BASE}flow/sun/${set.dataset.f}${String(i).padStart(2, '0')}.webp`;
+        set.appendChild(img);
+      }
+    });
+  }
+  screenEl().insertBefore(el, screenEl().querySelector('.wt-spot'));
+  layers[id] = el;
+  return el;
+}
+
+// Hand-built screens go back to how they start
+function resetLayer(el) {
+  el.classList.remove('on', 'press', 'done', 'counted', 'listed', 'filtered', 'scrolled', 'open');
+  el.style.zIndex = '';
+  el.querySelectorAll('.typed').forEach((n) => { n.textContent = ''; n.classList.remove('typing'); });
+  el.querySelectorAll('.swap').forEach((n) => { n.textContent = n.dataset.from; });
+  el.querySelectorAll('[data-to]').forEach((n) => { n.textContent = '0'; });
+  el.querySelectorAll('.frames img').forEach((img) => img.classList.remove('on'));
+}
+
+function cancelAnimations() {
+  screenEl().getAnimations({ subtree: true }).forEach((a) => a.cancel());
+}
+
+const anim = (el, frames, opts) =>
+  el ? el.animate(frames, { duration: 520, easing: EASE_IOS, fill: 'both', ...opts }).finished.catch(() => {}) : Promise.resolve();
+
+async function show(id, via, animate) {
+  const next = layerFor(id);
+  const prev = current && layers[current];
+  if (prev === next) return;
+  current = id;
+  const back = via === 'pop' || via === 'dismiss';
+  next.style.zIndex = back && prev ? Number(prev.style.zIndex) - 1 : ++zTop;
+  next.classList.add('on');
+
+  if (animate && via && prev) {
+    const parts = (el, sel) => el.querySelector(sel);
+    if (via === 'push') {
+      await Promise.all([anim(next, [{ transform: 'translateX(100%)' }, { transform: 'none' }]),
+        anim(prev, [{ transform: 'none', filter: 'brightness(1)' }, { transform: 'translateX(-30%)', filter: 'brightness(.85)' }])]);
+    } else if (via === 'pop') {
+      await Promise.all([anim(prev, [{ transform: 'none' }, { transform: 'translateX(100%)' }]),
+        anim(next, [{ transform: 'translateX(-30%)', filter: 'brightness(.85)' }, { transform: 'none', filter: 'brightness(1)' }])]);
+    } else if (via === 'sheet' && next.classList.contains('is-overlay')) {
+      await Promise.all([
+        anim(parts(next, '[data-dim]'), [{ opacity: 0 }, { opacity: 1 }], { duration: 400, easing: 'ease-out' }),
+        anim(parts(next, '[data-sheet]'), [{ transform: 'translateY(105%)' }, { transform: 'none' }], { duration: 600 }),
+        anim(parts(next, '[data-pop]'), [{ opacity: 0, transform: 'scale(1.12)' }, { opacity: 1, transform: 'none' }], { duration: 380 }),
+        anim(parts(next, '[data-drop]'), [{ transform: 'translateY(-140%)' }, { transform: 'none' }], { duration: 640 }),
+      ]);
+    } else if (via === 'sheet') {
+      await anim(next, [{ transform: 'translateY(100%)' }, { transform: 'none' }], { duration: 600 });
+    } else if (via === 'dismiss' && prev.classList.contains('is-overlay')) {
+      await Promise.all([
+        anim(parts(prev, '[data-dim]'), [{ opacity: 1 }, { opacity: 0 }], { duration: 360, easing: 'ease-in' }),
+        anim(parts(prev, '[data-sheet]'), [{ transform: 'none' }, { transform: 'translateY(105%)' }], { duration: 460 }),
+        anim(parts(prev, '[data-pop]'), [{ opacity: 1 }, { opacity: 0, transform: 'scale(.94)' }], { duration: 220, easing: 'ease-in' }),
+        anim(parts(prev, '[data-drop]'), [{ transform: 'none' }, { transform: 'translateY(-140%)' }], { duration: 420 }),
+      ]);
+    } else if (via === 'dismiss') {
+      await anim(prev, [{ transform: 'none' }, { transform: 'translateY(100%)' }], { duration: 460 });
+    } else {
+      await anim(next, [{ opacity: 0 }, { opacity: 1 }], { duration: 320, easing: 'ease-out' });
+    }
+  }
+  // An overlay keeps the screen under it; anything else is the only screen left
+  const keep = new Set([next]);
+  if (next.classList.contains('is-overlay')) {
+    const under = Object.values(layers).filter((l) => l.classList.contains('on') && l !== next && !l.classList.contains('is-overlay'))
+      .sort((a, b) => b.style.zIndex - a.style.zIndex)[0];
+    if (under) keep.add(under);
+  }
+  Object.values(layers).forEach((l) => { if (!keep.has(l)) l.classList.remove('on'); });
+  if (animate) [next, prev].forEach((l) => l && l.getAnimations({ subtree: true }).forEach((a) => a.cancel()));
+}
+
+/* ----- Finger and spotlight ----- */
+const pt = (v) => v + 'px';
+
+async function finger(kind, at, my) {
+  const tap = wt.querySelector('.wt-tap');
+  const [x, y] = kind === 'swipe' ? at[0] : at;
+  Object.assign(tap.style, { left: pt(x), top: pt(y) });
+  if (kind === 'tap') {
+    await anim(tap, [
+      { opacity: 0, transform: 'scale(1.5)' }, { opacity: 1, transform: 'scale(.82)', offset: 0.35 }, { opacity: 0, transform: 'scale(1.1)' },
+    ], { duration: 560, easing: 'ease-out', fill: 'none' });
+  } else if (kind === 'hold') {
+    await anim(tap, [
+      { opacity: 0, transform: 'scale(1.5)' }, { opacity: 1, transform: 'scale(.82)', offset: 0.18 },
+      { opacity: 1, transform: 'scale(.95)', offset: 0.85 }, { opacity: 0, transform: 'scale(1.15)' },
+    ], { duration: 1150, easing: 'ease-out', fill: 'none' });
+  } else {
+    const [dx, dy] = [at[1][0] - x, at[1][1] - y];
+    await anim(tap, [
+      { opacity: 0, transform: 'translate(0, 0) scale(1.3)' }, { opacity: 1, transform: 'translate(0, 0) scale(.85)', offset: 0.2 },
+      { opacity: 1, transform: `translate(${dx}px, ${dy}px) scale(.85)`, offset: 0.8 }, { opacity: 0, transform: `translate(${dx}px, ${dy}px) scale(1.1)` },
+    ], { duration: 1200, easing: 'cubic-bezier(.45, 0, .25, 1)', fill: 'none' });
+  }
+  if (my === token) await sleep(120);
+}
+
+function spot(rect, animate) {
+  const el = wt.querySelector('.wt-spot');
+  if (!rect) { el.classList.remove('on'); return; }
+  const [x, y, w, h] = rect;
+  const wasOn = el.classList.contains('on');
+  if (!wasOn || !animate) el.classList.add('wt-jump');
+  Object.assign(el.style, { left: pt(x), top: pt(y), width: pt(w), height: pt(h) });
+  void el.offsetWidth;
+  el.classList.remove('wt-jump');
+  el.classList.add('on');
+}
+
+/* ----- Hand-built helpers the scenes call ----- */
+function makeCtx(my) {
+  const alive = () => my === token;
+  return {
+    sleep: (ms) => (ms ? sleep(ms) : null),
+    cls: (id, c, on) => layerFor(id).classList.toggle(c, on),
+    async type(id, group, animate) {
+      for (const el of layerFor(id).querySelectorAll(`[data-g="${group}"]`)) {
+        if (!animate) { el.textContent = el.dataset.text; continue; }
+        if (!alive()) return;
+        if (el.classList.contains('swap')) {
+          el.classList.add('flash');
+          await sleep(200);
+          el.textContent = el.dataset.text;
+          el.classList.remove('flash');
+          await sleep(260);
+          continue;
+        }
+        el.classList.add('typing');
+        for (let i = 1; i <= el.dataset.text.length; i++) {
+          if (!alive()) { el.classList.remove('typing'); return; }
+          el.textContent = el.dataset.text.slice(0, i);
+          await sleep(34 + Math.random() * 30);
+        }
+        el.classList.remove('typing');
+        await sleep(160);
+      }
+    },
+    count(id, animate) {
+      const el = layerFor(id);
+      el.classList.add('counted');
+      el.querySelectorAll('[data-to]').forEach((n) => {
+        const to = Number(n.dataset.to);
+        if (!animate) { n.textContent = to; return; }
+        let start = null;
+        const frame = (time) => {
+          if (!alive()) { n.textContent = to; return; }
+          if (start === null) start = time + 300;
+          const p = Math.min(1, Math.max(0, (time - start) / 1100));
+          n.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) requestAnimationFrame(frame);
+        };
+        requestAnimationFrame(frame);
+      });
+      return animate ? sleep(1500) : null;
+    },
+    async frames(animate) {
+      const sets = [...layerFor('sun').querySelectorAll('.frames')];
+      const setFrame = (k) => sets.forEach((s) => s.querySelectorAll('img').forEach((img, i) => img.classList.toggle('on', i === k)));
+      if (!animate) { setFrame(SUN_FRAMES - 1); return; }
+      for (let k = 0; k < SUN_FRAMES; k++) {
+        if (!alive()) return;
+        setFrame(k);
+        await sleep(k ? 170 : 400);
+      }
+    },
+  };
+}
+
+async function beat(b, animate, my, ctx) {
+  if ('show' in b) return show(b.show, b.via, animate);
+  if ('spot' in b) return spot(b.spot, animate);
+  if (b.fn) return b.fn(ctx, animate);
+  if (!animate) return;
+  if (b.tap) return finger('tap', b.tap, my);
+  if (b.hold) return finger('hold', b.hold, my);
+  if (b.swipe) return finger('swipe', b.swipe, my);
+}
+
+// Rebuild the screen as it is at the start of step k, then play step k
+async function go(k, { replay = false, first = false } = {}) {
+  if (!guide || k < 0 || k >= guide.scene.length) return;
+  const forward = k === stepIndex + 1;
+  stepIndex = k;
+  const my = ++token;
+  const animate = !reducedMotion.matches;
+  const ctx = makeCtx(my);
+  updateCopy();
+
+  const screen = screenEl();
+  if (!forward && !first && animate) {
+    await anim(screen, [{ opacity: 1 }, { opacity: 0.25 }], { duration: 140, easing: 'ease-in', fill: 'forwards' });
+    if (my !== token) return;
+  }
+  screen.classList.add('wt-instant');
+  cancelAnimations();
+  Object.values(layers).forEach(resetLayer);
+  current = null;
+  zTop = 0;
+  spot(null);
+  for (let i = 0; i < k; i++) for (const b of guide.scene[i]) await beat(b, false, my, ctx);
+  spot(null);
+  void screen.offsetWidth;
+  screen.classList.remove('wt-instant');
+  if (!forward && !first && animate) anim(screen, [{ opacity: 0.25 }, { opacity: 1 }], { duration: 260, easing: 'ease-out', fill: 'none' });
+
+  if (animate && !first && !replay) await sleep(forward ? 120 : 260);
+  if (animate && first) await sleep(520); // let the sheet arrive first
+  for (const b of guide.scene[k]) {
+    if (my !== token) return;
+    await beat(b, animate, my, ctx);
+  }
+}
+
+function updateCopy() {
+  const total = guide.scene.length;
+  wt.querySelectorAll('.wt-steps li').forEach((li, i) => {
+    li.classList.toggle('is-active', i === stepIndex);
+    li.classList.toggle('is-done', i < stepIndex);
+    if (i === stepIndex) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
+  });
+  wt.querySelectorAll('.wt-progress i').forEach((seg, i) => seg.classList.toggle('on', i <= stepIndex));
+  wt.querySelector('.wt-count').textContent = t('wt.step', { n: stepIndex + 1, m: total });
+  wt.querySelector('.wt-prev').disabled = stepIndex === 0;
+  wt.querySelector('.wt-next').textContent = stepIndex === total - 1 ? t('wt.finish') : t('wt.next');
+  wt.classList.toggle('is-last', stepIndex === total - 1);
+}
+
+/* ----- Open / close ----- */
+function setTopicParam(id) {
+  const url = new URL(location.href);
+  if (id) url.searchParams.set('topic', id); else url.searchParams.delete('topic');
+  return url.pathname + url.search + url.hash;
+}
+
+function openGuide(id, { push = false } = {}) {
+  const found = findGuide(id);
+  if (!found || !SCENES[id]) return;
+  if (!wt) buildOverlay();
+  const wasOpen = !wt.hidden;
+  guide = { id, ...found, scene: SCENES[id] };
+
+  // the grid behind shows the guide's tab, so closing lands where it lives
+  clearSearch();
+  selectTab(found.tab.id);
+  if (found.sub) selectSub(found.sub.id);
+  returnFocus = document.getElementById('guide-' + id);
+
+  if (push) { history.pushState({ topic: id }, '', setTopicParam(id)); pushedState = true; }
+
+  const item = found.item;
+  const steps = item.steps[lang] || item.steps.en;
+  wt.querySelector('.wt-title').textContent = item.title[lang] || item.title.en;
+  wt.querySelector('.wt-summary').textContent = item.summary ? item.summary[lang] || item.summary.en : '';
+  wt.querySelector('.wt-steps').innerHTML = steps.map((s, i) =>
+    `<li data-i="${i}" tabindex="0"><span class="wt-num" aria-hidden="true">${i + 1}</span><span class="wt-step-text"></span></li>`).join('');
+  wt.querySelectorAll('.wt-step-text').forEach((el, i) => { el.textContent = steps[i]; });
+  wt.querySelectorAll('.wt-steps li').forEach((li) => li.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(Number(li.dataset.i)); }
+  }));
+  const tip = wt.querySelector('.wt-tip');
+  tip.hidden = !item.tip;
+  if (item.tip) {
+    tip.innerHTML = '<strong></strong> <span></span>';
+    tip.firstChild.textContent = t('tip') + ':';
+    tip.lastChild.textContent = item.tip[lang] || item.tip.en;
+  }
+  wt.querySelector('.wt-progress').innerHTML = steps.map(() => '<i></i>').join('');
+  wt.querySelector('.wt-close').setAttribute('aria-label', t('wt.close'));
+  wt.querySelector('.wt-replay').setAttribute('aria-label', t('wt.replay'));
+  wt.querySelector('.wt-prev').textContent = t('wt.back');
+
+  // a fresh phone for this guide; its screens start loading now
+  token++;
+  Object.keys(layers).forEach((k) => { layers[k].remove(); delete layers[k]; });
+  current = null;
+  guide.scene.flat().forEach((b) => { if (b.show) layerFor(b.show); });
+
+  wt.hidden = false;
+  document.body.classList.add('tut-no-scroll');
+  fitPhone();
+  stepIndex = 0;
+  if (!wasOpen && !reducedMotion.matches) {
+    anim(wt.querySelector('.wt-backdrop'), [{ opacity: 0 }, { opacity: 1 }], { duration: 300, easing: 'ease-out', fill: 'none' });
+    anim(wt.querySelector('.wt-sheet'), [{ transform: 'translateY(100%)' }, { transform: 'none' }], { duration: 560, fill: 'none' });
+  }
+  wt.querySelector('.wt-next').focus({ preventScroll: true });
+  go(0, { first: true });
+}
+
+async function closeGuide({ fromHistory = false } = {}) {
+  if (!wt || wt.hidden) return;
+  token++;
+  if (!fromHistory) {
+    if (pushedState) history.back(); // popstate finishes the close
+    else history.replaceState(null, '', setTopicParam(null));
+    if (pushedState) return;
+  }
+  pushedState = false;
+  if (!reducedMotion.matches) {
+    await Promise.all([
+      anim(wt.querySelector('.wt-backdrop'), [{ opacity: 1 }, { opacity: 0 }], { duration: 280, easing: 'ease-in' }),
+      anim(wt.querySelector('.wt-sheet'), [{ transform: 'none' }, { transform: 'translateY(100%)' }], { duration: 380, easing: 'cubic-bezier(.4, 0, 1, 1)' }),
+    ]);
+  }
+  wt.hidden = true;
+  wt.getAnimations({ subtree: true }).forEach((a) => a.cancel());
+  document.body.classList.remove('tut-no-scroll');
+  guide = null;
+  if (returnFocus) {
+    returnFocus.focus({ preventScroll: true });
+    returnFocus.scrollIntoView({ block: 'nearest' });
+  }
+}
+
+window.addEventListener('popstate', () => {
+  const topic = new URLSearchParams(location.search).get('topic');
+  if (topic) openGuide(topic);
+  else closeGuide({ fromHistory: true });
+});
 
 /* ===== Language switch ===== */
 function setLang(next) {
@@ -913,7 +1829,8 @@ function setLang(next) {
   });
   document.title = t('doc.title');
   document.querySelector('meta[name="description"]').setAttribute('content', t('doc.desc'));
-  document.getElementById('tutSearch').placeholder = t('search.ph');
+  searchInput.placeholder = t('search.ph');
+  searchInput.setAttribute('aria-label', t('search.ph'));
 
   // Active state on both language switchers
   document.querySelectorAll('.lang-btn').forEach((btn) => {
@@ -922,61 +1839,15 @@ function setLang(next) {
     btn.setAttribute('aria-pressed', String(active));
   });
 
-  buildChips();
+  const open = guide && guide.id;
   render();
-  openTopicFromURL();
-}
-
-function openTopicFromURL() {
-  const topic = params.get('topic');
-  if (!topic) return;
-  const el = document.getElementById('guide-' + topic);
-  if (el) {
-    el.open = true;
-    requestAnimationFrame(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }));
-  }
-}
-
-/* ===== Lightbox (tap a screenshot to enlarge) ===== */
-let lightboxEl = null;
-
-function buildLightbox() {
-  const box = document.createElement('div');
-  box.className = 'tut-lightbox';
-  box.hidden = true;
-  box.innerHTML =
-    '<button type="button" class="tut-lightbox-close" aria-label="Close">' +
-      '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>' +
-    '</button>' +
-    '<figure class="tut-lightbox-figure"><img alt="" /><figcaption></figcaption></figure>';
-  box.addEventListener('click', (e) => {
-    if (e.target === box || e.target.closest('.tut-lightbox-close')) closeLightbox();
-  });
-  document.body.appendChild(box);
-  lightboxEl = box;
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !box.hidden) closeLightbox();
-  });
-}
-
-function openLightbox(src, caption) {
-  if (!lightboxEl) buildLightbox();
-  lightboxEl.querySelector('img').src = src;
-  lightboxEl.querySelector('img').alt = caption || '';
-  lightboxEl.querySelector('figcaption').textContent = caption || '';
-  lightboxEl.hidden = false;
-  document.body.classList.add('tut-no-scroll');
-}
-
-function closeLightbox() {
-  if (lightboxEl) lightboxEl.hidden = true;
-  document.body.classList.remove('tut-no-scroll');
+  runSearch();
+  if (open) openGuide(open);
 }
 
 /* ===== Init ===== */
 (function init() {
   if (params.get('embed') === '1') document.body.classList.add('embed');
-  applyTheme();
 
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -1001,6 +1872,7 @@ function closeLightbox() {
     })
   );
 
-  initSearch();
   setLang(detectLang());
+  const topic = params.get('topic');
+  if (topic) openGuide(topic);
 })();

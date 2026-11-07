@@ -1,6 +1,6 @@
 // Writes the static pages search engines and AI crawlers read without running JavaScript:
 //   index.html, faq.html         — schema.org data (app and organization; FAQ) between the <!-- schema --> markers
-//   tutorials.html               — English guides filled in between the <!-- guides --> markers
+//   tutorials.html               — English tab bar and guide grid filled in between the <!-- guides --> markers
 //   uk/index.html, ru/index.html — the home page with flow.js's translations applied
 //   uk/faq.html, ru/faq.html     — the FAQ page, also from flow.js's translations
 //   uk/tutorials.html, ru/tutorials.html — the tutorials with tutorials.js's guides
@@ -32,9 +32,8 @@ const translations = new Function(`return ${flowSrc.match(/const translations = 
 const tutSrc = read('tutorials.js');
 const tutData = tutSrc
   .slice(0, tutSrc.indexOf('/* ===== State & helpers ===== */'))
-  .replace(/^const SHOT_BASE = .*$/m, ''); // needs the browser; the pages use a relative path instead
-const { UI, GROUPS, SHOTS } = new Function(`${tutData}; return { UI, GROUPS, SHOTS };`)();
-const SHOT_BASE = 'assets/tutorials/';
+  .replace(/^const ASSET_BASE = .*$/m, ''); // needs the browser; the pages use a relative path instead
+const { UI, renderGuides } = new Function(`${tutData}; return { UI, renderGuides };`)();
 
 // ----- Helpers -----
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -55,7 +54,7 @@ function setLangAndCanonical(html, lang, page) {
 
 // Pages that exist in every language folder keep their relative links; everything else is one level up.
 const LOCALIZED = /^(index|tutorials|faq|about)\.html(#.*)?$/;
-const EXTERNAL = /^(#|[a-z]+:|\/)/i;
+const EXTERNAL = /^(#|\?|[a-z]+:|\/)/i;
 
 function upOneLevel(html) {
   return html.replace(/<[a-z][^>]*>/gi, (tag) => {
@@ -151,48 +150,9 @@ function fillSchema(html, lang, page) {
 }
 
 // ----- Tutorials -----
-// Same markup tutorials.js builds in render() and buildCard(); the script replaces it on load.
-function renderGuides(lang) {
-  const t = (key) => (UI[key] && (UI[key][lang] || UI[key].en)) || '';
-  const chevron =
-    '<svg class="tut-chevron" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>';
-
-  const card = (item, groupId) => {
-    const steps = item.steps[lang] || item.steps.en;
-    const shots = SHOTS[item.id];
-    const badge = item.badge ? `<span class="tut-badge">${t('badge.' + item.badge)}</span>` : '';
-    const lis = steps.map((s, i) => {
-      const shot = shots && shots[i];
-      const img = shot
-        ? `<button type="button" class="tut-shot" aria-label="${esc(s)}"><img src="${SHOT_BASE}${shot}.webp" alt="${esc(s)}" loading="lazy" decoding="async"></button>`
-        : '';
-      return `<li${shot ? ' class="has-shot"' : ''}><p class="tut-step-text">${esc(s)}</p>${img}</li>`;
-    });
-    const tip = item.tip
-      ? `<div class="tut-tip"><span class="tut-tip-icon" aria-hidden="true">💡</span><span><strong>${t('tip')}:</strong> ${esc(item.tip[lang])}</span></div>`
-      : '';
-    return (
-      `<details class="tut-card" id="guide-${item.id}" data-group="${groupId}">` +
-      `<summary class="tut-summary"><span class="tut-card-icon" aria-hidden="true">${item.icon}</span>` +
-      `<span class="tut-card-text"><span class="tut-card-title">${esc(item.title[lang])}</span>` +
-      `<span class="tut-card-summary">${item.summary ? esc(item.summary[lang]) : ''}</span></span>${badge}${chevron}</summary>` +
-      `<div class="tut-detail"><div class="tut-detail-inner"><ol class="tut-steps">${lis.join('')}</ol>${tip}</div></div>` +
-      `</details>`
-    );
-  };
-
-  return GROUPS.map(
-    (group) =>
-      `\n<section class="tut-group" id="group-${group.id}" data-group="${group.id}">` +
-      `<div class="tut-group-head"><span class="tut-group-icon" aria-hidden="true">${group.icon}</span><h2 class="tut-group-title">${esc(group.title[lang])}</h2></div>` +
-      `<p class="tut-group-sub">${esc(group.sub[lang])}</p>\n` +
-      group.items.map((item) => card(item, group.id)).join('\n') +
-      `\n</section>`
-  ).join('') + '\n';
-}
-
+// The tab bar and guide grid come from tutorials.js's own renderGuides(), which the page runs again on load.
 function fillGuides(html, lang) {
-  return html.replace(/(<!-- guides:[^>]*-->)[\s\S]*?(<!-- \/guides -->)/, (_, open, close) => open + renderGuides(lang) + close);
+  return html.replace(/(<!-- guides:[^>]*-->)[\s\S]*?(<!-- \/guides -->)/, (_, open, close) => open + '\n' + renderGuides(lang, 'assets/') + close);
 }
 
 function translateTutorials(html, lang) {
@@ -200,6 +160,7 @@ function translateTutorials(html, lang) {
   html = html.replace(/(<(\w+)[^>]*\sdata-t="([^"]+)"[^>]*>)[\s\S]*?(<\/\2>)/g, (m, open, tag, key, close) =>
     UI[key] ? open + esc(t(key)) + close : m
   );
+  html = html.replaceAll('"Search guides…"', `"${esc(t('search.ph'))}"`);
   return setMeta(html, t('doc.title'), t('doc.desc'));
 }
 
