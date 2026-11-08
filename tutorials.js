@@ -709,9 +709,9 @@ const TABS = [
       {
         id: 'analytics',
         title: {
-          en: 'Your year at a glance',
-          uk: 'Ваш рік з першого погляду',
-          ru: 'Ваш год с первого взгляда',
+          en: 'Review your results for the year or any other period',
+          uk: 'Переглядайте свої успіхи за рік чи інший період',
+          ru: 'Просматривайте свои успехи за год или другой период',
         },
         summary: {
           en: 'Earnings, sessions and hours at a glance.',
@@ -738,7 +738,7 @@ const TABS = [
       },
       {
         id: 'charts',
-        title: { en: 'Build your own charts', uk: 'Створюйте власні графіки', ru: 'Создавайте свои графики' },
+        title: { en: 'Build custom charts', uk: 'Створюйте кастомні графіки', ru: 'Создавайте кастомные графики' },
         summary: {
           en: 'Chart what matters to your business.',
           uk: 'Графіки того, що важливо для вашого бізнесу.',
