@@ -1051,8 +1051,8 @@ const SCENES = {
   ],
   routes: [
     [{ show: 'newevent-payment' }, { spot: [18, 262, 404, 52] }, { tap: [180, 288] }],
-    [{ show: 'details-main', via: 'sheet' }, { spot: [148, 358, 257, 108] }, { tap: [207, 416] }, { show: 'route', via: 'fade' }],
-    [{ tap: [235, 399] }, { show: 'maps', via: 'fade' }],
+    [{ show: 'details-main', via: 'sheet' }, { spot: [148, 358, 257, 108] }, { tap: [207, 416] }, { show: 'route', via: 'fade' }, { spot: [114, 279, 273, 155] }],
+    [{ spot: [114, 365, 273, 68] }, { fn: (c, a) => c.sleep(a ? 700 : 0) }, { tap: [250, 399] }, { spot: null }, { show: 'maps', via: 'fade' }],
   ],
   team: [
     [{ show: 'settings' }, { tap: [220, 330] }, { show: 'role', via: 'push' }, { spot: [18, 278, 404, 57] }, { tap: [120, 306] }],
