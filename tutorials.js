@@ -138,25 +138,20 @@ const TABS = [
                 'In an event, set the full price for the job.',
                 'Add the Prepayment (deposit) the client has already paid.',
                 'Mark a booking as a gift certificate when it is paid upfront as a gift.',
-                'Totals feed into your Statistics automatically.',
+                'The amount in the full price field is counted on the Statistics page automatically.',
               ],
               uk: [
                 'У події задайте повну вартість роботи.',
                 'Додайте «Prepayment» (передоплату), яку клієнт уже вніс.',
                 'Позначте бронювання як подарунковий сертифікат, якщо його оплатили наперед у подарунок.',
-                'Суми автоматично потрапляють у «Статистику».',
+                'Значення, додане у поле повної оплати, автоматично враховується на сторінці «Статистика».',
               ],
               ru: [
                 'В событии задайте полную стоимость работы.',
                 'Добавьте «Prepayment» (предоплату), которую клиент уже внёс.',
                 'Отметьте бронирование как подарочный сертификат, если его оплатили заранее в подарок.',
-                'Суммы автоматически попадают в «Статистику».',
+                'Значение, добавленное в поле полной оплаты, автоматически учитывается на странице «Статистика».',
               ],
-            },
-            tip: {
-              en: 'The remaining balance is simply the full price minus the prepayment.',
-              uk: 'Залишок до сплати — це повна ціна мінус передоплата.',
-              ru: 'Остаток к оплате — это полная цена минус предоплата.',
             },
           },
           {
