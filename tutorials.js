@@ -482,24 +482,21 @@ const TABS = [
             steps: {
               en: [
                 'In Settings, open the backups (snapshots) screen.',
-                'Create a snapshot to save a copy of your data.',
                 'To restore, choose “Restore missing data” to merge, or “Replace everything” to overwrite.',
               ],
               uk: [
                 'У Налаштуваннях відкрийте екран резервних копій (snapshots).',
-                'Створіть знімок, щоб зберегти копію даних.',
                 'Для відновлення оберіть «Restore missing data» (обʼєднати) або «Replace everything» (перезаписати).',
               ],
               ru: [
                 'В Настройках откройте экран резервных копий (snapshots).',
-                'Создайте снимок, чтобы сохранить копию данных.',
                 'Для восстановления выберите «Restore missing data» (объединить) или «Replace everything» (перезаписать).',
               ],
             },
             tip: {
-              en: '“Replace everything” overwrites current data — use it only on a fresh device.',
-              uk: '«Replace everything» перезаписує поточні дані — використовуйте лише на новому пристрої.',
-              ru: '«Replace everything» перезаписывает текущие данные — используйте только на новом устройстве.',
+              en: '“Replace everything” overwrites your current data. Read the instructions to make the right choice.',
+              uk: '«Replace everything» перезаписує поточні дані. Ознайомтеся з інструкцією, щоб зробити правильний вибір.',
+              ru: '«Replace everything» перезаписывает текущие данные. Ознакомьтесь с инструкцией, чтобы сделать правильный выбор.',
             },
           },
           {
@@ -625,24 +622,19 @@ const TABS = [
         steps: {
           en: [
             'The Contacts tab lists everyone you’ve saved.',
-            'Clients from your events are added automatically.',
-            'Switch to Colleagues for the people you shoot with.',
-            'Search by name to find anyone fast.',
+            'In Colleagues, save the contacts of people you work with, so you can quickly get in touch or add them to a team.',
           ],
           uk: [
             'Вкладка «Контакти» містить усіх збережених клієнтів.',
-            'Клієнти з ваших подій додаються автоматично.',
-            'Перемкніться на «Колеги» — там люди, з якими ви знімаєте.',
-            'Шукайте за імʼям, щоб швидко знайти будь-кого.',
+            'В розділі «Колеги» зберігайте контакти з ким працюєте, щоб можно було швидко звʼязатися або додати в команду.',
           ],
           ru: [
             'Вкладка «Контакты» содержит всех сохранённых клиентов.',
-            'Клиенты из ваших событий добавляются автоматически.',
-            'Переключитесь на «Коллеги» — там люди, с которыми вы снимаете.',
-            'Ищите по имени, чтобы быстро найти кого угодно.',
+            'В разделе «Коллеги» сохраняйте контакты тех, с кем работаете, чтобы можно было быстро связаться или добавить в команду.',
           ],
         },
       },
+      /* Hidden for now — Save client details, to come back with the New Contact form
       {
         id: 'contacts-save',
         title: { en: 'Save client details', uk: 'Збережіть дані клієнта', ru: 'Сохраните данные клиента' },
@@ -669,6 +661,7 @@ const TABS = [
           ],
         },
       },
+      */
       {
         id: 'contacts-reach',
         title: {
@@ -946,12 +939,11 @@ const SCREENS = {
       '<img class="ui dl-menu" src="{A}flow/ui/done-menu.webp" style="left:92px;top:266px;width:258px" alt="" />',
   },
 
-  // Contacts tab: the client list, filtered by a search as you watch
+  // Contacts tab: the client list
   clients: {
     html:
       '<img class="ui" src="{A}flow/ui/ct-status.webp" style="top:0;width:440px" alt="" />' +
       '<img class="ui" src="{A}flow/ui/ct-top.webp" style="top:56px;width:440px" alt="" />' +
-      '<span class="ct-search"><span class="typed" data-g="search" data-text="Emma"></span></span>' +
       '<div class="ct-list">' +
         ['Emma &amp; James', 'Lauren &amp; Chris', 'Claire Donovan', 'The Hughes Family', 'Megan &amp; Josh', 'Rachel &amp; Tom']
           .map((n, i) => `<div class="ct-card" style="--i:${i}"><b>${n}</b></div>`).join('') +
@@ -1099,8 +1091,7 @@ const SCENES = {
   ],
   backup: [
     [{ show: 'settings' }, SETTINGS_ROW(607), { tap: [220, 607] }, { spot: null }, { show: 'backup', via: 'push' }],
-    [{ spot: [18, 214, 404, 93] }],
-    [{ tap: [200, 270] }, { show: 'restore', via: 'sheet' }, { tap: [220, 768] }],
+    [{ spot: [18, 214, 404, 93] }, { tap: [200, 270] }, { spot: null }, { show: 'restore', via: 'sheet' }, { tap: [220, 768] }],
   ],
   premium: [
     [{ show: 'settings' }, SETTINGS_ROW(211), { tap: [220, 211] }, { spot: null }, { show: 'premium', via: 'sheet' }],
@@ -1120,10 +1111,8 @@ const SCENES = {
   ],
 
   contacts: [
-    toTab(TAB_X.contacts, 'clients', [state('clients', 'listed')]),
-    [{ spot: [21, 171, 398, 352] }],
+    toTab(TAB_X.contacts, 'clients', [state('clients', 'listed'), { spot: [21, 171, 398, 352] }]),
     [{ spot: [122, 58, 196, 48] }],
-    [{ tap: [200, 139] }, typeIn('clients', 'search'), state('clients', 'filtered')],
   ],
   'contacts-save': [
     [{ show: 'newevent-main' }, { spot: [18, 627, 404, 142] }],
@@ -1528,7 +1517,7 @@ function layerFor(id) {
 
 // Hand-built screens go back to how they start
 function resetLayer(el) {
-  el.classList.remove('on', 'press', 'done', 'counted', 'listed', 'filtered', 'scrolled', 'open');
+  el.classList.remove('on', 'press', 'done', 'counted', 'listed', 'scrolled', 'open');
   el.style.zIndex = '';
   el.querySelectorAll('.typed').forEach((n) => { n.textContent = ''; n.classList.remove('typing'); });
   el.querySelectorAll('.swap').forEach((n) => { n.textContent = n.dataset.from; });
