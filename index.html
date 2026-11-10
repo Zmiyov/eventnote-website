@@ -101,7 +101,7 @@
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/favicon.png" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="flow.css?v=10" />
+  <link rel="stylesheet" href="flow.css?v=11" />
 </head>
 <body class="flow-page">
 
@@ -422,7 +422,10 @@
                 <section class="sheet" data-l="sun">
                   <div class="shot" data-l10n="sun/base.webp" style="background-image:url(assets/flow/sun/base.webp)"></div>
                   <div class="frames" data-f="a" style="left:88px;top:326px;width:264px;height:142px"></div>
-                  <div class="frames" data-f="b" style="left:0;top:542px;width:440px;height:90px"></div>
+                  <div class="sun-slider" style="left:0;top:542px;width:440px;height:90px;--x:40.25px;--m:39.5px">
+                    <img data-l10n="sun/slider.webp" src="assets/flow/sun/slider.webp" alt="" />
+                    <i class="sun-mark"></i><b class="sun-time">6:43&#8239;AM</b><i class="sun-fill"></i><i class="sun-thumb"></i>
+                  </div>
                   <div class="frames" data-f="c" style="left:225px;top:766px;width:183px;height:49px"></div>
                   <div class="frames" data-f="d" style="left:20px;top:646px;width:400px;height:42px"></div>
                   <i class="hit js-sunclose" style="left:20px;top:29px;width:44px;height:44px"></i>
@@ -635,6 +638,6 @@
     </div>
   </footer>
 
-  <script src="flow.js?v=13"></script>
+  <script src="flow.js?v=14"></script>
 </body>
 </html>

@@ -906,12 +906,13 @@ const SCREENS = {
       '</div></div>',
   },
 
-  // Sun Track with the app's own frames, cross-faded as the time changes
+  // Sun Track with the app's own frames, cross-faded as the time changes; the time slider glides
   sun: {
     html:
       '<img class="full" src="{A}flow/sun/base.webp" alt="" />' +
       '<div class="frames" data-f="a" style="left:88px;top:388px;width:264px;height:142px"></div>' +
-      '<div class="frames" data-f="b" style="left:0;top:604px;width:440px;height:90px"></div>' +
+      '<div class="sun-slider" style="--x:40.25px"><img src="{A}flow/sun/slider.webp" alt="" />' +
+        '<i class="sun-mark"></i><b class="sun-time">6:43 AM</b><i class="sun-fill"></i><i class="sun-thumb"></i></div>' +
       '<div class="frames" data-f="c" style="left:225px;top:828px;width:183px;height:49px"></div>' +
       '<div class="frames" data-f="d" style="left:20px;top:708px;width:400px;height:42px"></div>',
   },
@@ -1510,6 +1511,17 @@ function resetLayer(el) {
   el.querySelectorAll('.swap').forEach((n) => { n.textContent = n.dataset.from; });
   el.querySelectorAll('[data-to]').forEach((n) => { n.textContent = '0'; });
   el.querySelectorAll('.frames img').forEach((img) => img.classList.remove('on'));
+  el.querySelectorAll('.sun-slider').forEach((s) => setSunSlider(s, 0));
+}
+
+// Sun Track's time slider at p (0 = 6:43 AM, 1 = 4:03 PM), measured from the app's frames
+const SUN_X = [40.25, 380.25];   // thumb centre, px
+const SUN_MIN = [403, 963];      // minutes since midnight
+function setSunSlider(s, p) {
+  s.style.setProperty('--x', `${SUN_X[0] + (SUN_X[1] - SUN_X[0]) * p}px`);
+  const m = Math.round(SUN_MIN[0] + (SUN_MIN[1] - SUN_MIN[0]) * p);
+  const h = Math.floor(m / 60);
+  s.querySelector('.sun-time').textContent = `${(h + 11) % 12 + 1}:${String(m % 60).padStart(2, '0')} ${h < 12 ? 'AM' : 'PM'}`;
 }
 
 function cancelAnimations() {
@@ -1654,14 +1666,31 @@ function makeCtx(my) {
       return animate ? sleep(1500) : null;
     },
     async frames(animate) {
-      const sets = [...layerFor('sun').querySelectorAll('.frames')];
+      const layer = layerFor('sun');
+      const sets = [...layer.querySelectorAll('.frames')];
+      const slider = layer.querySelector('.sun-slider');
       const setFrame = (k) => sets.forEach((s) => s.querySelectorAll('img').forEach((img, i) => img.classList.toggle('on', i === k)));
-      if (!animate) { setFrame(SUN_FRAMES - 1); return; }
-      for (let k = 0; k < SUN_FRAMES; k++) {
-        if (!alive()) return;
-        setFrame(k);
-        await sleep(k ? 170 : 400);
-      }
+      if (!animate) { setFrame(SUN_FRAMES - 1); setSunSlider(slider, 1); return; }
+      // Where the thumb sits in each frame (0–1), so the map and cards change as it passes
+      const at = [0, .077, .145, .219, .288, .359, .429, .504, .571, .645, .716, .785, .896, 1];
+      setFrame(0);
+      await sleep(400);
+      const dur = 2300;
+      let start = null;
+      await new Promise((done) => {
+        const tick = (time) => {
+          if (!alive()) return done();
+          if (start === null) start = time;
+          const t = Math.min(1, (time - start) / dur);
+          const p = t < .5 ? 2 * t * t : 1 - 2 * (1 - t) * (1 - t);
+          setSunSlider(slider, p);
+          let k = 0;
+          while (k < SUN_FRAMES - 1 && at[k + 1] - p < p - at[k]) k++;
+          setFrame(k);
+          if (t < 1) requestAnimationFrame(tick); else done();
+        };
+        requestAnimationFrame(tick);
+      });
     },
   };
 }

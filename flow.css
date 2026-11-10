@@ -231,6 +231,20 @@ html {
 .frames { position: absolute; }
 .frames img { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity .2s linear; }
 .frames img.on { opacity: 1; }
+.sun-slider { position: absolute; }
+.sun-slider img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.sun-slider i, .sun-time { position: absolute; display: block; }
+.sun-mark { left: 0; top: calc(9.5px + var(--dy, 0px)); width: 1px; height: 11.5px; background: #FFF; transform: translateX(calc(var(--m) - .5px)); }
+.sun-time {
+  left: 0; top: calc(33px + var(--dy, 0px)); width: 100%; text-align: center; font-size: 12px; line-height: 14px; font-weight: 400;
+  color: var(--ink, #7A898E); font-variant-numeric: tabular-nums;
+}
+.sun-fill { left: 16px; top: calc(64px + var(--dy, 0px)); height: 6px; width: calc(var(--x) - 16px); border-radius: 3px; background: #FD8E2D; }
+.sun-thumb {
+  left: 0; top: calc(55.75px + var(--dy, 0px)); width: 37px; height: 23px; border-radius: 11.5px; background: #FFF;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .06), 0 3px 8px rgba(0, 0, 0, .1);
+  transform: translateX(calc(var(--x) - 18.5px));
+}
 
 /* Contact card: real screenshot with the localized name and details on top */
 .cd-name { position: absolute; left: 30px; right: 30px; top: 72px; height: 38px; line-height: 38px; text-align: center; font-size: 28px; font-weight: 700; background: #F2F2F7; white-space: nowrap; }

@@ -366,6 +366,8 @@ const device = {
   en: {
     locale: 'en-US', route: 'maps', earnSize: 36, unused: ['openmap.webp'],
     pos: { menuTop: 290, routeTop: 370, openmapTop: 290, chooserTop: 200, mapsTop: 222, sunB: [0, 542, 440, 90], sunC: [225, 766, 183, 49], sunD: [20, 646, 400, 42] },
+    // Sun Track slider, read off the app's 14 frames: thumb centre in each (px), bar marker at the ends, clock at the ends (minutes)
+    sun: { thumb: [40.25, 66.5, 89.5, 114, 138.25, 162.25, 186.25, 211.5, 234.25, 259.5, 283.5, 307.5, 344.5, 380.25], mark: [39.5, 380.75], min: [403, 963], dy: 0, ink: '#7A898E' },
     axis: [['20,000', 0], ['15,000', 34], ['10,000', 68], ['5,000', 102], ['0', 136]],
     segs: [[0, 8], [8, 2], [10, 4], [14, 1], [15, 6], [21, 1]],
     borders: ['#A7DAAE', '#D3FABC'],
@@ -398,6 +400,7 @@ const device = {
   uk: {
     locale: 'uk-UA', route: 'maps', earnSize: 36, unused: ['openmap.webp'],
     pos: { menuTop: 290, routeTop: 370, openmapTop: 290, chooserTop: 200, mapsTop: 222, sunB: [0, 530, 440, 90], sunC: [225, 750, 183, 67], sunD: [20, 632, 400, 42] },
+    sun: { thumb: [34.25, 58.25, 82.25, 107.25, 131.5, 155.5, 178.5, 204.5, 227.5, 251.5, 275.75, 300.75, 337.25, 372.25], mark: [38, 369], min: [419, 933], dy: -2, ink: '#8B8C86' },
     axis: [['750 000', 8], ['500 000', 52], ['250 000', 94], ['0', 136]],
     segs: [[0, 2], [2, 8], [10, 1], [11, 1], [12, 6], [18, 4]],
     borders: ['#D69CEE', '#BCD2BB'],
@@ -430,6 +433,7 @@ const device = {
   ru: {
     locale: 'ru-RU', route: 'openmap', earnSize: 33, unused: ['maps-route.webp', 'ui/chooser.webp'],
     pos: { menuTop: 278, routeTop: 352, openmapTop: 290, chooserTop: 200, mapsTop: 222, sunB: [0, 542, 440, 90], sunC: [225, 766, 183, 49], sunD: [20, 646, 400, 42] },
+    sun: { thumb: [34.25, 59.5, 84.25, 109.25, 133, 158.25, 183.75, 208.5, 232, 257.5, 282.5, 307.25, 355.5, 379.5], mark: [34, 378.75], min: [396, 953], dy: 0, ink: '#868C74' },
     axis: [['1,0E7', 0], ['7,5E6', 34], ['5,0E6', 68], ['2,5E6', 102], ['0', 136]],
     segs: [[0, 4], [4, 2], [6, 6], [12, 1], [13, 8], [21, 1]],
     borders: ['#BCF2DD', '#A9E6A2'],
@@ -610,16 +614,46 @@ const device = {
   function setFrame(k) {
     frameSets.forEach((set) => set.querySelectorAll('img').forEach((img, i) => img.classList.toggle('on', i === k)));
   }
+  // The time slider is drawn live so the thumb glides; p runs 0 → 1 across the day shown
+  const sunSlider = $('.sun-slider');
+  function setSunSlider(p) {
+    const { thumb, mark, min, dy, ink } = dev().sun;
+    const x0 = thumb[0], x1 = thumb[SUN_FRAMES - 1];
+    sunSlider.style.setProperty('--x', `${x0 + (x1 - x0) * p}px`);
+    sunSlider.style.setProperty('--m', `${mark[0] + (mark[1] - mark[0]) * p}px`);
+    sunSlider.style.setProperty('--dy', `${dy}px`);
+    sunSlider.style.setProperty('--ink', ink);
+    const m = Math.round(min[0] + (min[1] - min[0]) * p);
+    const h = Math.floor(m / 60), mm = String(m % 60).padStart(2, '0');
+    sunSlider.querySelector('.sun-time').textContent = lang === 'en'
+      ? `${(h + 11) % 12 + 1}:${mm} ${h < 12 ? 'AM' : 'PM'}`
+      : `${String(h).padStart(2, '0')}:${mm}`;
+  }
   async function playSun(animate, my) {
     loadFrames();
-    if (!animate) { setFrame(SUN_FRAMES - 1); return; }
+    if (!animate) { setFrame(SUN_FRAMES - 1); setSunSlider(1); return; }
     setFrame(0);
+    setSunSlider(0);
     await sleep(700);
-    for (let k = 1; k < SUN_FRAMES; k++) {
-      if (my !== token) return;
-      setFrame(k);
-      await sleep(190);
-    }
+    // the map and cards switch to the frame the thumb is passing
+    const { thumb } = dev().sun;
+    const at = thumb.map((x) => (x - thumb[0]) / (thumb[SUN_FRAMES - 1] - thumb[0]));
+    const dur = 2500;
+    let start = null;
+    await new Promise((done) => {
+      const tick = (time) => {
+        if (my !== token) return done();
+        if (start === null) start = time;
+        const t = Math.min(1, (time - start) / dur);
+        const p = t < .5 ? 2 * t * t : 1 - 2 * (1 - t) * (1 - t);
+        setSunSlider(p);
+        let k = 0;
+        while (k < SUN_FRAMES - 1 && at[k + 1] - p < p - at[k]) k++;
+        setFrame(k);
+        if (t < 1) requestAnimationFrame(tick); else done();
+      };
+      requestAnimationFrame(tick);
+    });
   }
 
   // ----- Statistics donut (Shoots by type for quarter) -----
@@ -765,7 +799,7 @@ const device = {
     4: () => clearStep(4),
     5: () => $('.panel[data-p="team"] .grow').classList.remove('open'),
     6: () => { clearStep(6); $('.panel[data-p="todo"] .grow').classList.remove('open'); },
-    8: () => setFrame(0),
+    8: () => { setFrame(0); setSunSlider(0); },
     10: () => zeroStep(10),
     11: () => wrap.classList.remove('press', 'done'),
     12: () => zeroStep(12),
@@ -839,7 +873,7 @@ const device = {
     $('.js-openmap').style.top = D.pos.openmapTop + 'px';
     $('.chooser').style.top = D.pos.chooserTop + 'px';
     $('.js-maps').style.top = D.pos.mapsTop + 'px';
-    place($('.frames[data-f="b"]'), D.pos.sunB);
+    place($('.sun-slider'), D.pos.sunB);
     place($('.frames[data-f="c"]'), D.pos.sunC);
     place($('.frames[data-f="d"]'), D.pos.sunD);
     if (framesLoaded) { framesLoaded = false; loadFrames(); }
