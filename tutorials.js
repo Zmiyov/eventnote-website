@@ -156,28 +156,48 @@ const TABS = [
           },
           {
             id: 'timeline',
-            title: { en: 'Timeline & tasks', uk: 'Таймлайн і завдання', ru: 'Таймлайн и задачи' },
+            title: { en: 'Timeline', uk: 'Таймлайн', ru: 'Таймлайн' },
             summary: {
-              en: 'Break a shoot into timed stages and to-dos.',
-              uk: 'Розбийте зйомку на етапи за часом і список справ.',
-              ru: 'Разбейте съёмку на этапы по времени и список дел.',
+              en: 'Create a schedule that breaks a shoot into timed stages.',
+              uk: 'Створіть розклад для розбивки зйомки на етапи за часом.',
+              ru: 'Создайте расписание, чтобы разбить съёмку на этапы по времени.',
             },
             steps: {
               en: [
                 'Open an event and go to the Timeline section.',
                 'Add timeline stages with a time and description for each part of the day.',
-                'Add tasks (“Add a task”) for things to prepare or bring.',
-                'Check off tasks as you complete them.',
               ],
               uk: [
                 'Відкрийте подію й перейдіть до розділу «Timeline».',
                 'Додайте етапи таймлайну з часом і описом для кожної частини дня.',
-                'Додайте завдання («Add a task») — що підготувати чи взяти з собою.',
-                'Позначайте завдання виконаними по ходу.',
               ],
               ru: [
                 'Откройте событие и перейдите в раздел «Timeline».',
                 'Добавьте этапы таймлайна с временем и описанием для каждой части дня.',
+              ],
+            },
+          },
+          {
+            id: 'tasks',
+            title: { en: 'To-do list', uk: 'Список справ', ru: 'Список дел' },
+            summary: {
+              en: 'Create a separate to-do list for each shoot.',
+              uk: 'Створіть список справ для кожної зйомки окремо.',
+              ru: 'Создайте список дел для каждой съёмки отдельно.',
+            },
+            steps: {
+              en: [
+                'Open an event and go to the To Do tab.',
+                'Add tasks (“Add a task”) for things to prepare or bring.',
+                'Check off tasks as you complete them.',
+              ],
+              uk: [
+                'Відкрийте подію й перейдіть на вкладку To Do.',
+                'Додайте завдання («Add a task») — що підготувати чи взяти з собою.',
+                'Позначайте завдання виконаними по ходу.',
+              ],
+              ru: [
+                'Откройте событие и перейдите на вкладку To Do.',
                 'Добавьте задачи («Add a task») — что подготовить или взять с собой.',
                 'Отмечайте задачи выполненными по ходу.',
               ],
@@ -1005,21 +1025,24 @@ const SCENES = {
     [{ tap: [220, 535] }, { show: 'details', via: 'sheet' }],
   ],
   create: [
-    [{ show: 'schedule' }, { tap: [345, 239] }, { tap: [398, 832] }],
-    [{ show: 'newevent', via: 'sheet' }, { tap: [220, 274] }, typeIn('newevent', 'type')],
+    [{ show: 'schedule' }, { tap: [345, 239] }, { tap: [398, 832] }, { show: 'newevent', via: 'sheet' }],
+    [{ tap: [220, 274] }, typeIn('newevent', 'type')],
     [typeIn('newevent', 'client'), state('newevent', 'scrolled'), { fn: (c, a) => c.sleep(a ? 900 : 0) }, typeIn('newevent', 'place')],
     [{ tap: [398, 104] }, { show: 'schedule', via: 'dismiss' }, { spot: [316, 206, 60, 64] }],
   ],
   payments: [
-    [{ show: 'details-main' }, { spot: [36, 484, 369, 98] }, { tap: [395, 110] }],
-    [{ show: 'newevent-payment', via: 'sheet' }, { tap: [180, 513] }, { spot: [18, 488, 404, 52] }],
-    [{ spot: [18, 557, 404, 52] }, { tap: [364, 583] }],
-    [{ show: 'stats', via: 'fade' }, { spot: [26, 224, 388, 157] }],
+    [{ show: 'details-main' }, { spot: [36, 484, 369, 98] }, { tap: [395, 110] }, { spot: null }, { show: 'newevent-payment', via: 'sheet' }],
+    [{ tap: [180, 513] }, { spot: [18, 488, 404, 52] }],
+    [{ spot: [18, 557, 404, 52] }, { tap: [364, 583] }, { spot: null }, { show: 'stats', via: 'fade' }],
+    [{ spot: [26, 224, 388, 157] }],
   ],
   timeline: [
-    [{ show: 'team' }, { tap: [224, 207] }],
-    [{ show: 'timeline', via: 'sheet' }, { spot: [18, 183, 404, 208] }, { tap: [130, 453] }],
-    [{ show: 'tasks', via: 'fade' }, { spot: [18, 194, 404, 171] }],
+    [{ show: 'team' }, { tap: [224, 207] }, { show: 'timeline', via: 'sheet' }],
+    [{ spot: [18, 183, 404, 208] }, { tap: [130, 453] }],
+  ],
+  tasks: [
+    [{ show: 'team' }, { tap: [101, 207] }, { show: 'tasks', via: 'sheet' }],
+    [{ spot: [18, 194, 404, 171] }],
     [{ tap: [40, 336] }],
   ],
   gallery: [
@@ -1040,20 +1063,20 @@ const SCENES = {
     [{ spot: [32, 700, 392, 190] }],
   ],
   routes: [
-    [{ show: 'newevent-payment' }, { spot: [18, 262, 404, 52] }, { tap: [180, 288] }],
-    [{ show: 'details-main', via: 'sheet' }, { spot: [148, 358, 257, 108] }, { tap: [207, 416] }, { show: 'route', via: 'fade' }, { spot: [114, 279, 273, 155] }],
+    [{ show: 'newevent-payment' }, { spot: [18, 262, 404, 52] }, { tap: [180, 288] }, { spot: null }, { show: 'details-main', via: 'sheet' }],
+    [{ spot: [148, 358, 257, 108] }, { tap: [207, 416] }, { show: 'route', via: 'fade' }, { spot: [114, 279, 273, 155] }],
     [{ spot: [114, 365, 273, 68] }, { fn: (c, a) => c.sleep(a ? 700 : 0) }, { tap: [250, 399] }, { spot: null }, { show: 'maps', via: 'fade' }],
   ],
   team: [
-    [{ show: 'settings' }, { tap: [220, 330] }, { show: 'role', via: 'push' }, { spot: [18, 278, 404, 57] }, { tap: [120, 306] }],
-    [{ show: 'team', via: 'sheet' }, { tap: [347, 207] }, { spot: [18, 318, 404, 57] }, { tap: [150, 346] }],
+    [{ show: 'settings' }, { tap: [220, 330] }, { show: 'role', via: 'push' }, { spot: [18, 278, 404, 57] }, { tap: [120, 306] }, { spot: null }, { show: 'team', via: 'sheet' }],
+    [{ tap: [347, 207] }, { spot: [18, 318, 404, 57] }, { tap: [150, 346] }],
     [{ spot: [18, 274, 404, 101] }],
   ],
 
   role: [
-    [{ show: 'schedule' }, { tap: [395, 84] }, { show: 'settings', via: 'push' }, SETTINGS_ROW(330), { tap: [220, 330] }],
-    [{ show: 'role', via: 'push' }, { spot: [18, 165, 404, 56] }, { tap: [220, 193] }],
-    [{ show: 'newevent-type', via: 'sheet' }, { spot: [18, 194, 404, 227] }],
+    [{ show: 'schedule' }, { tap: [395, 84] }, { show: 'settings', via: 'push' }, SETTINGS_ROW(330), { tap: [220, 330] }, { spot: null }, { show: 'role', via: 'push' }],
+    [{ spot: [18, 165, 404, 56] }, { tap: [220, 193] }, { spot: null }, { show: 'newevent-type', via: 'sheet' }],
+    [{ spot: [18, 194, 404, 227] }],
   ],
   icloud: [
     [{ show: 'schedule' }, { spot: [350, 410, 86, 36] }],
@@ -1061,23 +1084,23 @@ const SCENES = {
     [{ show: 'schedule', via: 'pop' }, { spot: [350, 410, 86, 36] }],
   ],
   applecal: [
-    [{ show: 'settings' }, SETTINGS_ROW(554), { tap: [220, 554] }],
-    [{ show: 'import-apple', via: 'push' }, { spot: [24, 831, 392, 64] }, { tap: [220, 863] }],
+    [{ show: 'settings' }, SETTINGS_ROW(554), { tap: [220, 554] }, { spot: null }, { show: 'import-apple', via: 'push' }],
+    [{ spot: [24, 831, 392, 64] }, { tap: [220, 863] }],
     [{ spot: [30, 380, 380, 230] }],
   ],
   gcal: [
-    [{ show: 'settings' }, SETTINGS_ROW(501), { tap: [220, 501] }],
-    [{ show: 'import-google', via: 'push' }, { spot: [24, 831, 392, 64] }, { tap: [220, 863] }],
+    [{ show: 'settings' }, SETTINGS_ROW(501), { tap: [220, 501] }, { spot: null }, { show: 'import-google', via: 'push' }],
+    [{ spot: [24, 831, 392, 64] }, { tap: [220, 863] }],
     [{ spot: [30, 380, 380, 230] }],
   ],
   backup: [
-    [{ show: 'settings' }, SETTINGS_ROW(607), { tap: [220, 607] }],
-    [{ show: 'backup', via: 'push' }, { spot: [18, 214, 404, 93] }],
+    [{ show: 'settings' }, SETTINGS_ROW(607), { tap: [220, 607] }, { spot: null }, { show: 'backup', via: 'push' }],
+    [{ spot: [18, 214, 404, 93] }],
     [{ tap: [200, 270] }, { show: 'restore', via: 'sheet' }, { tap: [220, 768] }],
   ],
   premium: [
-    [{ show: 'settings' }, SETTINGS_ROW(211), { tap: [220, 211] }],
-    [{ show: 'premium', via: 'sheet' }, { spot: [18, 630, 404, 154] }],
+    [{ show: 'settings' }, SETTINGS_ROW(211), { tap: [220, 211] }, { spot: null }, { show: 'premium', via: 'sheet' }],
+    [{ spot: [18, 630, 404, 154] }],
     [{ spot: [88, 481, 264, 56] }, { tap: [250, 509] }, { tap: [141, 509] }],
   ],
 
@@ -1137,7 +1160,7 @@ const SCENES = {
    the screen (in points) the crop starts. */
 const ART = {
   calendar: ['schedule', 90], create: ['newevent-main', 0],
-  payments: ['details-main', 330], timeline: ['timeline', 0], gallery: ['tutorials/gallery.webp', 0],
+  payments: ['details-main', 330], timeline: ['timeline', 0], tasks: ['tasks', 0], gallery: ['tutorials/gallery.webp', 0],
   reminders: ['newevent-payment', 520], suntrack: ['flow/sun/base.webp', 120], routes: ['route', 200], team: ['team', 0],
   role: ['role', 0], icloud: ['settings', 360], applecal: ['import-apple', 280], gcal: ['import-google', 280],
   backup: ['backup', 0], premium: ['premium', 360],
