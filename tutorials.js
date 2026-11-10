@@ -17,7 +17,7 @@ const UI = {
     uk: 'Короткі практичні гайди до кожної можливості — від першого бронювання до Sun Track, резервних копій і команди.',
     ru: 'Короткие практичные гайды по каждой функции — от первого бронирования до Sun Track, резервных копий и команды.',
   },
-  'search.ph':    { en: 'Search guides…', uk: 'Пошук гайдів…', ru: 'Поиск гайдов…' },
+  'search.ph':    { en: 'Search…', uk: 'Пошук…', ru: 'Поиск…' },
   'search.empty': { en: 'No guides match your search.', uk: 'Немає гайдів за вашим запитом.', ru: 'Нет гайдов по вашему запросу.' },
   'tabs.label':   { en: 'Guide sections', uk: 'Розділи гайдів', ru: 'Разделы гайдов' },
   'steps':        { en: ['step', 'steps'], uk: ['крок', 'кроки', 'кроків'], ru: ['шаг', 'шага', 'шагов'] },
@@ -768,7 +768,7 @@ const TABS = [
 
   {
     id: 'beyond',
-    title: { en: 'Beyond the app', uk: 'Поза застосунком', ru: 'Вне приложения' },
+    title: { en: 'More features', uk: 'Додаткові можливості', ru: 'Дополнительные возможности' },
     sub: {
       en: 'Events Notes on your Home Screen and on your Mac.',
       uk: 'Events Notes на екрані «Додому» і на Mac.',
@@ -812,19 +812,18 @@ const TABS = [
         steps: {
           en: [
             'Install Events Notes on your Mac from the App Store.',
-            'Sign in to the same iCloud account.',
-            'Manage bookings full-screen — everything stays in sync.',
           ],
           uk: [
             'Встановіть Events Notes на Mac із App Store.',
-            'Увійдіть у той самий акаунт iCloud.',
-            'Керуйте бронюваннями на весь екран — усе синхронізується.',
           ],
           ru: [
             'Установите Events Notes на Mac из App Store.',
-            'Войдите в тот же аккаунт iCloud.',
-            'Управляйте бронированиями на весь экран — всё синхронизируется.',
           ],
+        },
+        tip: {
+          en: 'Use the same iCloud account to sync between devices.',
+          uk: 'Використовуйте один аккаунт iCloud для синхронізації між пристроями.',
+          ru: 'Используйте один аккаунт iCloud для синхронизации между устройствами.',
         },
       },
     ],
@@ -1147,9 +1146,7 @@ const SCENES = {
     [{ spot: [24, 835, 392, 60] }, { tap: [220, 864] }],
   ],
   mac: [
-    [{ show: 'settings' }, SETTINGS_ROW(779), { tap: [220, 779] }],
-    [SETTINGS_ROW(448)],
-    [{ show: 'schedule', via: 'pop' }, { spot: [350, 410, 86, 36] }],
+    [{ show: 'settings' }, SETTINGS_ROW(779)],
   ],
 };
 
