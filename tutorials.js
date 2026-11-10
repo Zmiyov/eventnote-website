@@ -1020,25 +1020,25 @@ const SCENES = {
     [{ tap: [398, 104] }, { show: 'schedule', via: 'dismiss' }, { spot: [316, 206, 60, 64] }],
   ],
   payments: [
-    [{ show: 'details-main' }, { spot: [18, 505, 404, 82] }, { tap: [393, 126] }],
-    [{ show: 'newevent-payment', via: 'sheet' }, { tap: [180, 505] }, { spot: [18, 478, 404, 54] }],
-    [{ spot: [18, 548, 404, 52] }, { tap: [364, 574] }],
-    [{ show: 'stats', via: 'fade' }, { spot: [18, 222, 404, 212] }],
+    [{ show: 'details-main' }, { spot: [36, 484, 369, 98] }, { tap: [395, 110] }],
+    [{ show: 'newevent-payment', via: 'sheet' }, { tap: [180, 513] }, { spot: [18, 488, 404, 52] }],
+    [{ spot: [18, 557, 404, 52] }, { tap: [364, 583] }],
+    [{ show: 'stats', via: 'fade' }, { spot: [26, 224, 388, 157] }],
   ],
   timeline: [
     [{ show: 'team' }, { tap: [224, 207] }],
-    [{ show: 'timeline', via: 'sheet' }, { spot: [18, 188, 404, 178] }, { tap: [130, 453] }],
-    [{ show: 'tasks', via: 'fade' }, { spot: [18, 192, 404, 170] }],
-    [{ tap: [40, 333] }],
+    [{ show: 'timeline', via: 'sheet' }, { spot: [18, 183, 404, 208] }, { tap: [130, 453] }],
+    [{ show: 'tasks', via: 'fade' }, { spot: [18, 194, 404, 171] }],
+    [{ tap: [40, 336] }],
   ],
   gallery: [
-    [{ show: 'team' }, { tap: [310, 166] }, { show: 'gallery', via: 'fade' }, { spot: [18, 290, 404, 84] }],
+    [{ show: 'team' }, { tap: [310, 166] }, { show: 'gallery', via: 'fade' }, { spot: [21, 272, 398, 101] }],
     [{ tap: [110, 347] }, state('gallery', 'open'), { fn: (c, a) => c.sleep(a ? 900 : 0) }],
     [{ tap: [83, 442] }, { show: 'photo', via: 'fade' }],
   ],
   reminders: [
-    [{ show: 'newevent-payment' }, { spot: [18, 692, 404, 50] }, { tap: [200, 717] }],
-    [{ spot: [18, 741, 404, 50] }, { tap: [200, 766] }],
+    [{ show: 'newevent-payment' }, { spot: [18, 697, 404, 55] }, { tap: [200, 724] }],
+    [{ spot: [18, 752, 404, 57] }, { tap: [200, 780] }],
     [{ show: 'schedule', via: 'dismiss' }, { show: 'notify', via: 'sheet' }, { tap: [286, 524] }, { show: 'schedule', via: 'dismiss' }],
     [{ show: 'banner', via: 'sheet' }],
   ],
@@ -1049,20 +1049,20 @@ const SCENES = {
     [{ spot: [32, 700, 392, 190] }],
   ],
   routes: [
-    [{ show: 'newevent-payment' }, { spot: [18, 252, 404, 52] }, { tap: [180, 278] }],
-    [{ show: 'details-main', via: 'sheet' }, { spot: [150, 396, 250, 44] }, { tap: [207, 416] }, { show: 'route', via: 'fade' }],
+    [{ show: 'newevent-payment' }, { spot: [18, 262, 404, 52] }, { tap: [180, 288] }],
+    [{ show: 'details-main', via: 'sheet' }, { spot: [148, 358, 257, 108] }, { tap: [207, 416] }, { show: 'route', via: 'fade' }],
     [{ tap: [235, 399] }, { show: 'maps', via: 'fade' }],
   ],
   team: [
-    [{ show: 'settings' }, { tap: [220, 330] }, { show: 'role', via: 'push' }, { spot: [18, 278, 404, 52] }, { tap: [120, 304] }],
-    [{ show: 'team', via: 'sheet' }, { tap: [347, 207] }, { spot: [18, 315, 404, 54] }, { tap: [150, 341] }],
-    [{ spot: [18, 290, 404, 84] }],
+    [{ show: 'settings' }, { tap: [220, 330] }, { show: 'role', via: 'push' }, { spot: [18, 278, 404, 57] }, { tap: [120, 306] }],
+    [{ show: 'team', via: 'sheet' }, { tap: [347, 207] }, { spot: [18, 318, 404, 57] }, { tap: [150, 346] }],
+    [{ spot: [18, 274, 404, 101] }],
   ],
 
   role: [
     [{ show: 'schedule' }, { tap: [395, 84] }, { show: 'settings', via: 'push' }, SETTINGS_ROW(330), { tap: [220, 330] }],
-    [{ show: 'role', via: 'push' }, { spot: [18, 163, 404, 52] }, { tap: [220, 189] }],
-    [{ show: 'newevent-type', via: 'sheet' }, { spot: [18, 186, 404, 226] }],
+    [{ show: 'role', via: 'push' }, { spot: [18, 165, 404, 56] }, { tap: [220, 193] }],
+    [{ show: 'newevent-type', via: 'sheet' }, { spot: [18, 194, 404, 227] }],
   ],
   icloud: [
     [{ show: 'schedule' }, { spot: [350, 410, 86, 36] }],
@@ -1071,29 +1071,29 @@ const SCENES = {
   ],
   applecal: [
     [{ show: 'settings' }, SETTINGS_ROW(554), { tap: [220, 554] }],
-    [{ show: 'import-apple', via: 'push' }, { spot: [24, 830, 392, 62] }, { tap: [220, 861] }],
+    [{ show: 'import-apple', via: 'push' }, { spot: [24, 831, 392, 64] }, { tap: [220, 863] }],
     [{ spot: [30, 380, 380, 230] }],
   ],
   gcal: [
     [{ show: 'settings' }, SETTINGS_ROW(501), { tap: [220, 501] }],
-    [{ show: 'import-google', via: 'push' }, { spot: [24, 820, 392, 62] }, { tap: [220, 850] }],
+    [{ show: 'import-google', via: 'push' }, { spot: [24, 831, 392, 64] }, { tap: [220, 863] }],
     [{ spot: [30, 380, 380, 230] }],
   ],
   backup: [
     [{ show: 'settings' }, SETTINGS_ROW(607), { tap: [220, 607] }],
-    [{ show: 'backup', via: 'push' }, { spot: [18, 236, 404, 104] }],
+    [{ show: 'backup', via: 'push' }, { spot: [18, 214, 404, 93] }],
     [{ tap: [200, 270] }, { show: 'restore', via: 'sheet' }, { tap: [220, 768] }],
   ],
   premium: [
     [{ show: 'settings' }, SETTINGS_ROW(211), { tap: [220, 211] }],
-    [{ show: 'premium', via: 'sheet' }, { spot: [18, 620, 404, 140] }],
-    [{ spot: [120, 478, 200, 48] }, { tap: [250, 502] }, { tap: [141, 502] }],
+    [{ show: 'premium', via: 'sheet' }, { spot: [18, 630, 404, 154] }],
+    [{ spot: [88, 481, 264, 56] }, { tap: [250, 509] }, { tap: [141, 509] }],
   ],
 
   deadlines: [
     toTab(TAB_X.deadlines, 'dlist', [{ fn: (c, a) => c.count('dlist', a) }]),
-    [{ spot: [322, 140, 104, 104] }],
-    [{ show: 'newevent-main', via: 'sheet' }, { spot: [18, 430, 404, 52] }],
+    [{ spot: [345, 141, 78, 102] }],
+    [{ show: 'newevent-main', via: 'sheet' }, { spot: [18, 437, 404, 57] }],
   ],
   'deadline-done': [
     toTab(TAB_X.deadlines, 'dlist', [{ fn: (c, a) => c.count('dlist', a) }]),
@@ -1103,36 +1103,36 @@ const SCENES = {
 
   contacts: [
     toTab(TAB_X.contacts, 'clients', [state('clients', 'listed')]),
-    [{ spot: [21, 172, 398, 360] }],
-    [{ spot: [124, 60, 192, 48] }],
+    [{ spot: [21, 171, 398, 352] }],
+    [{ spot: [122, 58, 196, 48] }],
     [{ tap: [200, 139] }, typeIn('clients', 'search'), state('clients', 'filtered')],
   ],
   'contacts-save': [
-    [{ show: 'newevent-main' }, { spot: [18, 626, 404, 124] }],
-    [{ spot: [18, 764, 404, 160] }],
-    [{ spot: [262, 572, 160, 30] }, { tap: [324, 586] }],
+    [{ show: 'newevent-main' }, { spot: [18, 627, 404, 142] }],
+    [{ spot: [18, 771, 404, 173] }],
+    [{ spot: [238, 580, 178, 34] }, { tap: [326, 597] }],
   ],
   'contacts-reach': [
     [{ show: 'clients' }, state('clients', 'listed'), { tap: [220, 215] }, { show: 'contact', via: 'push' }],
-    [{ spot: [18, 314, 404, 52] }, { tap: [160, 338] }],
-    [{ spot: [18, 378, 404, 116] }, { tap: [160, 466] }],
+    [{ spot: [16, 302, 408, 68] }, { tap: [160, 336] }],
+    [{ spot: [16, 370, 408, 128] }, { tap: [160, 466] }],
   ],
 
   analytics: [
     toTab(TAB_X.stats, 'stats'),
-    [{ spot: [18, 222, 404, 212] }],
-    [{ spot: [18, 222, 222, 212] }],
+    [{ spot: [26, 224, 388, 157] }],
+    [{ spot: [26, 224, 192, 157] }],
   ],
   charts: [
     toTab(TAB_X.stats, 'stats'),
-    [{ spot: [110, 410, 220, 82] }, { tap: [218, 468] }],
-    [{ spot: [18, 120, 404, 376] }],
+    [{ spot: [97, 414, 246, 90] }, { tap: [220, 472] }],
+    [{ spot: [26, 136, 388, 252] }],
   ],
 
   widget: [
     [{ show: 'widget' }, { hold: [120, 62] }],
-    [{ spot: [120, 410, 200, 250] }],
-    [{ spot: [20, 826, 400, 60] }, { tap: [220, 855] }],
+    [{ spot: [118, 450, 204, 205] }],
+    [{ spot: [24, 835, 392, 60] }, { tap: [220, 864] }],
   ],
   mac: [
     [{ show: 'settings' }, SETTINGS_ROW(779), { tap: [220, 779] }],
