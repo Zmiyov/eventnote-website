@@ -712,9 +712,9 @@ const TABS = [
           ru: 'Просматривайте свои успехи за год или другой период',
         },
         summary: {
-          en: 'Earnings, sessions and hours at a glance.',
-          uk: 'Дохід, сесії та години одним поглядом.',
-          ru: 'Доход, сессии и часы одним взглядом.',
+          en: 'See your earnings, number of shoots and hours shot for different periods.',
+          uk: 'Переглядайте дані про дохід, кількість зйомок та відзнятих годин за різні періоди.',
+          ru: 'Просматривайте данные о доходе, количестве съёмок и отснятых часов за разные периоды.',
         },
         steps: {
           en: [
@@ -746,16 +746,19 @@ const TABS = [
           en: [
             'Open the Statistics tab.',
             'Under “Create custom charts”, tap Create.',
+            'Choose the chart type, how to group it and what to show, then tap “Create chart”.',
             'Your charts sit on the Statistics screen — like shoots by type for a quarter.',
           ],
           uk: [
             'Відкрийте вкладку «Статистика».',
             'У блоці «Create custom charts» (Створити власні графіки) торкніться «Create».',
+            'Оберіть тип графіка («Chart type»), групування («Group by») і дані («Show»), потім торкніться «Create chart».',
             'Ваші графіки зʼявляться на екрані статистики — наприклад, зйомки за типами за квартал.',
           ],
           ru: [
             'Откройте вкладку «Статистика».',
             'В блоке «Create custom charts» (Создать свои графики) нажмите «Create».',
+            'Выберите тип графика («Chart type»), группировку («Group by») и данные («Show»), затем нажмите «Create chart».',
             'Ваши графики появятся на экране статистики — например, съёмки по типам за квартал.',
           ],
         },
@@ -848,6 +851,7 @@ const SCREENS = {
   'details-main': 'tutorials/details-main.webp',
   route: 'tutorials/route.webp',
   stats: 'tutorials/stats.webp',
+  'chart-config': 'tutorials/chart-config.webp',
   timeline: 'tutorials/timeline-editor.webp',
   tasks: 'tutorials/tasks.webp',
   team: 'tutorials/team.webp',
@@ -1132,8 +1136,9 @@ const SCENES = {
   ],
   charts: [
     toTab(TAB_X.stats, 'stats'),
-    [{ spot: [97, 414, 246, 90] }, { tap: [220, 472] }],
-    [{ spot: [26, 136, 388, 252] }],
+    [{ spot: [97, 414, 246, 90] }, { tap: [220, 472] }, { spot: null }, { show: 'chart-config', via: 'sheet' }],
+    [{ spot: [24, 176, 392, 154] }, { fn: (c, a) => c.sleep(a ? 1100 : 0) }, { spot: [26, 340, 388, 56] }, { tap: [220, 368] }],
+    [{ show: 'stats', via: 'dismiss' }, { spot: [26, 136, 388, 252] }],
   ],
 
   widget: [
