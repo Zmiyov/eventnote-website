@@ -189,17 +189,17 @@ const TABS = [
               en: [
                 'Open an event and go to the To Do tab.',
                 'Add tasks (“Add a task”) for things to prepare or bring.',
-                'Check off tasks as you complete them.',
+                'Check off completed tasks.',
               ],
               uk: [
                 'Відкрийте подію й перейдіть на вкладку To Do.',
                 'Додайте завдання («Add a task») — що підготувати чи взяти з собою.',
-                'Позначайте завдання виконаними по ходу.',
+                'Позначайте завдання виконаними.',
               ],
               ru: [
                 'Откройте событие и перейдите на вкладку To Do.',
                 'Добавьте задачи («Add a task») — что подготовить или взять с собой.',
-                'Отмечайте задачи выполненными по ходу.',
+                'Отмечайте задачи выполненными.',
               ],
             },
           },
@@ -207,25 +207,28 @@ const TABS = [
             id: 'gallery',
             title: { en: 'Photo gallery', uk: 'Галерея фото', ru: 'Галерея фото' },
             summary: {
-              en: 'Attach reference and inspiration photos to an event.',
-              uk: 'Прикріпіть референси та фото для натхнення до події.',
-              ru: 'Прикрепите референсы и фото для вдохновения к событию.',
+              en: 'Add reference and inspiration photos to an event.',
+              uk: 'Додайте референси та фото для натхнення до події.',
+              ru: 'Добавьте референсы и фото для вдохновения к событию.',
             },
             steps: {
               en: [
                 'Open an event and find the Gallery section.',
                 'Add photos from your library — poses, moodboards, client references.',
                 'Tap a photo to view it full-screen on the shoot day.',
+                'Mark photos as used.',
               ],
               uk: [
                 'Відкрийте подію й знайдіть розділ «Gallery».',
                 'Додайте фото з бібліотеки — пози, мудборди, референси клієнта.',
                 'Торкніться фото, щоб відкрити його на весь екран у день зйомки.',
+                'Позначайте фото, як використані.',
               ],
               ru: [
                 'Откройте событие и найдите раздел «Gallery».',
                 'Добавьте фото из библиотеки — позы, мудборды, референсы клиента.',
                 'Нажмите фото, чтобы открыть его на весь экран в день съёмки.',
+                'Отмечайте фото как использованные.',
               ],
             },
           },
@@ -233,28 +236,28 @@ const TABS = [
             id: 'reminders',
             title: { en: 'Reminders', uk: 'Нагадування', ru: 'Напоминания' },
             summary: {
-              en: 'Local notifications for events and deadlines — no account needed.',
-              uk: 'Локальні сповіщення про події та дедлайни — без облікового запису.',
-              ru: 'Локальные уведомления о событиях и дедлайнах — без учётной записи.',
+              en: 'Set up local notifications for events and deadlines.',
+              uk: 'Налаштуйте локальні сповіщення про події та дедлайни.',
+              ru: 'Настройте локальные уведомления о событиях и дедлайнах.',
             },
             steps: {
               en: [
-                'When creating or editing an event, set a reminder time.',
+                'When creating or editing an event, set a reminder time for when it starts.',
                 'Set a separate deadline reminder for delivery dates.',
                 'Allow notifications when the app asks.',
-                'Reminders fire on your device — nothing is sent to a server.',
+                'Reminders appear on your device as push notifications.',
               ],
               uk: [
-                'Створюючи або редагуючи подію, задайте час нагадування.',
+                'Створюючи або редагуючи подію, задайте час нагадування про її початок.',
                 'Задайте окреме нагадування про дедлайн для дат здачі.',
                 'Дозвольте сповіщення, коли застосунок попросить.',
-                'Нагадування спрацьовують на пристрої — нічого не надсилається на сервер.',
+                'Нагадування відображаються на пристрої у вигляді push-сповіщень.',
               ],
               ru: [
-                'Создавая или редактируя событие, задайте время напоминания.',
+                'Создавая или редактируя событие, задайте время напоминания о его начале.',
                 'Задайте отдельное напоминание о дедлайне для дат сдачи.',
                 'Разрешите уведомления, когда приложение попросит.',
-                'Напоминания срабатывают на устройстве — ничего не отправляется на сервер.',
+                'Напоминания отображаются на устройстве в виде push-уведомлений.',
               ],
             },
           },
@@ -262,34 +265,29 @@ const TABS = [
             id: 'suntrack',
             title: { en: 'Sun Track', uk: 'Sun Track', ru: 'Sun Track' },
             summary: {
-              en: 'Plan golden hour and natural light for any spot and date.',
-              uk: 'Плануйте золоту годину та природне світло для будь-якого місця й дати.',
-              ru: 'Планируйте золотой час и естественный свет для любого места и даты.',
+              en: 'Pick the time with the best light for any spot and date.',
+              uk: 'Обирайте час з найкращим світлом для будь-якого місця й дати.',
+              ru: 'Выбирайте время с лучшим светом для любого места и даты.',
             },
             steps: {
               en: [
-                'Open Sun Track (available for photographer, videographer, agency, decorator and event-host roles).',
+                'Open Sun Track (on the main screen or the event details screen).',
                 'Move the map so your shoot spot sits under the center pin.',
-                'Pick the date and time to see the sun’s position and path.',
-                'Use it to plan sunrise, sunset and golden-hour shots.',
+                'Pick the date and time.',
+                'Plan shots at sunrise, sunset or golden hour.',
               ],
               uk: [
-                'Відкрийте Sun Track (доступно для ролей фотографа, відеографа, агенції, декоратора й ведучого).',
-                'Посуньте карту так, щоб місце зйомки опинилося під центральною позначкою.',
-                'Оберіть дату й час, щоб побачити положення та шлях сонця.',
-                'Плануйте кадри на схід, захід і золоту годину.',
+                'Відкрийте Sun Track (на головному екрані чи екрані деталей події).',
+                'Переміщайте карту так, щоб місце зйомки опинилося під центральною позначкою.',
+                'Оберіть дату й час.',
+                'Плануйте кадри на сході, заході сонця чи в золоту годину.',
               ],
               ru: [
-                'Откройте Sun Track (доступно для ролей фотографа, видеографа, агентства, декоратора и ведущего).',
-                'Подвиньте карту так, чтобы место съёмки оказалось под центральной меткой.',
-                'Выберите дату и время, чтобы увидеть положение и путь солнца.',
-                'Планируйте кадры на рассвет, закат и золотой час.',
+                'Откройте Sun Track (на главном экране или экране деталей события).',
+                'Перемещайте карту так, чтобы место съёмки оказалось под центральной меткой.',
+                'Выберите дату и время.',
+                'Планируйте кадры на рассвете, закате или в золотой час.',
               ],
-            },
-            tip: {
-              en: 'Sun Track needs location access to calculate the sun’s path.',
-              uk: 'Для розрахунку шляху сонця Sun Track потрібен доступ до геолокації.',
-              ru: 'Для расчёта пути солнца Sun Track нужен доступ к геолокации.',
             },
           },
           {
@@ -328,18 +326,15 @@ const TABS = [
             },
             steps: {
               en: [
-                'Switch to the Agency role to use team features.',
-                'In an event, open the Team section and tap “Add team member”.',
+                'In the new event form, open the Team section and tap “Add team member”.',
                 'Assign a contact and add info for each member on that shoot.',
               ],
               uk: [
-                'Перейдіть на роль «Агенція», щоб користуватися командними функціями.',
-                'У події відкрийте розділ «Team» і торкніться «Add team member».',
+                'У формі створення події відкрийте розділ «Team» і торкніться «Add team member».',
                 'Призначте контакт і додайте інформацію для кожного учасника на цій зйомці.',
               ],
               ru: [
-                'Переключитесь на роль «Агентство», чтобы использовать командные функции.',
-                'В событии откройте раздел «Team» и нажмите «Add team member».',
+                'В форме создания события откройте раздел «Team» и нажмите «Add team member».',
                 'Назначьте контакт и добавьте информацию для каждого участника на этой съёмке.',
               ],
             },
@@ -976,7 +971,16 @@ const SCREENS = {
         '</div>' +
       '</div>',
   },
-  photo: { html: '<div class="ph-photo"><img src="{A}flow/photo1.webp" alt="" /></div>' },
+  // Full-screen photo with the viewer's Mark as used button
+  photo: {
+    html:
+      '<div class="ph-photo"><img src="{A}flow/photo1.webp" alt="" /></div>' +
+      '<span class="ph-used">' +
+        '<svg viewBox="0 0 20 20" aria-hidden="true"><circle class="ring" cx="10" cy="10" r="8.5"/>' +
+        '<circle class="fill" cx="10" cy="10" r="9.5"/><path class="tick" d="M6 10.4l2.7 2.6L14 7.6"/></svg>' +
+        '<b class="off">Mark as used</b><b class="on">Used</b>' +
+      '</span>',
+  },
 
   // System pieces drawn here: the notification prompt, a reminder banner, the restore choices
   notify: {
@@ -1049,6 +1053,7 @@ const SCENES = {
     [{ show: 'team' }, { tap: [310, 166] }, { show: 'gallery', via: 'fade' }, { spot: [21, 272, 398, 101] }],
     [{ tap: [110, 347] }, state('gallery', 'open'), { fn: (c, a) => c.sleep(a ? 900 : 0) }],
     [{ tap: [83, 442] }, { show: 'photo', via: 'fade' }],
+    [{ spot: [128, 848, 184, 56] }, { tap: [220, 876] }, state('photo', 'done'), { spot: [160, 848, 121, 56] }],
   ],
   reminders: [
     [{ show: 'newevent-payment' }, { spot: [18, 697, 404, 55] }, { tap: [200, 724] }],
@@ -1068,8 +1073,7 @@ const SCENES = {
     [{ spot: [114, 365, 273, 68] }, { fn: (c, a) => c.sleep(a ? 700 : 0) }, { tap: [250, 399] }, { spot: null }, { show: 'maps', via: 'fade' }],
   ],
   team: [
-    [{ show: 'settings' }, { tap: [220, 330] }, { show: 'role', via: 'push' }, { spot: [18, 278, 404, 57] }, { tap: [120, 306] }, { spot: null }, { show: 'team', via: 'sheet' }],
-    [{ tap: [347, 207] }, { spot: [18, 318, 404, 57] }, { tap: [150, 346] }],
+    [{ show: 'team' }, { tap: [347, 207] }, { spot: [18, 318, 404, 57] }, { tap: [150, 346] }],
     [{ spot: [18, 274, 404, 101] }],
   ],
 

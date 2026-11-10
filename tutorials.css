@@ -331,6 +331,19 @@ body.tut-no-scroll { overflow: hidden; }
 .open .photos i { opacity: 1; transform: none; transition-delay: calc(.25s + var(--i) * .14s); }
 .ph-photo { position: absolute; inset: 0; display: grid; place-items: center; background: #000; }
 .ph-photo img { width: 440px; height: auto; }
+.ph-used {
+  position: absolute; left: 50%; top: 854px; height: 44px; padding: 0 20px; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 7px; border-radius: 22px; white-space: nowrap;
+  background: rgba(58, 58, 60, .62); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+  color: #fff; font-size: 16px; font-weight: 400;
+}
+.ph-used b { font-weight: inherit; }
+.ph-used svg { width: 20px; height: 20px; flex: none; }
+.ph-used .ring { fill: none; stroke: #fff; stroke-width: 1.6; }
+.ph-used .fill { fill: #fff; }
+.ph-used .tick { fill: none; stroke: #3A3A3C; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ph-used .fill, .ph-used .tick, .ph-used .on, .done .ph-used .ring, .done .ph-used .off { display: none; }
+.done .ph-used .fill, .done .ph-used .tick, .done .ph-used .on { display: inline; }
 
 /* ----- Sun Track: the app's frames, cross-faded ----- */
 .frames { position: absolute; }
