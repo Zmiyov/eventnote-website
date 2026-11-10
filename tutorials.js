@@ -1453,7 +1453,9 @@ function buildOverlay() {
   });
   device.addEventListener('pointercancel', () => { sx = null; });
 
-  window.addEventListener('resize', fitPhone);
+  // Refit whenever the phone's space changes: a window resize, and also the copy
+  // growing under it on a phone (a longer step, the tip on the last one)
+  new ResizeObserver(fitPhone).observe(device);
 }
 
 function trapFocus(e) {

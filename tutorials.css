@@ -151,8 +151,9 @@ body.tut-no-scroll { overflow: hidden; }
 .wt { position: fixed; inset: 0; z-index: 1000; }
 .wt[hidden] { display: none; }
 .wt-backdrop {
+  /* no backdrop blur: the sheet covers almost all of it, and in Chrome a full-viewport
+     blur is redrawn on every frame the phone animates */
   position: absolute; inset: 0; background: rgba(26, 24, 20, .42);
-  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
 }
 .wt-sheet {
   position: absolute; left: 16px; right: 16px; top: 20px; bottom: 0;
@@ -170,6 +171,7 @@ body.tut-no-scroll { overflow: hidden; }
 .wt-body {
   flex: 1; min-height: 0; width: 100%; max-width: 1120px; margin: 0 auto;
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 64px;
+  grid-template-rows: minmax(0, 1fr); /* the phone fits the row and never sizes it */
   padding: 44px 48px;
 }
 .wt-device { position: relative; min-height: 0; display: flex; align-items: center; justify-content: center; touch-action: pan-y; user-select: none; }
@@ -245,7 +247,8 @@ body.tut-no-scroll { overflow: hidden; }
 /* Spotlight: dims everything but the part a step talks about */
 .wt-spot {
   position: absolute; z-index: 45; border-radius: 18px; pointer-events: none; opacity: 0;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, .95), 0 0 0 1600px rgba(12, 12, 14, .34);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, .95), 0 0 0 1000px rgba(12, 12, 14, .34);
+  will-change: transform; /* its own layer, so moving it repaints only the dim, not the whole screen */
   transition: left .6s var(--ease), top .6s var(--ease), width .6s var(--ease), height .6s var(--ease), opacity .35s ease;
 }
 .wt-spot.on { opacity: 1; }
@@ -346,7 +349,7 @@ body.tut-no-scroll { overflow: hidden; }
 .dl-num { position: absolute; left: 312px; width: 110px; top: 15px; text-align: center; font-size: 36px; line-height: 42px; font-weight: 700; color: #34C759; font-variant-numeric: tabular-nums; }
 .dl-left { position: absolute; left: 312px; width: 110px; top: 57px; text-align: center; font-size: 11px; line-height: 14px; color: #34C759; }
 .dl-num.red, .dl-left.red { color: #FF383C; }
-.dl-dim { position: absolute; inset: 0; z-index: 4; background: rgba(0, 0, 0, .19); backdrop-filter: blur(1.5px); opacity: 0; transition: opacity .3s; }
+.dl-dim { position: absolute; inset: 0; z-index: 4; background: rgba(0, 0, 0, .19); opacity: 0; transition: opacity .3s; }
 .dl-lift {
   position: absolute; left: 21px; top: 134px; width: 398px; height: 116px; z-index: 5;
   box-shadow: 0 12px 30px rgba(0, 0, 0, .12); opacity: 0; transform: scale(1.015); transition: opacity .25s, transform .35s var(--ease);
