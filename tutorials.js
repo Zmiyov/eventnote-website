@@ -56,25 +56,25 @@ const TABS = [
             id: 'calendar',
             title: { en: 'Calendar & schedule', uk: 'Календар і розклад', ru: 'Календарь и расписание' },
             summary: {
-              en: 'Browse your month and jump to any day’s events.',
-              uk: 'Переглядайте місяць і переходьте до подій будь-якого дня.',
-              ru: 'Просматривайте месяц и переходите к событиям любого дня.',
+              en: 'Use the calendar to see the events of any day.',
+              uk: 'Використовуйте календар для перегляду подій будь-якого дня.',
+              ru: 'Используйте календарь для просмотра событий любого дня.',
             },
             steps: {
               en: [
-                'The Schedule tab shows a month calendar with marked days.',
+                'The Schedule tab has a calendar in month or week view with special marks on the days. Red marks today, blue the selected day, orange a day that’s unavailable for bookings, and a small dot under the number shows that there are bookings on that date.',
                 'Tap any date to see that day’s events below.',
                 'Swipe between months to plan ahead.',
                 'Tap an event to open details, or swipe a row to edit or delete it.',
               ],
               uk: [
-                'Вкладка «Розклад» показує календар на місяць із позначеними днями.',
+                'Вкладка «Розклад» містить календар у форматі місяця або тижня зі спеціальними позначеннями на днях. Червоним позначається сьогоднішній день, синім - обраний день, помаранчевим - недоступний до бронювань день, маленька крапка під числом - показує, що на цю дату є бронювання.',
                 'Торкніться дати, щоб побачити події цього дня нижче.',
                 'Гортайте місяці, щоб планувати наперед.',
                 'Торкніться події для деталей або проведіть по рядку, щоб редагувати чи видалити.',
               ],
               ru: [
-                'Вкладка «Расписание» показывает календарь на месяц с отмеченными днями.',
+                'Вкладка «Расписание» содержит календарь в формате месяца или недели со специальными отметками на днях. Красным отмечается сегодняшний день, синим — выбранный день, оранжевым — недоступный для бронирований день, маленькая точка под числом показывает, что на эту дату есть бронирования.',
                 'Нажмите дату, чтобы увидеть события этого дня ниже.',
                 'Листайте месяцы, чтобы планировать наперёд.',
                 'Нажмите событие для деталей или проведите по строке, чтобы изменить или удалить.',
@@ -1476,6 +1476,12 @@ function fitPhone() {
 }
 
 /* ----- Screens ----- */
+// Drawn over a screenshot where a guide names something the shot doesn't show:
+// 19 November closed for bookings (the app's orange day)
+const SCREEN_MARKS = {
+  schedule: '<span class="cal-off" style="left:220px;top:314px">19</span>',
+};
+
 const screenEl = () => wt.querySelector('.wt-screen');
 
 function layerFor(id) {
@@ -1485,7 +1491,7 @@ function layerFor(id) {
   el.className = 'wt-layer';
   el.dataset.s = id;
   if (typeof def === 'string') {
-    el.innerHTML = `<img class="full" src="${ASSET_BASE}${def}" alt="" />`;
+    el.innerHTML = `<img class="full" src="${ASSET_BASE}${def}" alt="" />` + (SCREEN_MARKS[id] || '');
   } else {
     el.innerHTML = def.html.replace(/\{A\}/g, ASSET_BASE);
     if (def.overlay) el.classList.add('is-overlay');

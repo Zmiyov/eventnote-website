@@ -243,6 +243,11 @@ body.tut-no-scroll { overflow: hidden; }
 .wt-layer:not(.is-overlay) { background: #F2F2F7; }
 .wt-screen .full { position: absolute; top: 0; left: 0; width: 440px; height: 956px; }
 .wt-screen .ui { position: absolute; left: 0; height: auto; display: block; }
+.wt-screen .cal-off {
+  position: absolute; width: 31px; height: 31px; margin: -15.5px 0 0 -15.5px; border-radius: 50%;
+  background: #F19A37; background: color(display-p3 .945 .604 .216);
+  color: #fff; font-size: 16px; font-weight: 700; line-height: 31px; text-align: center;
+}
 
 /* Spotlight: dims everything but the part a step talks about */
 .wt-spot {
