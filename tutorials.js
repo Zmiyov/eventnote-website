@@ -110,6 +110,40 @@ const TABS = [
               ],
             },
           },
+          {
+            id: 'booked',
+            title: { en: 'Mark a day as booked', uk: 'Позначте день як зайнятий', ru: 'Отметьте день как занятый' },
+            summary: {
+              en: 'Close a date for new bookings with a long press on Add (+).',
+              uk: 'Закрийте дату для нових бронювань довгим натисканням на «Додати» (+).',
+              ru: 'Закройте дату для новых бронирований долгим нажатием на «Добавить» (+).',
+            },
+            steps: {
+              en: [
+                'On the Schedule tab, tap the date you want to close for bookings.',
+                'Press and hold Add (+) — a calendar button appears next to it.',
+                'Tap the calendar button to mark the day as booked; the button turns red.',
+                'Tap the check mark to close the buttons. The booked day shows in orange in the calendar.',
+              ],
+              uk: [
+                'На вкладці «Розклад» торкніться дати, яку хочете закрити для бронювань.',
+                'Натисніть і утримуйте «Додати» (+) — поруч зʼявиться кнопка з календарем.',
+                'Торкніться кнопки з календарем, щоб позначити день як зайнятий; кнопка стане червоною.',
+                'Торкніться галочки, щоб сховати кнопки. Зайнятий день буде позначено в календарі помаранчевим.',
+              ],
+              ru: [
+                'На вкладке «Расписание» нажмите дату, которую хотите закрыть для бронирований.',
+                'Нажмите и удерживайте «Добавить» (+) — рядом появится кнопка с календарём.',
+                'Нажмите кнопку с календарём, чтобы отметить день как занятый; кнопка станет красной.',
+                'Нажмите галочку, чтобы скрыть кнопки. Занятый день будет отмечен в календаре оранжевым.',
+              ],
+            },
+            tip: {
+              en: 'To open the day for bookings again, do the same and tap the calendar button once more.',
+              uk: 'Щоб знову відкрити день для бронювань, зробіть те саме й торкніться кнопки з календарем ще раз.',
+              ru: 'Чтобы снова открыть день для бронирований, сделайте то же самое и нажмите кнопку с календарём ещё раз.',
+            },
+          },
         ],
       },
       {
@@ -1029,6 +1063,13 @@ const SCENES = {
     [typeIn('newevent', 'client'), state('newevent', 'scrolled'), { fn: (c, a) => c.sleep(a ? 900 : 0) }, typeIn('newevent', 'place')],
     [{ tap: [398, 104] }, { show: 'schedule', via: 'dismiss' }, { spot: [316, 206, 60, 64] }],
   ],
+  booked: [
+    [{ show: 'schedule' }, { tap: [220, 277] }, state('schedule', 'picked')],
+    [{ hold: [399, 832] }, state('schedule', 'held'), { fn: (c, a) => c.sleep(a ? 450 : 0) }, { spot: [311, 801, 120, 63] }],
+    [{ spot: [311, 801, 120, 63] }, { tap: [343, 832] }, state('schedule', 'booked')],
+    [{ spot: null }, { tap: [399, 832] }, state('schedule', 'held', false), { fn: (c, a) => c.sleep(a ? 500 : 0) },
+      { tap: [283, 239] }, state('schedule', 'picked', false), { spot: [190, 247, 60, 60] }],
+  ],
   payments: [
     [{ show: 'details-main' }, { spot: [36, 484, 369, 98] }, { tap: [395, 110] }, { spot: null }, { show: 'newevent-payment', via: 'sheet' }],
     [{ tap: [180, 513] }, { spot: [18, 488, 404, 52] }],
@@ -1154,7 +1195,7 @@ const SCENES = {
    The screen each guide's cell shows: a screen id or an image under assets/, and how far down
    the screen (in points) the crop starts. */
 const ART = {
-  calendar: ['schedule', 90], create: ['newevent-main', 0],
+  calendar: ['schedule', 90], create: ['newevent-main', 0], booked: ['schedule', 480],
   payments: ['details-main', 330], timeline: ['timeline', 0], tasks: ['tasks', 0], gallery: ['tutorials/gallery.webp', 0],
   reminders: ['newevent-payment', 520], suntrack: ['flow/sun/base.webp', 120], routes: ['route', 200], team: ['team', 0],
   role: ['role', 0], icloud: ['settings', 360], applecal: ['import-apple', 280], gcal: ['import-google', 280],
@@ -1485,9 +1526,18 @@ function fitPhone() {
 
 /* ----- Screens ----- */
 // Drawn over a screenshot where a guide names something the shot doesn't show:
-// 19 November closed for bookings (the app's orange day)
+// 19 November closed for bookings (the app's orange day), and for Mark a day as booked:
+// 12 November picked and booked, and Add (+) held open into its calendar and check buttons
 const SCREEN_MARKS = {
-  schedule: '<span class="cal-off" style="left:220px;top:314px">19</span>',
+  schedule:
+    '<span class="cal-off" style="left:220px;top:314px">19</span>' +
+    '<span class="cal-day cal-unpick" style="left:283px;top:239px">6</span>' +
+    '<span class="cal-day cal-pick" style="left:220px;top:276.5px">12</span>' +
+    '<span class="fab">' +
+      '<i class="fab-btn fab-cal"><svg viewBox="0 0 28 28" aria-hidden="true"><rect x="4" y="5.5" width="20" height="18" rx="4"/>' +
+        '<path d="M4 11h20"/><path class="dot" d="M9.5 15.5h.01M14 15.5h.01M18.5 15.5h.01M9.5 19.5h.01M14 19.5h.01"/></svg></i>' +
+      '<i class="fab-btn fab-ok"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M6.5 14.5l5 5 10-11"/></svg></i>' +
+    '</span>',
 };
 
 const screenEl = () => wt.querySelector('.wt-screen');
@@ -1519,7 +1569,7 @@ function layerFor(id) {
 
 // Hand-built screens go back to how they start
 function resetLayer(el) {
-  el.classList.remove('on', 'press', 'done', 'counted', 'listed', 'scrolled', 'open');
+  el.classList.remove('on', 'press', 'done', 'counted', 'listed', 'scrolled', 'open', 'picked', 'held', 'booked');
   el.style.zIndex = '';
   el.querySelectorAll('.typed').forEach((n) => { n.textContent = ''; n.classList.remove('typing'); });
   el.querySelectorAll('.swap').forEach((n) => { n.textContent = n.dataset.from; });

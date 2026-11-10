@@ -249,6 +249,29 @@ body.tut-no-scroll { overflow: hidden; }
   color: #fff; font-size: 16px; font-weight: 700; line-height: 31px; text-align: center;
 }
 
+/* Mark a day as booked: the selection moves to 12, which turns orange once booked and left */
+.wt-screen .cal-day {
+  position: absolute; width: 32px; height: 32px; margin: -16px 0 0 -16px; border-radius: 50%;
+  font-size: 16px; font-weight: 600; line-height: 32px; text-align: center; opacity: 0; transition: opacity .2s, background-color .25s;
+}
+.cal-unpick { background: #FFF; color: #000; }
+.cal-pick { background: #007AFF; color: #FFF; }
+.picked .cal-unpick, .picked .cal-pick { opacity: 1; }
+.booked:not(.picked) .cal-pick { opacity: 1; background: #F19A37; background: color(display-p3 .945 .604 .216); }
+/* Add (+) held open: a calendar button slides out beside it and + turns into a check */
+.fab { position: absolute; left: 375px; top: 808.5px; width: 48px; height: 48px; }
+.fab-btn {
+  position: absolute; inset: 0; display: grid; place-items: center; border-radius: 50%; background: #FFF;
+  box-shadow: 0 0 0 .5px rgba(0, 0, 0, .05), 0 4px 14px rgba(0, 0, 0, .1);
+  opacity: 0; transition: opacity .2s, transform .45s var(--ease), background-color .25s;
+}
+.fab-btn svg { width: 27px; height: 27px; fill: none; stroke: #000; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; }
+.fab-btn .dot { stroke-width: 2.6; }
+.fab-ok svg { stroke-width: 2.6; }
+.held .fab-btn { opacity: 1; }
+.held .fab-cal { transform: translateX(-56px); }
+.booked .fab-cal { background: #FFBAB7; }
+
 /* Spotlight: dims everything but the part a step talks about */
 .wt-spot {
   position: absolute; z-index: 45; border-radius: 18px; pointer-events: none; opacity: 0;
